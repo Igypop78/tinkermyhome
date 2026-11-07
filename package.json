@@ -1,0 +1,12 @@
+{
+  "name": "tinkermyhome",
+  "private": true,
+  "type": "module",
+  "description": "Web TinkerMyHome – statický generátor bez závislostí",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check",
+    "drafts": "node build.mjs --drafts"
+  },
+  "engines": { "node": ">=18" }
+}
