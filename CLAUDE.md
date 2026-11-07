@@ -1,10 +1,10 @@
 # TinkerMyHome – pokyny pre AI
 
-Web **tinkermyhome.com** stavia a píše AI pre Igyho (GitHub Igypop78). Igy schvaľuje dizajn a každý článok **pred** pushom na `main` – push na `main` = nasadenie naostro (Cloudflare Pages).
+Web **tinkermyhome.com** stavia a píše AI pre Igyho (GitHub Igypop78). Igy schvaľuje dizajn a každý článok **pred** pushom na `main` – push na `main` = nasadenie naostro (Cloudflare Workers).
 
 ## Stavba
 - `node build.mjs` → `dist/` (bez závislostí, Node ≥ 18). `--check` len kontrola (aj nefunkčných interných odkazov), `--drafts` zahrnie koncepty.
-- Cloudflare Pages: build command `node build.mjs`, output `dist`.
+- Cloudflare Workers (statické súbory, `wrangler.jsonc`): build `node build.mjs`, deploy `npx wrangler deploy`, napojené na GitHub – push na `main` = nasadenie.
 - `site.config.mjs` – sekcie, pripravované témy (`planned`), projekty, fakty o dome, texty rozhrania SK/EN.
 - `lib/markdown.mjs` – vlastný Markdown, `assets/` – CSS (iOS štýl), JS, favicon. `static/` sa kopíruje do koreňa (`_headers`).
 - Fotka autora: ak existuje `assets/igy.jpg` (štvorec, min. 200 px), použije sa namiesto krúžku „Ig“.
