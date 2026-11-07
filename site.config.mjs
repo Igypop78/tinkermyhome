@@ -100,10 +100,10 @@ export const projects = [
     sk: 'Záloha a doplnenie histórie Energy panela z faktúr a cloudu.', en: 'Backs up and back-fills Energy dashboard history.' },
 ];
 
-// Fakty o dome na úvodnej stránke.
+// Fakty o dome na úvodnej stránke. `key` = pole z /api/live (živé dáta z HA prepíšu `big`).
 export const facts = {
-  sk: [ { big: '94', small: 'automatizácií' }, { big: '12', small: 'miestností' }, { big: '3', small: 'kamery s Frigate' }, { big: 'Deye', small: 'menič a batéria podľa spotových cien' } ],
-  en: [ { big: '94', small: 'automations' }, { big: '12', small: 'rooms' }, { big: '3', small: 'cameras with Frigate' }, { big: 'Deye', small: 'inverter and battery on spot prices' } ],
+  sk: [ { key: 'devices', big: '–', small: 'zariadení' }, { key: 'entities', big: '~3000', small: 'entít' }, { key: 'automations', big: '94', small: 'automatizácií' }, { key: 'autonomy_today', big: '–', small: 'dnes dom išiel sám', unit: ' %' } ],
+  en: [ { key: 'devices', big: '–', small: 'devices' }, { key: 'entities', big: '~3000', small: 'entities' }, { key: 'automations', big: '94', small: 'automations' }, { key: 'autonomy_today', big: '–', small: 'self-sufficient today', unit: ' %' } ],
 };
 
 export const levels = {

@@ -205,3 +205,11 @@ a.post:hover { transform: translateY(-2px); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 @media print { .top, .side, .foot, .copy { display: none; } body { background: #fff; color: #000; } }
+
+/* živé dáta z HA */
+.live-wrap { flex: 1 1 340px; display: flex; flex-direction: column; gap: 12px; }
+.live-wrap .tiles { flex: none; }
+.live-now { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 14px !important; color: #AEAEB2; }
+.live-now .dot { width: 8px; height: 8px; border-radius: 50%; background: #30D158; box-shadow: 0 0 0 0 rgba(48,209,88,.6); animation: pulse 2s infinite; }
+.live-now b { color: #F2F2F7; font-weight: 600; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(48,209,88,0); } 100% { box-shadow: 0 0 0 0 rgba(48,209,88,0); } }

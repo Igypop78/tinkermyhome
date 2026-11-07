@@ -228,7 +228,8 @@ ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="gh
 </section>
 <section class="wrap"><div class="band">
 <div><span class="eyebrow">${L.tourEyebrow}</span><h2>${L.tourTitle}</h2><p>${L.tourText}</p><a class="btn alt" href="${secUrl('home', lang)}">${L.tourCta}</a></div>
-<div class="tiles">${facts[lang].map((f) => `<div class="tile"><b>${esc(f.big)}</b><span>${esc(f.small)}</span></div>`).join('')}</div>
+<div class="live-wrap"><div class="tiles">${facts[lang].map((f) => `<div class="tile" data-live="${f.key}"${f.unit ? ` data-unit="${esc(f.unit)}"` : ''}><b>${esc(f.big)}</b><span>${esc(f.small)}</span></div>`).join('')}</div>
+<p class="live-now" hidden><span class="dot" aria-hidden="true"></span><span data-live-text></span></p></div>
 </div></section>
 <section class="wrap">
 <div class="shead"><h2>${L.projects}</h2><p>${L.projectsSub}</p></div>
