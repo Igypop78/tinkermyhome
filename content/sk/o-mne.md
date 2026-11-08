@@ -36,7 +36,7 @@ Smart dom sa väčšinou ukazuje ako z katalógu: všetko svieti, všetko funguj
 
 ## Videá
 
-Na [YouTube](https://www.youtube.com/@TinkerMyHome) vychádza od 3. decembra každý štvrtok nové video z nášho domu. Ku každému videu je tu článok s technickými detailmi a nastaveniami na skopírovanie.
+Na [YouTube](https://www.youtube.com/@TinkerMyHome) vychádzajú od 3. decembra videá z nášho domu. Ku každému videu je tu článok s technickými detailmi a nastaveniami na skopírovanie.
 
 ## Ako tento web vzniká
 

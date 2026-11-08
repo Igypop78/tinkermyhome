@@ -36,7 +36,7 @@ Smart homes are usually shown as if from a catalogue: everything lights up, ever
 
 ## Videos
 
-From 3 December, a new video from our house goes up on [YouTube](https://www.youtube.com/@TinkerMyHome) every Thursday (in Slovak). Each video has an article here with the technical details and settings to copy.
+From 3 December, videos from our house go up on [YouTube](https://www.youtube.com/@TinkerMyHome) (in Slovak). Each video has an article here with the technical details and settings to copy.
 
 ## How this site is made
 
