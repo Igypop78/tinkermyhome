@@ -48,6 +48,7 @@ const ICONS = {
   grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
   wifi: 'M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 19.5h.01',
   sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  play: 'M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z',
   rss: 'M5 5a14 14 0 0 1 14 14M5 11a8 8 0 0 1 8 8M6 18h.01',
   github: 'M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5a3 3 0 0 0-.9-2.3c3-.3 6-1.5 6-6.6a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6s-1.1-.3-3.6 1.4a12.4 12.4 0 0 0-6.5 0C6 1.1 4.9 1.4 4.9 1.4a4.8 4.8 0 0 0-.1 3.6A5.2 5.2 0 0 0 3.4 8.6c0 5.1 3 6.3 6 6.6a3 3 0 0 0-.9 2.3V21',
 };
@@ -163,6 +164,7 @@ ${body}
 <span>${site.url.replace('https://', '')} · ${site.author} · © ${site.year}</span>
 <span class="links">
 <a href="${lang === 'sk' ? '/o-mne/' : '/en/about/'}">${L.about}</a>
+<a href="${site.youtube}" rel="noopener">${L.youtube}</a>
 <a href="${site.github}" rel="noopener">GitHub</a>
 <a href="${prefix(lang)}/feed.xml">${L.rss}</a>
 </span>
@@ -217,6 +219,10 @@ function homePage(lang) {
 <div class="ctas"><a class="btn" href="${secUrl('start', lang)}">${L.ctaStart}</a><a class="btn soft" href="${secUrl('home', lang)}">${L.ctaTour}</a></div>
 </div>
 ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="ghead">${L.latest}</h2>${articleCard(list[0], lang)}</aside>` : ''}
+</section>
+<section class="wrap">
+<div class="shead"><h2>${L.ytTitle}</h2><p>${L.ytSub}</p></div>
+<div class="list">${row({ href: site.youtube, title: L.ytRow, sub: L.ytRowSub, color: '#FF0000', iconName: 'play' })}</div>
 </section>
 <section class="wrap groups">
 <div><h2 class="ghead">${L.groupNew}</h2><div class="list">${sp.map((p) => row({ href: p.url, title: p.title, sub: L.pathOf(p.step, sp.length), color: '#34C759', iconName: 'book', badge: p.url ? '' : L.soon })).join('')}</div></div>
