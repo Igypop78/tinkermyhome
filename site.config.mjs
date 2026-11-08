@@ -104,16 +104,16 @@ export const projects = [
 // v / sv = cesta v JSON, fmt = eur | kwh | pct | kw.
 export const liveTiles = {
   sk: [
-    { v: 'today.saved_eur', fmt: 'eur', label: 'ušetrené dnes', sub: 'tento mesiac', sv: 'month.saved_eur' },
+    { v: 'today.balance_eur', fmt: 'eurs', label: 'bilancia domu dnes', sub: 'tento mesiac', sv: 'month.balance_eur', title: 'Predaj elektriny mínus nákup elektriny, plyn a voda' },
+    { v: 'today.benefit_eur', fmt: 'eur', label: 'prínos FVE a batérie dnes', sub: 'tento mesiac', sv: 'month.benefit_eur', title: 'Koľko by stála spotreba domu bez FVE a batérie mínus skutočný nákup plus predaj' },
     { v: 'today.pv_kwh', fmt: 'kwh', label: 'FVE dnes', sub: 'tento mesiac', sv: 'month.pv_kwh' },
     { v: 'today.autonomy', fmt: 'pct', label: 'dnes dom išiel sám', sub: 'tento mesiac', sv: 'month.autonomy' },
-    { v: 'now.pv_w', fmt: 'kw', label: 'FVE práve teraz', sub: 'batéria', sv: 'now.battery_soc', sfmt: 'pct' },
   ],
   en: [
-    { v: 'today.saved_eur', fmt: 'eur', label: 'saved today', sub: 'this month', sv: 'month.saved_eur' },
+    { v: 'today.balance_eur', fmt: 'eurs', label: 'home balance today', sub: 'this month', sv: 'month.balance_eur', title: 'Export income minus electricity, gas and water costs' },
+    { v: 'today.benefit_eur', fmt: 'eur', label: 'solar & battery benefit today', sub: 'this month', sv: 'month.benefit_eur', title: 'What the home would pay without solar and battery, minus real grid cost, plus export' },
     { v: 'today.pv_kwh', fmt: 'kwh', label: 'solar today', sub: 'this month', sv: 'month.pv_kwh' },
     { v: 'today.autonomy', fmt: 'pct', label: 'self-sufficient today', sub: 'this month', sv: 'month.autonomy' },
-    { v: 'now.pv_w', fmt: 'kw', label: 'solar right now', sub: 'battery', sv: 'now.battery_soc', sfmt: 'pct' },
   ],
 };
 

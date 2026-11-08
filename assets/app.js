@@ -43,7 +43,8 @@
   var f0 = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
   var nb = '\u00a0';
   var fmt = {
-    eur: function (v) { return f2.format(v) + nb + '€'; },
+    eur: function (v) { return (v < 0 ? '−' : '') + f2.format(Math.abs(v)) + nb + '€'; },
+    eurs: function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + f2.format(Math.abs(v)) + nb + '€'; },
     kwh: function (v) { return (v >= 100 ? f0.format(v) : f1.format(v)) + nb + 'kWh'; },
     pct: function (v) { return f0.format(v) + nb + '%'; },
     kw: function (v) { return f1.format(v / 1000) + nb + 'kW'; }
@@ -55,7 +56,10 @@
       if (!d || !d.updated) return;
       els.forEach(function (el) {
         var v = pick(d, el.dataset.v);
-        if (typeof v === 'number' && fmt[el.dataset.fmt]) el.textContent = fmt[el.dataset.fmt](v);
+        if (typeof v === 'number' && fmt[el.dataset.fmt]) {
+          el.textContent = fmt[el.dataset.fmt](v);
+          if (el.dataset.fmt === 'eurs') el.classList.toggle('neg', v < 0), el.classList.toggle('pos', v > 0);
+        }
       });
       if (!line) return;
       var min = Math.round((Date.now() - new Date(d.updated).getTime()) / 60000);
@@ -63,7 +67,11 @@
         : min < 120 ? (sk ? 'pred ' + min + nb + 'min' : min + nb + 'min ago')
         : (sk ? 'pred ' + Math.round(min / 60) + nb + 'h' : Math.round(min / 60) + nb + 'h ago');
       line.classList.toggle('stale', min > 30);
-      line.querySelector('[data-live-text]').textContent = (min > 30 ? (sk ? 'Naposledy z HA · ' : 'Last update from HA · ') : (sk ? 'Naživo z HA · ' : 'Live from HA · ')) + ago;
+      var now = [];
+      if (d.now && typeof d.now.pv_w === 'number') now.push((sk ? 'FVE ' : 'Solar ') + fmt.kw(d.now.pv_w));
+      if (d.now && typeof d.now.battery_soc === 'number') now.push((sk ? 'batéria ' : 'battery ') + fmt.pct(d.now.battery_soc));
+      line.querySelector('[data-live-text]').textContent = (min > 30 ? (sk ? 'Naposledy z HA' : 'Last update from HA') : (sk ? 'Naživo z HA' : 'Live from HA'))
+        + (now.length && min <= 30 ? ' · ' + now.join(' · ') : '') + ' · ' + ago;
       line.hidden = false;
     })
     .catch(function () {});
