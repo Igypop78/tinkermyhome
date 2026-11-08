@@ -252,6 +252,8 @@ function sectionPage(s, lang) {
   if (s.key === 'start') {
     const sp = startPath(lang);
     content = `<ol class="list path">${sp.map((p) => `<li>${row({ href: p.url, title: p.title, sub: L.pathOf(p.step, sp.length), color: '#34C759', iconName: 'book', badge: p.url ? '' : L.soon })}</li>`).join('')}</ol>`;
+    const extra = list.filter((d) => !sp.some((p) => p.url === d.url)).reverse();
+    if (extra.length) content += `<h2 class="ghead">${L.startMore}</h2><div class="posts">${extra.map((d) => articleCard(d, lang)).join('')}</div>`;
   } else {
     const plan = plannedFor(s.key, lang);
     content = (list.length ? `<div class="posts">${list.map((d) => articleCard(d, lang)).join('')}</div>` : '') +
