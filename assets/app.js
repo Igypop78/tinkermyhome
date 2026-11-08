@@ -33,27 +33,37 @@
 
 // Živé čísla z Home Assistanta (/api/live) v karte „Ako funguje môj dom“.
 (function () {
-  var tiles = document.querySelectorAll('[data-live]');
+  var els = document.querySelectorAll('[data-v]');
   var line = document.querySelector('.live-now');
-  if (!tiles.length || !window.fetch) return;
+  if (!els.length || !window.fetch) return;
   var sk = document.documentElement.lang === 'sk';
-  var nf = new Intl.NumberFormat(sk ? 'sk-SK' : 'en-GB', { maximumFractionDigits: 1 });
+  var loc = sk ? 'sk-SK' : 'en-GB';
+  var f1 = new Intl.NumberFormat(loc, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  var f2 = new Intl.NumberFormat(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var f0 = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
+  var nb = '\u00a0';
+  var fmt = {
+    eur: function (v) { return f2.format(v) + nb + '€'; },
+    kwh: function (v) { return (v >= 100 ? f0.format(v) : f1.format(v)) + nb + 'kWh'; },
+    pct: function (v) { return f0.format(v) + nb + '%'; },
+    kw: function (v) { return f1.format(v / 1000) + nb + 'kW'; }
+  };
+  function pick(d, path) { return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, d); }
   fetch('/api/live', { headers: { accept: 'application/json' } })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       if (!d || !d.updated) return;
-      var age = Math.round((Date.now() - new Date(d.updated).getTime()) / 60000);
-      if (!(age < 60)) return;
-      tiles.forEach(function (t) {
-        var v = d[t.dataset.live];
-        if (typeof v === 'number') t.querySelector('b').textContent = nf.format(Math.round(v)) + (t.dataset.unit || '');
+      els.forEach(function (el) {
+        var v = pick(d, el.dataset.v);
+        if (typeof v === 'number' && fmt[el.dataset.fmt]) el.textContent = fmt[el.dataset.fmt](v);
       });
       if (!line) return;
-      var parts = [];
-      if (typeof d.pv_w === 'number') parts.push((sk ? 'FVE ' : 'Solar ') + '<b>' + nf.format(d.pv_w / 1000) + ' kW</b>');
-      if (typeof d.battery_soc === 'number') parts.push((sk ? 'batéria ' : 'battery ') + '<b>' + nf.format(Math.round(d.battery_soc)) + ' %</b>');
-      var when = age < 1 ? (sk ? 'práve teraz' : 'just now') : (sk ? 'pred ' + age + '\u00a0min' : age + '\u00a0min ago');
-      line.querySelector('[data-live-text]').innerHTML = (sk ? 'Naživo z HA: ' : 'Live from HA: ') + parts.join(' · ') + (parts.length ? ' · ' : '') + when;
+      var min = Math.round((Date.now() - new Date(d.updated).getTime()) / 60000);
+      var ago = min < 1 ? (sk ? 'práve teraz' : 'just now')
+        : min < 120 ? (sk ? 'pred ' + min + nb + 'min' : min + nb + 'min ago')
+        : (sk ? 'pred ' + Math.round(min / 60) + nb + 'h' : Math.round(min / 60) + nb + 'h ago');
+      line.classList.toggle('stale', min > 30);
+      line.querySelector('[data-live-text]').textContent = (min > 30 ? (sk ? 'Naposledy z HA · ' : 'Last update from HA · ') : (sk ? 'Naživo z HA · ' : 'Live from HA · ')) + ago;
       line.hidden = false;
     })
     .catch(function () {});

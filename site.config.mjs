@@ -100,10 +100,21 @@ export const projects = [
     sk: 'Záloha a doplnenie histórie Energy panela z faktúr a cloudu.', en: 'Backs up and back-fills Energy dashboard history.' },
 ];
 
-// Fakty o dome na úvodnej stránke. `key` = pole z /api/live (živé dáta z HA prepíšu `big`).
-export const facts = {
-  sk: [ { key: 'devices', big: '–', small: 'zariadení' }, { key: 'entities', big: '~3000', small: 'entít' }, { key: 'automations', big: '94', small: 'automatizácií' }, { key: 'autonomy_today', big: '–', small: 'dnes dom išiel sám', unit: ' %' } ],
-  en: [ { key: 'devices', big: '–', small: 'devices' }, { key: 'entities', big: '~3000', small: 'entities' }, { key: 'automations', big: '94', small: 'automations' }, { key: 'autonomy_today', big: '–', small: 'self-sufficient today', unit: ' %' } ],
+// Živé dlaždice v karte „Ako funguje môj dom“ (dáta z /api/live, posiela ich HA).
+// v / sv = cesta v JSON, fmt = eur | kwh | pct | kw.
+export const liveTiles = {
+  sk: [
+    { v: 'today.saved_eur', fmt: 'eur', label: 'ušetrené dnes', sub: 'tento mesiac', sv: 'month.saved_eur' },
+    { v: 'today.pv_kwh', fmt: 'kwh', label: 'FVE dnes', sub: 'tento mesiac', sv: 'month.pv_kwh' },
+    { v: 'today.autonomy', fmt: 'pct', label: 'dnes dom išiel sám', sub: 'tento mesiac', sv: 'month.autonomy' },
+    { v: 'now.pv_w', fmt: 'kw', label: 'FVE práve teraz', sub: 'batéria', sv: 'now.battery_soc', sfmt: 'pct' },
+  ],
+  en: [
+    { v: 'today.saved_eur', fmt: 'eur', label: 'saved today', sub: 'this month', sv: 'month.saved_eur' },
+    { v: 'today.pv_kwh', fmt: 'kwh', label: 'solar today', sub: 'this month', sv: 'month.pv_kwh' },
+    { v: 'today.autonomy', fmt: 'pct', label: 'self-sufficient today', sub: 'this month', sv: 'month.autonomy' },
+    { v: 'now.pv_w', fmt: 'kw', label: 'solar right now', sub: 'battery', sv: 'now.battery_soc', sfmt: 'pct' },
+  ],
 };
 
 export const levels = {

@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { markdown, frontMatter, esc, inline } from './lib/markdown.mjs';
-import { site, sections, planned, projects, facts, levels, t as T } from './site.config.mjs';
+import { site, sections, planned, projects, liveTiles, levels, t as T } from './site.config.mjs';
 
 const ROOT = path.dirname(new URL(import.meta.url).pathname);
 const DIST = path.join(ROOT, 'dist');
@@ -228,7 +228,7 @@ ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="gh
 </section>
 <section class="wrap"><div class="band">
 <div><span class="eyebrow">${L.tourEyebrow}</span><h2>${L.tourTitle}</h2><p>${L.tourText}</p><a class="btn alt" href="${secUrl('home', lang)}">${L.tourCta}</a></div>
-<div class="live-wrap"><div class="tiles">${facts[lang].map((f) => `<div class="tile" data-live="${f.key}"${f.unit ? ` data-unit="${esc(f.unit)}"` : ''}><b>${esc(f.big)}</b><span>${esc(f.small)}</span></div>`).join('')}</div>
+<div class="live-wrap"><div class="tiles">${liveTiles[lang].map((f) => `<div class="tile"><b data-v="${f.v}" data-fmt="${f.fmt}">–</b><span>${esc(f.label)}</span><small>${esc(f.sub)} <b data-v="${f.sv}" data-fmt="${f.sfmt || f.fmt}">–</b></small></div>`).join('')}</div>
 <p class="live-now" hidden><span class="dot" aria-hidden="true"></span><span data-live-text></span></p></div>
 </div></section>
 <section class="wrap">
