@@ -6,6 +6,7 @@ section: start
 level: 1
 step: 1
 date: 2026-11-08
+updated: 2026-11-08
 slug: home-assistant-explained
 tldr: An **integration** connects to your hardware and creates **devices**. Every device has **entities** – single values and controls. **Automations** react to entities, **scenes** set many of them at once and **dashboards** show them on **cards**. Learn these few words and the rest of Home Assistant makes sense.
 ---
@@ -16,16 +17,31 @@ The first time you open Home Assistant, it throws a lot of words at you: integra
 
 **Integration → device → entity → automation / scene → dashboard**
 
-Think of it as a delivery. The **integration** is the courier that speaks to one brand or protocol. It brings **devices** – the boxes. Inside every box are **entities** – the individual things you can read or control. Everything you do later, you do with entities, not with the box.
+It's easiest to explain on something concrete. Take a smart washing machine, for example an Electrolux.
 
-Example: the Zigbee2MQTT integration finds a motion sensor in the bathroom (a device). It has several entities: motion, illuminance, battery and temperature. The automation "light on when there is motion" only works with the motion entity.
+- The **integration** is how the washing machine talks to Home Assistant. The Electrolux integration knows how to connect to the machine and what the data it sends means – so HA knows what is what.
+- The **device** is the washing machine itself. In HA you see it as one item with its manufacturer, model and the room it stands in.
+- **Entities** are the machine's individual functions and readings. You can read or control each one separately.
+
+| Washing machine entity | What it shows | Example state |
+|---|---|---|
+| Wash state | which phase the machine is in | washing, spinning, finished |
+| Time remaining | how long is left | 42 min |
+| Finish time | when it will be done | 14:35 |
+| Selected programme | what is running | Cotton |
+| Temperature | how hot it washes | 40 °C |
+| Spin speed | how fast it spins | 1200 rpm |
+
+Everything you do later, you do with entities, not with the whole machine. The automation "send me a message when the wash is done" only watches the wash state entity. A dashboard card in turn shows the time remaining and the selected programme.
+
+It works the same with a small sensor: the Zigbee2MQTT integration finds a motion sensor in the bathroom (a device). It has several entities: motion, illuminance, battery and temperature. The automation "light on when there is motion" only works with the motion entity.
 
 ## The words you will see everywhere
 
 | Term | What it is | Example |
 |---|---|---|
-| Integration | The connection to a brand, protocol or service | Zigbee2MQTT, Shelly, Solarman |
-| Device | One physical (or virtual) thing the integration found | Bathroom motion sensor |
+| Integration | The connection to a brand, protocol or service | Electrolux, Zigbee2MQTT, Shelly, Solarman |
+| Device | One physical (or virtual) thing the integration found | Washing machine, bathroom motion sensor |
 | Entity | One value or control of a device | `binary_sensor.bathroom_motion` |
 | State and attributes | The entity's current value and extra details | `on`, brightness 80 % |
 | Area | Where a device lives; everything else is sorted by it | Bathroom, Living room |

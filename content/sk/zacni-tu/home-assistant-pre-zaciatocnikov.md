@@ -6,6 +6,7 @@ section: start
 level: 1
 step: 1
 date: 2026-11-08
+updated: 2026-11-08
 slug: home-assistant-pre-zaciatocnikov
 tldr: **Integrácia** sa spojí s tvojím hardvérom a vytvorí **zariadenia**. Každé zariadenie má **entity** – jednotlivé hodnoty a ovládače. **Automatizácie** na entity reagujú, **scény** nastavia veľa entít naraz a **dashboardy** ich ukazujú na **kartách**. Keď pochopíš týchto pár slov, zvyšok Home Assistanta dáva zmysel.
 ---
@@ -16,16 +17,31 @@ Keď prvýkrát otvoríš Home Assistant, zasype ťa slovami: integrácie, entit
 
 **Integrácia → zariadenie → entita → automatizácia / scéna → dashboard**
 
-Predstav si to ako dodávku tovaru. **Integrácia** je kuriér, ktorý vie hovoriť s konkrétnou značkou alebo protokolom. Prinesie **zariadenia** – krabice. V každej krabici sú **entity** – jednotlivé veci, ktoré vieš čítať alebo ovládať. Všetko, čo budeš robiť neskôr, robíš s entitami, nie s krabicou.
+Najlepšie sa to vysvetľuje na konkrétnej veci. Zoberme si smart práčku, napríklad Electrolux.
 
-Príklad: integrácia Zigbee2MQTT nájde pohybový senzor v kúpeľni (zariadenie). Ten má niekoľko entít: pohyb, osvetlenie, batériu a teplotu. Automatizácia „rozsvieť pri pohybe“ potom pracuje len s entitou pohybu.
+- **Integrácia** je spôsob, akým sa práčka dorozumie s Home Assistantom. Integrácia Electrolux vie, ako sa s práčkou spojiť a čo znamenajú údaje, ktoré posiela – aby HA vedel, čo je čo.
+- **Zariadenie** je samotná práčka. V HA ju uvidíš ako jednu položku s výrobcom, modelom a miestnosťou, v ktorej stojí.
+- **Entity** sú jednotlivé funkcie a údaje práčky. Každú vieš čítať alebo ovládať zvlášť.
+
+| Entita práčky | Čo ukazuje | Príklad stavu |
+|---|---|---|
+| Stav prania | v akej fáze práčka je | pranie, žmýkanie, hotovo |
+| Čas do konca | koľko ešte zostáva | 42 min |
+| Koniec prania | kedy bude hotovo | 14:35 |
+| Zvolený program | čo práve beží | Bavlna |
+| Teplota | na koľko perie | 40 °C |
+| Otáčky | ako rýchlo žmýka | 1200 ot./min |
+
+Všetko, čo budeš robiť neskôr, robíš s entitami, nie s celou práčkou. Automatizácia „pošli správu, keď je pranie hotové“ sleduje len entitu stavu prania. Karta na dashboarde zas ukáže čas do konca a zvolený program.
+
+Rovnako to funguje aj pri malom senzore: integrácia Zigbee2MQTT nájde pohybový senzor v kúpeľni (zariadenie). Ten má niekoľko entít: pohyb, osvetlenie, batériu a teplotu. Automatizácia „rozsvieť pri pohybe“ potom pracuje len s entitou pohybu.
 
 ## Slovník, ktorý budeš vidieť všade
 
 | Pojem | Čo to je | Príklad |
 |---|---|---|
-| Integrácia | Spojenie s výrobcom, protokolom alebo službou | Zigbee2MQTT, Shelly, Solarman |
-| Zariadenie | Jedna fyzická (alebo virtuálna) vec, ktorú integrácia našla | Pohybový senzor v kúpeľni |
+| Integrácia | Spojenie s výrobcom, protokolom alebo službou | Electrolux, Zigbee2MQTT, Shelly, Solarman |
+| Zariadenie | Jedna fyzická (alebo virtuálna) vec, ktorú integrácia našla | Práčka, pohybový senzor v kúpeľni |
 | Entita | Jedna hodnota alebo ovládač zariadenia | `binary_sensor.kupelna_pohyb` |
 | Stav a atribúty | Aktuálna hodnota entity a jej doplňujúce údaje | `on`, jas 80 % |
 | Miestnosť (area) | Kde zariadenie je; podľa toho sa triedi všetko ostatné | Kúpeľňa, Obývačka |
