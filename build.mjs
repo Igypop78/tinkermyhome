@@ -80,7 +80,7 @@ for (const lang of site.langs) {
     docs.push({ ...data, type, lang, url, html: md.html, toc: md.toc, minutes: Math.max(1, Math.round(words / 200)), file: rel });
   }
 }
-const articles = (lang) => docs.filter((d) => d.type === 'article' && d.lang === lang).sort((a, b) => (b.date > a.date ? 1 : -1));
+const articles = (lang) => docs.filter((d) => d.type === 'article' && d.lang === lang).sort((a, b) => `${b.date} ${b.time || ''}`.localeCompare(`${a.date} ${a.time || ''}`));
 const findById = (id, lang) => docs.find((d) => d.id === id && d.lang === lang);
 const translationOf = (d) => {
   const other = site.langs.find((l) => l !== d.lang);

@@ -5,6 +5,7 @@ description: 13 rokov smart domácnosti – Fibaro, Homey, Hubitat a Home Assist
 section: home
 level: 1
 date: 2026-11-08
+time: '19:20'
 slug: moja-cesta-smart-domacnostou
 tldr: Začal som v roku 2013 jedným **Fibaro relé za vypínačom** v byte. Cez tri ďalšie centrály (HC2, Homey, Hubitat) som sa dostal k **Home Assistantovi** – na druhý pokus, lebo prvé dva som vzdal. Dnes riadi vyše **300 zariadení** v dome aj v byte, fotovoltiku s batériou aj nabíjanie auta. Tu je celá cesta aj s chybami.
 ---
@@ -95,4 +96,4 @@ Z tých rokov mi vzniklo šesť pravidiel, ktorých sa držím pri každom novom
 5. **Vyhni sa cloudu, kde sa dá.** Zigbee, Z-Wave, Matter alebo lokálna WiFi.
 6. **Buď štruktúrovaný.** Názvy zariadení, entít a automatizácií premysli na začiatku.
 
-Každú z nich rozpíšem v samostatnom článku aj s príkladmi z nášho domu.
+Podrobne aj s príkladmi z nášho domu ich rozoberám v článku [6 zásad, podľa ktorých staviam smart dom](/moj-dom/zasady-smart-domu/).

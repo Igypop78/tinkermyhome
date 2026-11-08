@@ -5,6 +5,7 @@ description: 13 years of smart home – Fibaro, Homey, Hubitat and Home Assistan
 section: home
 level: 1
 date: 2026-11-08
+time: '19:20'
 slug: my-smart-home-journey
 tldr: I started in 2013 with one **Fibaro relay behind a light switch** in a flat. Through three more hubs (HC2, Homey, Hubitat) I got to **Home Assistant** – on the second try, because I gave up the first two times. Today it runs over **300 devices** in our house and flat, solar with a battery and EV charging. Here's the whole journey, mistakes included.
 ---
@@ -95,4 +96,4 @@ Those years left me with six rules I follow with every new device:
 5. **Avoid the cloud where you can.** Zigbee, Z-Wave, Matter or local WiFi.
 6. **Be structured.** Think through the names of devices, entities and automations at the start.
 
-I'll cover each of them in a separate article with examples from our house.
+I go through them in detail, with examples from our house, in [6 rules I build my smart home by](/en/my-home/smart-home-rules/).

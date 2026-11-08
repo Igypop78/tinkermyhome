@@ -25,6 +25,7 @@ level: 3                # 1 Začiatočník, 2 Pokročilý, 3 Expert
 step: 2                 # len pre sekciu start (poradie v ceste Začni tu)
 date: 2026-11-08
 updated: 2026-11-20     # voliteľné
+time: '19:30'           # voliteľné – poradie článkov z rovnakého dňa (novší vyššie)
 slug: ako-dostat-soc-do-deye
 tldr: Krátke zhrnutie v 2–3 vetách, **tučné** povolené.
 draft: true             # voliteľné – nezverejní sa
