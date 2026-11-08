@@ -2,22 +2,29 @@
 // HA posiela dnešné počítadlá sám (POST s tokenom každých 5 min), do HA sa odtiaľto nikto nepripája.
 // Durable Object LiveStore si drží každý deň zvlášť, z nich počíta mesiac.
 // Rovnaké vzorce ako igy-energy-story-card:
-//   prínos FVE a batérie = spotreba domu × nákupná cena (Δspotreba × aktuálna cena) − nákup zo siete + predaj
+//   prínos FVE a batérie = Σ Δspotreba × cena − Σ Δnákup × cena + predaj
 //   bilancia domu        = predaj − nákup elektriny − plyn − voda   (kladná = dom zarobil)
-// Plyn a voda prichádzajú ako celkové (rastúce) náklady, denný náklad = rozdiel od konca predchádzajúceho dňa.
+// Náklady si Worker počíta sám z prírastkov (každých 5 min) × aktuálna cena – nezávisle od cost senzorov HA.
+//   autonómia = 1 − (zo siete do domu) / spotreba domu; nabíjanie batérie zo siete (arbitráž) sa nepočíta
 
 const FIELDS = {
-  pv_today: [0, 1000],       // kWh vyrobené FVE dnes
-  load_today: [0, 1000],     // kWh spotreba domu dnes
-  import_today: [0, 1000],   // kWh nákup zo siete dnes
-  export_today: [0, 1000],   // kWh predaj do siete dnes
-  import_cost: [0, 1000],    // € za nákup dnes
+  // denné počítadlá (o polnoci sa nulujú)
+  pv_today: [0, 1000],       // kWh výroba FVE
+  load_today: [0, 1000],     // kWh spotreba domu
+  import_today: [0, 1000],   // kWh nákup zo siete
+  export_today: [0, 1000],   // kWh predaj do siete
+  charge_today: [0, 1000],   // kWh nabitie batérie
   export_comp: [-1000, 1000],// € za predaj dnes (pri zápornej cene môže byť záporné)
-  buy_price: [-5, 5],        // €/kWh aktuálna nákupná cena
-  gas_cost_total: [0, 1e7],  // € celkové náklady na plyn (rastúce počítadlo)
-  water_cost_total: [0, 1e7],// € celkové náklady na vodu (rastúce počítadlo)
-  pv_w: [0, 100000],         // W výkon FVE teraz
-  battery_soc: [0, 100],     // % batéria teraz
+  // celkové počítadlá (stále rastú)
+  gas_total: [0, 1e8],       // kWh plyn
+  water_total: [0, 1e8],     // m³ voda
+  // ceny
+  buy_price: [-5, 5],        // €/kWh aktuálna nákupná cena elektriny
+  gas_price: [0, 5],         // €/kWh
+  water_price: [0, 50],      // €/m³
+  // teraz
+  pv_w: [0, 100000],         // W výkon FVE
+  battery_soc: [0, 100],     // % batéria
 };
 
 function num(v, [min, max]) {
@@ -58,28 +65,35 @@ export class LiveStore {
 
     const key = `day:${date}`;
     const day = (await this.storage.get(key)) || null;
-    const rec = day || { base: null, lastLoad: null };
-    if (v.load_today !== null && v.buy_price !== null) {
-      if (rec.base === null) rec.base = v.load_today * v.buy_price;           // prvý záznam dňa: odhad doterajšej spotreby
-      else if (v.load_today >= rec.lastLoad) rec.base += (v.load_today - rec.lastLoad) * v.buy_price;
-      rec.lastLoad = v.load_today;
-    }
-    for (const k of ['pv_today', 'load_today', 'import_today', 'export_today', 'import_cost', 'export_comp']) {
-      if (v[k] !== null) rec[k] = v[k];
-    }
-    const prevKey = `day:${new Date(Date.parse(date + 'T12:00:00Z') - 864e5).toISOString().slice(0, 10)}`;
-    let prev;
-    for (const k of ['gas_cost_total', 'water_cost_total']) {
-      const val = v[k];
-      if (val === null) continue;
-      if (rec[k + '_start'] === undefined) {
-        if (prev === undefined) prev = (await this.storage.get(prevKey)) || null;
-        const pl = prev && prev[k + '_last'];
-        rec[k + '_start'] = typeof pl === 'number' && pl <= val ? pl : val;
-      } else if (val < rec[k + '_last']) {
-        rec[k + '_start'] = val - (rec[k + '_last'] - rec[k + '_start']);  // počítadlo sa vynulovalo
+    const rec = day || { base: 0, cin: 0, g2h: 0, cgas: 0, cwat: 0, last: {} };
+    const L = rec.last;
+    const price = v.buy_price;
+    const has = (k) => v[k] !== null;
+    const d = (k) => (has(k) && typeof L[k] === 'number' ? Math.max(0, v[k] - L[k]) : null);
+
+    if (!day) {
+      // prvý záznam dňa: doterajšie hodnoty dňa sa odhadnú naraz
+      if (has('load_today') && price !== null) rec.base = v.load_today * price;
+      if (has('import_today') && price !== null) rec.cin = v.import_today * price;
+      if (has('import_today')) rec.g2h = Math.max(0, v.import_today - Math.max(0, (v.charge_today || 0) - (v.pv_today || 0)));
+      const prev = (await this.storage.get(`day:${new Date(Date.parse(date + 'T12:00:00Z') - 864e5).toISOString().slice(0, 10)}`)) || null;
+      if (prev && prev.last) {
+        if (has('gas_total') && v.gas_price !== null && typeof prev.last.gas_total === 'number') rec.cgas = Math.max(0, v.gas_total - prev.last.gas_total) * v.gas_price;
+        if (has('water_total') && v.water_price !== null && typeof prev.last.water_total === 'number') rec.cwat = Math.max(0, v.water_total - prev.last.water_total) * v.water_price;
       }
-      rec[k + '_last'] = val;
+    } else {
+      // ďalšie záznamy: prírastky za posledných ~5 min
+      const dl = d('load_today'), di = d('import_today'), dc = d('charge_today'), dp = d('pv_today');
+      if (dl !== null && price !== null) rec.base += dl * price;
+      if (di !== null && price !== null) rec.cin += di * price;
+      // zo siete do domu = nákup mínus to, čo išlo do batérie a nepokrylo slnko
+      if (di !== null) rec.g2h += Math.max(0, di - Math.max(0, (dc || 0) - (dp || 0)));
+      const dg = d('gas_total'), dw = d('water_total');
+      if (dg !== null && v.gas_price !== null) rec.cgas += dg * v.gas_price;
+      if (dw !== null && v.water_price !== null) rec.cwat += dw * v.water_price;
+    }
+    for (const k of ['pv_today', 'load_today', 'import_today', 'export_today', 'charge_today', 'export_comp', 'gas_total', 'water_total']) {
+      if (has(k)) L[k] = v[k];
     }
     await this.storage.put(key, rec);
     await this.storage.put('now', { pv_w: v.pv_w, battery_soc: v.battery_soc, date, updated: now });
@@ -96,27 +110,29 @@ export class LiveStore {
     const nowRec = await this.storage.get('now');
     if (!nowRec) return null;
     const dayStats = (d) => {
-      const benefit = d.base !== null && d.base !== undefined ? d.base - (d.import_cost || 0) + (d.export_comp || 0) : null;
-      const gas = d.gas_cost_total_last !== undefined ? d.gas_cost_total_last - d.gas_cost_total_start : 0;
-      const water = d.water_cost_total_last !== undefined ? d.water_cost_total_last - d.water_cost_total_start : 0;
-      const hasCosts = d.import_cost !== undefined || d.export_comp !== undefined;
-      const balance = hasCosts ? (d.export_comp || 0) - (d.import_cost || 0) - gas - water : null;
-      return { benefit, balance, pv: d.pv_today, load: d.load_today, imp: d.import_today };
+      const L = d.last || {};
+      const comp = L.export_comp || 0;
+      const ok = typeof L.load_today === 'number';
+      return {
+        benefit: ok ? d.base - d.cin + comp : null,
+        balance: ok ? comp - d.cin - (d.cgas || 0) - (d.cwat || 0) : null,
+        pv: L.pv_today, load: L.load_today, g2h: d.g2h,
+      };
     };
     const t = dayStats((await this.storage.get(`day:${nowRec.date}`)) || {});
     const month = await this.storage.list({ prefix: `day:${nowRec.date.slice(0, 7)}` });
-    const m = { pv: 0, load: 0, imp: 0, benefit: null, balance: null, days: 0 };
+    const m = { pv: 0, load: 0, g2h: 0, benefit: null, balance: null, days: 0 };
     for (const d of month.values()) {
       const x = dayStats(d);
-      m.pv += x.pv || 0; m.load += x.load || 0; m.imp += x.imp || 0; m.days++;
+      m.pv += x.pv || 0; m.load += x.load || 0; m.g2h += x.g2h || 0; m.days++;
       if (x.benefit !== null) m.benefit = (m.benefit || 0) + x.benefit;
       if (x.balance !== null) m.balance = (m.balance || 0) + x.balance;
     }
     return {
       updated: nowRec.updated,
       now: { pv_w: r(nowRec.pv_w, 0), battery_soc: r(nowRec.battery_soc, 0) },
-      today: { date: nowRec.date, pv_kwh: r(t.pv, 1), benefit_eur: r(t.benefit, 2), balance_eur: r(t.balance, 2), autonomy: pct(t.load, t.imp ?? null) },
-      month: { days: m.days, pv_kwh: r(m.pv, 1), benefit_eur: r(m.benefit, 2), balance_eur: r(m.balance, 2), autonomy: pct(m.load, m.imp) },
+      today: { date: nowRec.date, pv_kwh: r(t.pv, 1), benefit_eur: r(t.benefit, 2), balance_eur: r(t.balance, 2), autonomy: pct(t.load, t.g2h ?? null) },
+      month: { days: m.days, pv_kwh: r(m.pv, 1), benefit_eur: r(m.benefit, 2), balance_eur: r(m.balance, 2), autonomy: pct(m.load, m.g2h) },
     };
   }
 }
