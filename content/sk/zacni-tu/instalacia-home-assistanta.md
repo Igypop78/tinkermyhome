@@ -59,10 +59,10 @@ Začínal som s Raspberry Pi, ktoré som raz odložil do šuplíka (viac v [moje
 
 ## Po inštalácii
 
-- **Do Home Assistanta nechodíš priamo na tom počítači.** Otvoríš ho z mobilu alebo notebooku v prehliadači, zvyčajne na adrese `http://homeassistant.local:8123`. Ak to nefunguje, nájdi IP adresu zariadenia v routeri a pridaj `:8123`.
+- **Do Home Assistanta nechodíš priamo na tom počítači.** Otvoríš ho z mobilu alebo notebooku v prehliadači na adrese `http://homeassistant.local`. Ak to nefunguje, nájdi IP adresu zariadenia v routeri a zadaj ju do prehliadača. Starší návody uvádzajú adresu s `:8123` – od verzie 2026.8 ju nová inštalácia Home Assistant OS nepotrebuje ([zmena portu](https://www.home-assistant.io/integrations/http/)). Pri Containeri (Docker) a pri starších inštaláciách zostáva `:8123`.
 - **Preklikaj si celé prostredie.** Na začiatku pôsobí neohrabane, ale všetko má svoj účel, ktorý oceníš neskôr.
 - **Pridaj, čo HA sám našiel.** Ak máš doma zariadenia v rovnakej sieti, HA ich často nájde sám. Pokojne ich pridaj a sleduj, ako sa správajú ich entity. Čo je entita a zariadenie, vysvetľuje [prvá časť](/zacni-tu/home-assistant-pre-zaciatocnikov/).
 - **Hneď nastav zálohy.** V nastaveniach HA zapni automatické zálohy a ulož ich mimo zariadenie. Neskôr na to zabudneš.
-- **Premysli názvy a miestnosti** skôr, než pridáš desiatky zariadení. Ušetríš si dni upratovania.
+- **Premysli názvy a miestnosti** skôr, než pridáš desiatky zariadení. Ušetríš si dni upratovania – ako na to, píšem v [6 zásadách](/moj-dom/zasady-smart-domu/#6-bud-strukturovany).
 
 V ďalšej časti: **Zigbee, WiFi, Z-Wave alebo Matter – ktorou cestou ísť**.

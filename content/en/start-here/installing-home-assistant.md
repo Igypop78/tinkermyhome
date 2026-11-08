@@ -59,10 +59,10 @@ I started with a Raspberry Pi that once ended up in a drawer (more in [my journe
 
 ## After installation
 
-- **You don't use Home Assistant on that computer directly.** You open it from your phone or laptop in a browser, usually at `http://homeassistant.local:8123`. If that doesn't work, find the device's IP address in your router and add `:8123`.
+- **You don't use Home Assistant on that computer directly.** You open it from your phone or laptop in a browser at `http://homeassistant.local`. If that doesn't work, find the device's IP address in your router and type it into the browser. Older guides use the address with `:8123` – since version 2026.8 a new Home Assistant OS install doesn't need it ([port change](https://www.home-assistant.io/integrations/http/)). With Container (Docker) and older installs it stays `:8123`.
 - **Click through the whole interface.** It looks clumsy at first, but everything has a purpose you'll appreciate later.
 - **Add what HA found by itself.** If you have devices on the same network, HA often finds them on its own. Go ahead and add them, and watch how their entities behave. What an entity and a device are is explained in the [first part](/en/start-here/home-assistant-explained/).
 - **Set up backups right away.** Turn on automatic backups in the HA settings and store them off the device. Later you'll forget.
-- **Think through names and rooms** before you add dozens of devices. It saves you days of clean-up.
+- **Think through names and rooms** before you add dozens of devices. It saves you days of clean-up – how to do it is in the [6 rules](/en/my-home/smart-home-rules/#6-be-structured).
 
 Next part: **Zigbee, WiFi, Z-Wave or Matter – which way to go**.
