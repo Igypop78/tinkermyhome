@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 566" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="17" role="img" aria-label="spotová cena (€/MWh)">
+<rect x="70.0" y="96" width="103.8" height="260" fill="#FF453A" fill-opacity="0.14"/>
+<rect x="296.5" y="96" width="113.2" height="260" fill="#30D158" fill-opacity="0.14"/>
+<rect x="409.8" y="96" width="28.3" height="260" fill="#A8D94A" fill-opacity="0.14"/>
+<rect x="438.1" y="96" width="9.4" height="260" fill="#FF9F0A" fill-opacity="0.14"/>
+<rect x="447.5" y="96" width="18.9" height="260" fill="#A8D94A" fill-opacity="0.14"/>
+<rect x="466.4" y="96" width="122.7" height="260" fill="#FF9F0A" fill-opacity="0.14"/>
+<rect x="589.1" y="96" width="66.1" height="260" fill="#FF453A" fill-opacity="0.14"/>
+<rect x="664.6" y="96" width="18.9" height="260" fill="#30D158" fill-opacity="0.14"/>
+<rect x="692.9" y="96" width="66.1" height="260" fill="#30D158" fill-opacity="0.14"/>
+<rect x="966.6" y="96" width="9.4" height="260" fill="#FF453A" fill-opacity="0.14"/>
+<line x1="70" x2="976" y1="332.4" y2="332.4" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="337.4" text-anchor="end" fill="#8E8E93">200</text>
+<line x1="70" x2="976" y1="285.1" y2="285.1" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="290.1" text-anchor="end" fill="#8E8E93">300</text>
+<line x1="70" x2="976" y1="237.8" y2="237.8" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="242.8" text-anchor="end" fill="#8E8E93">400</text>
+<line x1="70" x2="976" y1="190.5" y2="190.5" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="195.5" text-anchor="end" fill="#8E8E93">500</text>
+<line x1="70" x2="976" y1="143.3" y2="143.3" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="148.3" text-anchor="end" fill="#8E8E93">600</text>
+<line x1="70" x2="976" y1="96.0" y2="96.0" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="101.0" text-anchor="end" fill="#8E8E93">700</text>
+<line x1="70.0" x2="70.0" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="70.0" y="538" text-anchor="middle" fill="#8E8E93">00:00</text>
+<line x1="183.2" x2="183.2" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="183.2" y="538" text-anchor="middle" fill="#8E8E93">03:00</text>
+<line x1="296.5" x2="296.5" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="296.5" y="538" text-anchor="middle" fill="#8E8E93">06:00</text>
+<line x1="409.8" x2="409.8" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="409.8" y="538" text-anchor="middle" fill="#8E8E93">09:00</text>
+<line x1="523.0" x2="523.0" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="523.0" y="538" text-anchor="middle" fill="#8E8E93">12:00</text>
+<line x1="636.2" x2="636.2" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="636.2" y="538" text-anchor="middle" fill="#8E8E93">15:00</text>
+<line x1="749.5" x2="749.5" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="749.5" y="538" text-anchor="middle" fill="#8E8E93">18:00</text>
+<line x1="862.8" x2="862.8" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="862.8" y="538" text-anchor="middle" fill="#8E8E93">21:00</text>
+<line x1="976.0" x2="976.0" y1="96" y2="516" stroke="rgba(142,142,147,0.28)" stroke-dasharray="2 4"/>
+<text x="976.0" y="538" text-anchor="middle" fill="#8E8E93">24:00</text>
+<line x1="70.0" x2="173.8" y1="256.3" y2="256.3" stroke="#8E8E93" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="173.8" x2="589.1" y1="261.5" y2="261.5" stroke="#8E8E93" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="589.1" x2="976.0" y1="150.2" y2="150.2" stroke="#8E8E93" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="173.8" y="281.5" fill="#8E8E93" font-size="16">hranica 350</text>
+<text x="966.6" y="141.2" fill="#8E8E93" font-size="16" text-anchor="end">hranica 585</text>
+<path d="M70.0 312.8H79.4L79.4 318.0H88.9L88.9 325.4H98.3L98.3 331.4H107.8L107.8 319.9H117.2L117.2 324.1H126.6L126.6 322.1H136.1L136.1 324.4H145.5L145.5 325.8H154.9L154.9 323.5H164.4L164.4 323.5H173.8L173.8 326.5H183.2L183.2 325.4H192.7L192.7 326.1H202.1L202.1 325.1H211.6L211.6 327.0H221.0L221.0 322.3H230.4L230.4 325.9H239.9L239.9 324.0H249.3L249.3 314.0H258.8L258.8 304.8H268.2L268.2 293.3H277.6L277.6 298.3H287.1L287.1 280.5H296.5L296.5 258.7H305.9L305.9 245.5H315.4L315.4 243.5H324.8L324.8 227.2H334.2L334.2 238.1H343.7L343.7 234.7H353.1L353.1 227.2H362.6L362.6 231.2H372.0L372.0 219.7H381.4L381.4 232.1H390.9L390.9 242.5H400.3L400.3 237.8H409.8L409.8 233.7H419.2L419.2 242.6H428.6L428.6 259.0H438.1L438.1 266.0H447.5L447.5 249.5H456.9L456.9 261.4H466.4L466.4 269.5H475.8L475.8 272.3H485.2L485.2 267.4H494.7L494.7 272.6H504.1L504.1 275.6H513.6L513.6 281.0H523.0L523.0 267.6H532.4L532.4 274.6H541.9L541.9 270.7H551.3L551.3 270.6H560.8L560.8 281.2H570.2L570.2 281.0H579.6L579.6 270.9H589.1L589.1 254.0H598.5L598.5 257.5H607.9L607.9 239.6H617.4L617.4 200.6H626.8L626.8 159.0H636.2L636.2 157.4H645.7L645.7 162.0H655.1L655.1 162.3H664.6L664.6 140.7H674.0L674.0 150.2H683.4L683.4 150.3H692.9L692.9 134.1H702.3L702.3 128.4H711.8L711.8 131.1H721.2L721.2 127.7H730.6L730.6 125.7H740.1L740.1 131.8H749.5L749.5 149.4H758.9L758.9 160.2H768.4L768.4 165.9H777.8L777.8 166.9H787.2L787.2 166.9H796.7L796.7 175.9H806.1L806.1 198.0H815.6L815.6 201.7H825.0L825.0 209.9H834.4L834.4 213.4H843.9L843.9 231.7H853.3L853.3 243.9H862.8L862.8 245.2H872.2L872.2 253.3H881.6L881.6 258.9H891.1L891.1 277.4H900.5L900.5 261.5H909.9L909.9 267.3H919.4L919.4 285.1H928.8L928.8 292.6H938.2L938.2 294.4H947.7L947.7 304.0H957.1L957.1 310.4H966.6L966.6 318.2H976.0" fill="none" stroke="#0A84FF" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="70.0" y="364" width="103.8" height="12" fill="#FF453A"/>
+<rect x="296.5" y="364" width="113.2" height="12" fill="#30D158"/>
+<rect x="409.8" y="364" width="28.3" height="12" fill="#A8D94A"/>
+<rect x="438.1" y="364" width="9.4" height="12" fill="#FF9F0A"/>
+<rect x="447.5" y="364" width="18.9" height="12" fill="#A8D94A"/>
+<rect x="466.4" y="364" width="122.7" height="12" fill="#FF9F0A"/>
+<rect x="589.1" y="364" width="66.1" height="12" fill="#FF453A"/>
+<rect x="664.6" y="364" width="18.9" height="12" fill="#30D158"/>
+<rect x="692.9" y="364" width="66.1" height="12" fill="#30D158"/>
+<rect x="966.6" y="364" width="9.4" height="12" fill="#FF453A"/>
+<line x1="70" x2="976" y1="516" y2="516" stroke="rgba(142,142,147,0.28)"/><line x1="70" x2="976" y1="426" y2="426" stroke="rgba(142,142,147,0.28)"/>
+<text x="62" y="431" text-anchor="end" fill="#8E8E93">100 %</text><text x="62" y="521" text-anchor="end" fill="#8E8E93">0 %</text>
+<path d="M74.7 487.7L84.2 481.1L93.6 474.5L103.0 467.9L112.5 461.3L121.9 454.6L131.3 448.1L140.8 441.4L150.2 434.7L159.7 428.2L169.1 426.0L178.5 426.0L188.0 426.0L197.4 426.0L206.8 426.0L216.3 426.0L225.7 426.0L235.2 426.0L244.6 426.0L254.0 426.0L263.5 426.0L272.9 426.0L282.3 426.0L291.8 426.4L301.2 433.5L310.7 440.5L320.1 447.5L329.5 454.5L339.0 461.5L348.4 468.3L357.8 474.8L367.3 481.3L376.7 487.2L386.2 493.1L395.6 498.5L405.0 504.0L414.5 504.0L423.9 504.0L433.3 504.0L442.8 502.1L452.2 502.1L461.7 502.1L471.1 499.7L480.5 497.4L490.0 494.9L499.4 492.4L508.8 489.9L518.3 487.5L527.7 485.0L537.2 482.6L546.6 480.4L556.0 478.1L565.5 476.1L574.9 474.1L584.3 472.4L593.8 464.1L603.2 456.1L612.7 448.1L622.1 440.6L631.5 433.1L641.0 426.1L650.4 426.0L659.8 426.0L669.3 432.8L678.7 439.8L688.2 440.1L697.6 447.1L707.0 454.2L716.5 461.2L725.9 468.3L735.3 475.3L744.8 482.3L754.2 489.4L763.7 489.8L773.1 490.2L782.5 490.6L792.0 491.0L801.4 491.4L810.8 491.9L820.3 492.2L829.7 492.7L839.2 493.1L848.6 493.5L858.0 493.9L867.5 494.3L876.9 494.8L886.3 495.1L895.8 495.6L905.2 495.9L914.7 496.4L924.1 496.8L933.5 497.2L943.0 497.6L952.4 498.0L961.8 498.4L971.3 491.9" fill="none" stroke="#8E8E93" stroke-width="2.5"/>
+<text x="76" y="416" fill="#8E8E93" font-size="16">batéria (SOC %)</text>
+<line x1="70" x2="92" y1="23" y2="23" stroke="#0A84FF" stroke-width="3"/><text x="98" y="28" fill="#8E8E93">spotová cena (€/MWh)</text>
+<rect x="292" y="16" width="14" height="14" rx="3" fill="#FF453A"/><text x="312" y="28" fill="#8E8E93">nabíjanie zo siete (NT)</text>
+<rect x="525" y="16" width="14" height="14" rx="3" fill="#30D158"/><text x="545" y="28" fill="#8E8E93">predaj z batérie</text>
+<rect x="700" y="16" width="14" height="14" rx="3" fill="#A8D94A"/><text x="720" y="28" fill="#8E8E93">predaj len z FVE</text>
+<rect x="70" y="42" width="14" height="14" rx="3" fill="#FF9F0A"/><text x="90" y="54" fill="#8E8E93">FVE nabíja batériu</text>
+</svg>
