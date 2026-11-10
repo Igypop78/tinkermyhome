@@ -233,6 +233,7 @@ ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="gh
 </section>
 <section class="wrap">
 <div class="shead"><h2>${L.ytTitle}</h2><p>${L.ytSub}</p></div>
+${site.latestVideo ? `<figure class="yt"><a class="yt-play" href="https://www.youtube.com/watch?v=${site.latestVideo.id}" data-yt="${site.latestVideo.id}" rel="noopener" target="_blank"><img src="https://i.ytimg.com/vi/${site.latestVideo.id}/maxresdefault.jpg" alt="${esc(site.latestVideo[lang])}" loading="lazy"><span class="yt-btn" aria-hidden="true"></span></a><figcaption>${esc(site.latestVideo[lang])} · ${site.latestVideo.len}</figcaption></figure>` : ''}
 <div class="list">${row({ href: site.youtube, title: L.ytRow, sub: L.ytRowSub, color: '#FF0000', iconName: 'play' })}</div>
 </section>
 <section class="wrap groups">

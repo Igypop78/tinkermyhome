@@ -12,6 +12,8 @@ tldr: Od septembra predávam elektrinu za **spotové ceny** a nakupujem stále z
 
 Často počúvam, že batéria k fotovoltike sa síce hodí, ale nikdy sa nezaplatí. Moja batéria dnes obchoduje s elektrinou dvakrát denne a v októbri – s polovicou slnka oproti júlu – zarobila trikrát viac ako v lete. V tomto článku ukážem, ako to funguje, čo k tomu treba a aké sú reálne čísla.
 
+::youtube BzZWU2o-ohQ Celý príbeh vo videu (8:45): od virtuálnej batérie k predaju na spote a integrácia AI Energy.
+
 :::warn Pre pokročilých
 Článok predpokladá, že máš FVE s batériou, menič ovládateľný z Home Assistanta a vieš, čo je HACS. Ak nie, začni sériou [Začni tu](/zacni-tu/home-assistant-pre-zaciatocnikov/).
 :::

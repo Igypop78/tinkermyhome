@@ -12,6 +12,8 @@ tldr: Since September I sell electricity at **spot prices** and still buy at a *
 
 I often hear that a battery for solar is nice to have but will never pay for itself. Today my battery trades electricity twice a day, and in October – with half the sun of July – it earned three times as much as in summer. In this article I'll show how it works, what you need and what the real numbers are.
 
+::youtube BzZWU2o-ohQ The whole story on video (8:45, in Slovak): from a virtual battery to selling at spot prices, and the AI Energy integration.
+
 :::warn For advanced users
 This article assumes you have solar with a battery, an inverter you can control from Home Assistant, and you know what HACS is. If not, start with the [Start here](/en/start-here/home-assistant-explained/) series.
 :::

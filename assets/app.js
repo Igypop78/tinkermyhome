@@ -76,3 +76,16 @@
     })
     .catch(function () {});
 })();
+
+// Video z YouTube sa načíta až po kliknutí (rýchlejšia stránka, žiadne cookies vopred).
+(function () {
+  document.querySelectorAll('a[data-yt]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + a.dataset.yt + '?autoplay=1&rel=0';
+      f.title = 'YouTube'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
+      a.replaceWith(f);
+    });
+  });
+})();
