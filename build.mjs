@@ -202,6 +202,17 @@ function projectRows(lang) {
 <a class="get" href="${p.url}" rel="noopener">${p.tag}</a></div>`).join('');
 }
 
+// Karta „Ako funguje náš dom“ so živými číslami z HA (úvod aj sekcia Môj dom).
+function liveBand(lang, withCta) {
+  const L = T[lang];
+  const text = withCta ? L.tourText : L.liveText;
+  return `<div class="band">
+<div><span class="eyebrow">${withCta ? L.tourEyebrow : L.liveEyebrow}</span><h2>${L.tourTitle}</h2><p>${text}</p>${withCta ? `<a class="btn alt" href="${secUrl('home', lang)}">${L.tourCta}</a>` : ''}</div>
+<div class="live-wrap"><div class="tiles">${liveTiles[lang].map((f) => `<div class="tile"${f.title ? ` title="${esc(f.title)}"` : ''}><b data-v="${f.v}" data-fmt="${f.fmt}">–</b><span>${esc(f.label)}</span><small>${esc(f.sub)} <b data-v="${f.sv}" data-fmt="${f.sfmt || f.fmt}">–</b></small></div>`).join('')}</div>
+<p class="live-now" hidden><span class="dot" aria-hidden="true"></span><span data-live-text></span></p></div>
+</div>`;
+}
+
 // ---------- stránky ----------
 function homePage(lang) {
   const L = T[lang];
@@ -232,11 +243,7 @@ ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="gh
 <div class="shead"><h2>${latest.length ? L.latest : L.planned}</h2></div>
 <div class="posts">${latest.join('')}${fill.join('')}</div>
 </section>
-<section class="wrap"><div class="band">
-<div><span class="eyebrow">${L.tourEyebrow}</span><h2>${L.tourTitle}</h2><p>${L.tourText}</p><a class="btn alt" href="${secUrl('home', lang)}">${L.tourCta}</a></div>
-<div class="live-wrap"><div class="tiles">${liveTiles[lang].map((f) => `<div class="tile"${f.title ? ` title="${esc(f.title)}"` : ''}><b data-v="${f.v}" data-fmt="${f.fmt}">–</b><span>${esc(f.label)}</span><small>${esc(f.sub)} <b data-v="${f.sv}" data-fmt="${f.sfmt || f.fmt}">–</b></small></div>`).join('')}</div>
-<p class="live-now" hidden><span class="dot" aria-hidden="true"></span><span data-live-text></span></p></div>
-</div></section>
+<section class="wrap">${liveBand(lang, true)}</section>
 <section class="wrap">
 <div class="shead"><h2>${L.projects}</h2><p>${L.projectsSub}</p></div>
 <div class="list projects">${projectRows(lang)}</div>
@@ -256,7 +263,7 @@ function sectionPage(s, lang) {
     if (extra.length) content += `<h2 class="ghead">${L.startMore}</h2><div class="posts">${extra.map((d) => articleCard(d, lang)).join('')}</div>`;
   } else {
     const plan = plannedFor(s.key, lang);
-    content = (list.length ? `<div class="posts">${list.map((d) => articleCard(d, lang)).join('')}</div>` : '') +
+    content = (s.key === 'home' ? `<div class="live-top">${liveBand(lang, false)}</div>` : '') + (list.length ? `<div class="posts">${list.map((d) => articleCard(d, lang)).join('')}</div>` : '') +
       (s.key === 'projects' ? `<div class="list projects">${projectRows(lang)}</div>` : '') +
       (plan.length ? `<h2 class="ghead">${L.planned}</h2><div class="list">${plan.map((p) => row({ title: p[lang], sub: levels[p.level][lang], color: s.color, iconName: s.icon, badge: L.soon })).join('')}</div>` : '');
   }

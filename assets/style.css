@@ -216,3 +216,5 @@ a.post:hover { transform: translateY(-2px); }
 .tile small b { font-size: 13px; letter-spacing: 0; color: #D1D1D6; font-weight: 600; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(48,209,88,0); } 100% { box-shadow: 0 0 0 0 rgba(48,209,88,0); } }
 .tile b.pos { color: #30D158; } .tile b.neg { color: #FF6961; }
+
+.live-top { margin-bottom: 28px; }
