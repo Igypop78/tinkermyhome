@@ -77,7 +77,8 @@ for (const lang of site.langs) {
     const md = markdown(body, { copyLabel: T[lang].copy, avatar: avatar(28) });
     const words = body.replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length;
     const url = type === 'page' ? `${prefix(lang)}/${data.slug}/` : `${secUrl(data.section, lang)}${data.slug}/`;
-    docs.push({ ...data, type, lang, url, html: md.html, toc: md.toc, minutes: Math.max(1, Math.round(words / 200)), file: rel });
+    const video = (body.match(/^::youtube\s+([\w-]{6,20})/m) || [])[1] || null;
+    docs.push({ ...data, video, type, lang, url, html: md.html, toc: md.toc, minutes: Math.max(1, Math.round(words / 200)), file: rel });
   }
 }
 const articles = (lang) => docs.filter((d) => d.type === 'article' && d.lang === lang).sort((a, b) => `${b.date} ${b.time || ''}`.localeCompare(`${a.date} ${a.time || ''}`));
@@ -175,17 +176,45 @@ ${body}
 `;
 }
 
-function articleCard(d, lang) {
+// titulka karty: vlastná fotka (cover:) → miniatúra videa → vygenerovaná „Linka“
+function seeded(str) { let h = parseInt(hash(str), 16) || 1; return () => ((h = (h * 1103515245 + 12345) % 2147483648) / 2147483648); }
+function linkaCover(seed, s) {
+  const r = seeded(seed), W = 400, H = 170, cx = 200 + Math.round((r() - .5) * 120), cy = 85;
+  const c = s.color, lines = [], dots = [];
+  const n = 3 + Math.floor(r() * 3);
+  for (let i = 0; i < n; i++) {
+    const left = i % 2 === 0, y0 = 22 + Math.round(r() * 126), x0 = left ? -4 : W + 4;
+    const xm = left ? Math.round(30 + r() * (cx - 90)) : Math.round(cx + 60 + r() * (W - cx - 90));
+    const ex = left ? cx - 30 : cx + 30, ey = cy + Math.round((r() - .5) * 30);
+    lines.push(`<path d="M${x0} ${y0}H${xm}V${ey}H${ex}" />`);
+    dots.push(`<circle cx="${xm}" cy="${y0}" r="3.2"/>`);
+  }
+  for (let i = 0; i < 26; i++) dots.push(`<circle cx="${Math.round(r() * W)}" cy="${Math.round(r() * H)}" r="1" opacity=".25"/>`);
+  return `<svg class="linka" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<rect width="${W}" height="${H}" fill="#0f1114"/>
+<g fill="none" stroke="${c}" stroke-width="1.6" stroke-linejoin="round" opacity=".85">${lines.join('')}</g>
+<g fill="${c}">${dots.join('')}</g>
+<circle cx="${cx}" cy="${cy}" r="34" fill="#0f1114" stroke="${c}" stroke-width="2"/>
+<circle cx="${cx}" cy="${cy}" r="44" fill="none" stroke="${c}" stroke-width="1" opacity=".3"/>
+<g transform="translate(${cx - 18} ${cy - 18}) scale(1.5)" fill="none" stroke="${c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="${ICONS[s.icon] || ICONS.book}"/></g>
+</svg>`;
+}
+function cover(d, s, { noVideo = false } = {}) {
+  if (d.cover) return `<span class="cover photo"><img src="${esc(d.cover)}" alt="" loading="lazy"></span>`;
+  if (d.video && !noVideo) return `<span class="cover photo"><img src="https://i.ytimg.com/vi/${d.video}/hqdefault.jpg" alt="" loading="lazy"><span class="yt-badge">${icon('play', 16, 2)}</span></span>`;
+  return `<span class="cover gen">${linkaCover(d.id || d.slug || d.en || '', s)}</span>`;
+}
+function articleCard(d, lang, opt) {
   const s = sec(d.section);
   return `<a class="card post" href="${d.url}">
-<span class="cover" style="background:${s.color}">${icon(s.icon, 60, 1.4)}</span>
+${cover(d, s, opt)}
 <span class="body"><span class="meta"><span>${esc(s[lang].name)}</span>${levelChip(d.level, lang)}</span>
 <span class="title">${esc(d.title)}</span></span></a>`;
 }
 function plannedCard(p, lang) {
   const s = sec(p.section);
   return `<div class="card post planned">
-<span class="cover" style="background:${s.color}">${icon(s.icon, 60, 1.4)}</span>
+${cover(p, s)}
 <span class="body"><span class="meta"><span>${esc(s[lang].name)} · ${T[lang].soon}</span>${levelChip(p.level, lang)}</span>
 <span class="title">${esc(p[lang])}</span></span></div>`;
 }
@@ -218,7 +247,7 @@ function homePage(lang) {
   const L = T[lang];
   const list = articles(lang);
   const sp = startPath(lang);
-  const latest = list.slice(1, 7).map((d) => articleCard(d, lang));
+  const latest = list.slice(1, 7).map((d) => articleCard(d, lang, { noVideo: d.video === site.latestVideo?.id }));
   const fill = planned.filter((p) => p.section !== 'start' && !findById(p.id, lang)).slice(0, Math.max(0, 3 - latest.length)).map((p) => plannedCard(p, lang));
   const proRows = ['energy', 'diy', 'ai', 'home'].map((k) => { const s = sec(k); return row({ href: secUrl(k, lang), title: s[lang].name, sub: s[lang].desc, color: s.color, iconName: s.icon }); });
   const body = `
@@ -229,7 +258,7 @@ function homePage(lang) {
 <p class="lead">${L.heroText}</p>
 <div class="ctas"><a class="btn" href="${secUrl('start', lang)}">${L.ctaStart}</a><a class="btn soft" href="${secUrl('home', lang)}">${L.ctaTour}</a></div>
 </div>
-${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="ghead">${L.latest}</h2>${articleCard(list[0], lang)}</aside>` : ''}
+${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="ghead">${L.latest}</h2>${articleCard(list[0], lang, { noVideo: list[0].video === site.latestVideo?.id })}</aside>` : ''}
 </section>
 <section class="wrap">
 <div class="shead"><h2>${L.ytTitle}</h2><p>${L.ytSub}</p></div>

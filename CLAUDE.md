@@ -29,8 +29,11 @@ time: '19:30'           # voliteľné – poradie článkov z rovnakého dňa (n
 slug: ako-dostat-soc-do-deye
 tldr: Krátke zhrnutie v 2–3 vetách, **tučné** povolené.
 draft: true             # voliteľné – nezverejní sa
+cover: /img/foto.jpg    # voliteľné – vlastná fotka na kartu (súbor do static/img/)
 ---
 ```
+Titulka karty: `cover:` → inak miniatúra prvého `::youtube` videa (na úvode nie, ak je to `latestVideo`) → inak vygenerovaná „Linka“ (farba a ikona sekcie, vzor podľa `id`).
+
 Markdown: `##` nadpisy (tvoria obsah), tabuľky, ```` ```yaml nazov.yaml ```` (blok s tlačidlom Kopírovať), rámčeky `:::me Ako to mám ja` / `:::tip` / `:::info` / `:::warn` … `:::`.
 
 ## Štýl písania
