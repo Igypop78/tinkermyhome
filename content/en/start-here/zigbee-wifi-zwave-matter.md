@@ -1,5 +1,6 @@
 ---
 id: protocols
+cover: /img/clanky/titulky/protokoly.jpg
 title: Zigbee, WiFi, Z-Wave or Matter – which way to go
 description: The "languages" smart devices use to talk to Home Assistant, how WiFi, Zigbee, Z-Wave and Matter differ, and what to watch out for when choosing.
 section: start

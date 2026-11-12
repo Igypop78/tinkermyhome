@@ -1,5 +1,6 @@
 ---
 id: ha-basics
+cover: /img/clanky/titulky/home-assistant.jpg
 title: Home Assistant pre začiatočníkov: entity, zariadenia, automatizácie a celý ten zvyšok
 description: Integrácia, zariadenie, entita, automatizácia, scéna, aplikácie, HACS, dashboardy a karty – vysvetlené jednoducho, na príkladoch z reálneho domu.
 section: start

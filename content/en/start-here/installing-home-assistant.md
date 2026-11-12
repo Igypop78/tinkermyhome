@@ -1,5 +1,6 @@
 ---
 id: ha-install
+cover: /img/clanky/titulky/instalacia.jpg
 title: Installing Home Assistant – every option and the one I recommend
 description: Home Assistant OS or Container, Raspberry Pi, mini PC, Home Assistant Green or Proxmox – what to run Home Assistant on and what to prepare before you start.
 section: start

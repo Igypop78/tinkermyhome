@@ -1,5 +1,6 @@
 ---
 id: fve-payback
+cover: /img/clanky/titulky/bateria-obchoduje-na-spote-en.jpg
 title: A battery that trades – running solar on spot prices with AI Energy
 description: How my home battery buys electricity at the low tariff and sells it at spot prices. A real day in a chart, the AI Energy logic, controlling a Deye inverter from Home Assistant and the numbers from the first two months.
 section: energy

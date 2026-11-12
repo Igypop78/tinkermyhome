@@ -1,5 +1,6 @@
 ---
 id: ha-install
+cover: /img/clanky/titulky/instalacia.jpg
 title: Inštalácia Home Assistanta – všetky spôsoby a čo je podľa mňa najlepšie
 description: Home Assistant OS alebo Container, Raspberry Pi, mini PC, Home Assistant Green alebo Proxmox – na čom spustiť Home Assistant a čo si na začiatku pripraviť.
 section: start

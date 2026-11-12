@@ -1,5 +1,6 @@
 ---
 id: protocols
+cover: /img/clanky/titulky/protokoly.jpg
 title: Zigbee, WiFi, Z-Wave alebo Matter – ktorou cestou ísť
 description: Akým „jazykom“ sa smart zariadenia rozprávajú s Home Assistantom, čím sa WiFi, Zigbee, Z-Wave a Matter líšia a na čo si dať pozor pri výbere.
 section: start

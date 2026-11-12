@@ -1,5 +1,6 @@
 ---
 id: fve-payback
+cover: /img/clanky/titulky/bateria-obchoduje-na-spote-sk.jpg
 title: Batéria, ktorá obchoduje – riadenie FVE podľa spotových cien s AI Energy
 description: Ako moja batéria nakupuje elektrinu v nízkej tarife a predáva ju za spotové ceny. Reálny deň v grafe, logika AI Energy, ovládanie Deye z Home Assistanta a čísla za prvé dva mesiace.
 section: energy

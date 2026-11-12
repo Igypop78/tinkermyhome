@@ -1,5 +1,6 @@
 ---
 id: ha-basics
+cover: /img/clanky/titulky/home-assistant.jpg
 title: Home Assistant explained: devices, entities, automations and the rest
 description: Integration, device, entity, automation, scene, apps, HACS, dashboards and cards – explained simply, with examples from a real house.
 section: start
