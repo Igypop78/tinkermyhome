@@ -1,5 +1,6 @@
 ---
 id: my-rules
+cover: /img/clanky/titulky/zasady.jpg
 title: 6 rules I build my smart home by
 description: What 13 years of smart home taught me – six rules that make a smart home help the whole family instead of complicating life.
 section: home

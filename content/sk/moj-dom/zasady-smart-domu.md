@@ -1,5 +1,6 @@
 ---
 id: my-rules
+cover: /img/clanky/titulky/zasady.jpg
 title: 6 zásad, podľa ktorých staviam smart dom
 description: Čo som sa naučil za 13 rokov smart domácnosti – šesť pravidiel, vďaka ktorým smart dom pomáha a nekomplikuje život celej rodine.
 section: home
