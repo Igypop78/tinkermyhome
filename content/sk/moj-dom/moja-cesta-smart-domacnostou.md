@@ -1,5 +1,6 @@
 ---
 id: my-story
+cover: /img/clanky/titulky/moja-cesta.jpg
 title: Od relé za vypínačom po dom, ktorý obchoduje s elektrinou
 description: 13 rokov smart domácnosti – Fibaro, Homey, Hubitat a Home Assistant. Čo fungovalo, čo nie a čo by som dnes urobil inak.
 section: home

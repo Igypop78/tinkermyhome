@@ -1,5 +1,6 @@
 ---
 id: smart-appliances
+cover: /img/clanky/titulky/smart-spotrebice.jpg
 title: Buying a new appliance? Check this if you want it in your smart home
 description: When buying a washing machine, dishwasher or air conditioner, it pays to look at connectivity too. How to check whether an appliance will work with Home Assistant.
 section: start

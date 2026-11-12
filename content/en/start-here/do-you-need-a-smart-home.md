@@ -1,5 +1,6 @@
 ---
 id: why-smarthome
+cover: /img/clanky/titulky/potrebujem-smart-home.jpg
 title: Do you even need a smart home? Comfort, security and savings
 description: What a smart home really gives you, when it isn't worth it, and when a ready-made system is enough instead of Home Assistant.
 section: start

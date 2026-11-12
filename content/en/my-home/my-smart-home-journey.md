@@ -1,5 +1,6 @@
 ---
 id: my-story
+cover: /img/clanky/titulky/moja-cesta.jpg
 title: From a relay behind a light switch to a house that trades electricity
 description: 13 years of smart home – Fibaro, Homey, Hubitat and Home Assistant. What worked, what didn't and what I'd do differently today.
 section: home

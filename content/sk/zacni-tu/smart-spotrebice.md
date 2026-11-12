@@ -1,5 +1,6 @@
 ---
 id: smart-appliances
+cover: /img/clanky/titulky/smart-spotrebice.jpg
 title: Kupuješ nový spotrebič? Na toto mysli, ak ho chceš mať v smart home
 description: Pri kúpe práčky, umývačky či klimatizácie sa oplatí pozrieť aj na konektivitu. Ako si overiť, či spotrebič pôjde do Home Assistanta.
 section: start

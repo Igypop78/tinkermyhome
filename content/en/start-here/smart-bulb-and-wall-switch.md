@@ -1,5 +1,6 @@
 ---
 id: bulb-switch
+cover: /img/clanky/titulky/smart-ziarovka.jpg
 title: Smart bulb vs. the wall switch – 5 ways to wire it and which one is right
 description: Why a smart bulb stops working when someone flips the wall switch, and how to wire it so it always works. Five setups with diagrams, a comparison and Home Assistant configuration.
 section: start

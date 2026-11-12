@@ -1,5 +1,6 @@
 ---
 id: smart-devices
+cover: /img/clanky/titulky/smart-zariadenia.jpg
 title: Čo všetko je smart zariadenie – senzory, ovládače, virtuálne zariadenia a mozog domu
 description: Nie všetko, čo je pripojené na internet, je smart. Prehľad druhov smart zariadení – od senzorov cez aktívne a virtuálne zariadenia až po riadiacu jednotku.
 section: start

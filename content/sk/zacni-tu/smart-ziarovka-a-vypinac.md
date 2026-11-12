@@ -1,5 +1,6 @@
 ---
 id: bulb-switch
+cover: /img/clanky/titulky/smart-ziarovka.jpg
 title: Smart žiarovka a vypínač na stene – 5 spôsobov zapojenia a ktorý je ten správny
 description: Prečo smart žiarovka prestane fungovať, keď ju niekto vypne vypínačom, a ako ju zapojiť tak, aby fungovala vždy. Päť zapojení so schémami, porovnanie a nastavenie v Home Assistante.
 section: start

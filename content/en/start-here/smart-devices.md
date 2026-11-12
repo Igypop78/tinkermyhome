@@ -1,5 +1,6 @@
 ---
 id: smart-devices
+cover: /img/clanky/titulky/smart-zariadenia.jpg
 title: What counts as a smart device – sensors, controls, virtual devices and the brain of the house
 description: Not everything connected to the internet is smart. An overview of smart device types – from sensors through active and virtual devices to the hub.
 section: start

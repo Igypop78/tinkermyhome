@@ -1,5 +1,6 @@
 ---
 id: why-smarthome
+cover: /img/clanky/titulky/potrebujem-smart-home.jpg
 title: Potrebuješ vôbec smart home? Komfort, bezpečnosť a úspora
 description: Čo ti smart domácnosť reálne prinesie, kedy sa neoplatí a kedy stačí hotový systém namiesto Home Assistanta.
 section: start
