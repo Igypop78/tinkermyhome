@@ -8,9 +8,7 @@ export const site = {
   github: 'https://github.com/Igypop78',
   youtube: 'https://www.youtube.com/@TinkerMyHome',
   // najnovšie video na úvode (sekcia Videá)
-  // DOČASNE SKRYTÉ (12. 11. 2026) – na obnovenie zmeň `latestVideo: null` späť na tento objekt:
-  // latestVideo: { id: 'BzZWU2o-ohQ', sk: 'Predaj elektriny na spote: moja cesta a AI Energy', en: 'Selling electricity at spot prices: my journey and AI Energy', len: '8:45' },
-  latestVideo: null,
+  latestVideo: { id: 'BzZWU2o-ohQ', sk: 'Predaj elektriny na spote: moja cesta a AI Energy', en: 'Selling electricity at spot prices: my journey and AI Energy', len: '8:45' },
   defaultLang: 'sk',
   langs: ['sk', 'en'],
   year: 2026,

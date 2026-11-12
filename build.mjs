@@ -260,11 +260,11 @@ function homePage(lang) {
 </div>
 ${list[0] ? `<aside class="featured" aria-label="${esc(L.latest)}"><h2 class="ghead">${L.latest}</h2>${articleCard(list[0], lang, { noVideo: list[0].video === site.latestVideo?.id })}</aside>` : ''}
 </section>
-${site.latestVideo ? `<section class="wrap">
+<section class="wrap">
 <div class="shead"><h2>${L.ytTitle}</h2><p>${L.ytSub}</p></div>
-<figure class="yt"><a class="yt-play" href="https://www.youtube.com/watch?v=${site.latestVideo.id}" data-yt="${site.latestVideo.id}" rel="noopener" target="_blank"><img src="https://i.ytimg.com/vi/${site.latestVideo.id}/maxresdefault.jpg" alt="${esc(site.latestVideo[lang])}" loading="lazy"><span class="yt-btn" aria-hidden="true"></span></a><figcaption>${esc(site.latestVideo[lang])} · ${site.latestVideo.len}</figcaption></figure>
+${site.latestVideo ? `<figure class="yt"><a class="yt-play" href="https://www.youtube.com/watch?v=${site.latestVideo.id}" data-yt="${site.latestVideo.id}" rel="noopener" target="_blank"><img src="https://i.ytimg.com/vi/${site.latestVideo.id}/maxresdefault.jpg" alt="${esc(site.latestVideo[lang])}" loading="lazy"><span class="yt-btn" aria-hidden="true"></span></a><figcaption>${esc(site.latestVideo[lang])} · ${site.latestVideo.len}</figcaption></figure>` : ''}
 <div class="list">${row({ href: site.youtube, title: L.ytRow, sub: L.ytRowSub, color: '#FF0000', iconName: 'play' })}</div>
-</section>` : ''}
+</section>
 <section class="wrap groups">
 <div><h2 class="ghead">${L.groupNew}</h2><div class="list">${sp.map((p) => row({ href: p.url, title: p.title, sub: L.pathOf(p.step, sp.length), color: '#34C759', iconName: 'book', badge: p.url ? '' : L.soon })).join('')}</div></div>
 <div><h2 class="ghead">${L.groupPro}</h2><div class="list">${proRows.join('')}</div></div>
