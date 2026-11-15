@@ -231,3 +231,20 @@ a.post:hover { transform: translateY(-2px); }
 .yt figcaption { margin-top: 8px; font-size: 15px; color: var(--muted, #8E8E93); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .wrap > .yt { max-width: 760px; }
+
+/* anketa */
+.poll { background: var(--card); border-radius: 18px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+.poll-q { margin: 0; font-weight: 700; font-size: 19px; }
+.poll-opts { display: flex; flex-direction: column; gap: 8px; }
+.poll-opt { position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 10px 16px; border: 1px solid var(--sep); border-radius: 12px; background: var(--card); color: var(--ink); font: 500 16px/1.35 var(--font); text-align: left; cursor: pointer; }
+.poll-opt:hover { border-color: var(--acc); }
+.poll-opt > span { position: relative; }
+.poll-t { flex: 1; }
+.poll-bar { position: absolute !important; left: 0; top: 0; bottom: 0; width: 0; background: var(--acc-soft); transition: width .5s ease; }
+.poll-pct { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--muted); }
+.poll.voted .poll-opt { cursor: default; }
+.poll.voted .poll-opt:hover { border-color: var(--sep); }
+.poll-opt.mine { border-color: var(--acc) !important; }
+.poll-opt.mine .poll-t { font-weight: 700; }
+.poll-foot { margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px !important; color: var(--muted); }
+.poll-show { border: 0; background: none; color: var(--acc); font: 500 14px var(--font); cursor: pointer; padding: 6px 0; }

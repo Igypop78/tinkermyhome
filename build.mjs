@@ -63,6 +63,7 @@ const levelChip = (lvl, lang) => levels[lvl] ? `<span class="lvl ${levels[lvl].c
 
 // ---------- obsah ----------
 const docs = [];
+const POLLS = {}; // ankety: id → kľúče možností (Worker podľa nich overuje hlasy)
 for (const lang of site.langs) {
   for (const file of walk(path.join(ROOT, 'content', lang))) {
     const { data, body } = frontMatter(read(file));
@@ -74,7 +75,12 @@ for (const lang of site.langs) {
       for (const k of ['id', 'section', 'date', 'description']) if (!data[k]) throw new Error(`${rel}: chýba "${k}"`);
       if (!sec(data.section)) throw new Error(`${rel}: neznáma sekcia "${data.section}"`);
     }
-    const md = markdown(body, { copyLabel: T[lang].copy, avatar: avatar(28) });
+    const md = markdown(body, { copyLabel: T[lang].copy, avatar: avatar(28), poll: T[lang].poll });
+    for (const pl of md.polls) {
+      const prev = POLLS[pl.id];
+      if (prev && prev.join() !== pl.options.join()) throw new Error(`${rel}: anketa ${pl.id} má iné možnosti ako v druhom jazyku`);
+      POLLS[pl.id] = pl.options;
+    }
     const words = body.replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length;
     const url = type === 'page' ? `${prefix(lang)}/${data.slug}/` : `${secUrl(data.section, lang)}${data.slug}/`;
     const video = (body.match(/^::youtube\s+([\w-]{6,20})/m) || [])[1] || null;
@@ -386,6 +392,7 @@ pages.set('/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 ${urls.map((u) => `<url><loc>${site.url}${u}</loc></url>`).join('\n')}
 </urlset>
 `);
+pages.set('/polls.json', JSON.stringify(POLLS));
 pages.set('/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
 
 // kontrola interných odkazov

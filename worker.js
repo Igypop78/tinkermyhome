@@ -45,9 +45,57 @@ export class LiveStore {
   }
 }
 
+// Ankety v článkoch: /api/poll/<id>. Povolené možnosti berie z /polls.json (generuje build z Markdownu).
+// Bez cookies a bez ukladania IP – len hash IP (so soľou a id ankety) na obmedzenie počtu hlasov z jednej siete.
+const POLL_MAX_PER_IP = 5;
+
+export class PollStore {
+  constructor(state) { this.storage = state.storage; }
+  async fetch(request) {
+    const counts = (await this.storage.get('counts')) || {};
+    if (request.method === 'POST') {
+      const { option, voter } = await request.json();
+      const used = (await this.storage.get('v:' + voter)) || 0;
+      if (used >= POLL_MAX_PER_IP) return json({ counts, total: sum(counts), limited: true }, 429);
+      counts[option] = (counts[option] || 0) + 1;
+      await this.storage.put({ counts, ['v:' + voter]: used + 1 });
+    }
+    return json({ counts, total: sum(counts) });
+  }
+}
+const sum = (o) => Object.values(o).reduce((a, b) => a + b, 0);
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
+}
+
+async function poll(request, env, url) {
+  const id = url.pathname.slice('/api/poll/'.length);
+  const res = await env.ASSETS.fetch(new Request(new URL('/polls.json', url)));
+  const polls = res.ok ? await res.json() : {};
+  if (!/^[a-z0-9-]{2,40}$/.test(id) || !polls[id]) return json({ error: 'unknown-poll' }, 404);
+  const stub = env.POLL.get(env.POLL.idFromName(id));
+  if (request.method === 'GET' || request.method === 'HEAD') {
+    const d = await (await stub.fetch('https://poll/')).json();
+    return json(d, 200, { 'cache-control': 'no-store' });
+  }
+  if (request.method === 'POST') {
+    if (Number(request.headers.get('content-length') || 0) > 512) return json({ error: 'too-large' }, 413);
+    let b;
+    try { b = await request.json(); } catch { return json({ error: 'bad-json' }, 400); }
+    if (!b || !polls[id].includes(b.option)) return json({ error: 'bad-option' }, 400);
+    const voter = await sha256(`${env.POLL_SALT || 'tinkermyhome'}|${id}|${request.headers.get('cf-connecting-ip') || ''}`);
+    const r = await stub.fetch('https://poll/', { method: 'POST', body: JSON.stringify({ option: b.option, voter }) });
+    return json(await r.json(), r.status, { 'cache-control': 'no-store' });
+  }
+  return json({ error: 'method' }, 405, { allow: 'GET, POST' });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/api/poll/')) return poll(request, env, url);
     if (url.pathname !== '/api/live') return env.ASSETS.fetch(request);
     const stub = env.LIVE.get(env.LIVE.idFromName('home'));
 

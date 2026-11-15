@@ -89,3 +89,44 @@
     });
   });
 })();
+
+// Anketa v článku (/api/poll/<id>). Jeden hlas na prehliadač, výsledky po hlasovaní.
+(function () {
+  document.querySelectorAll('form.poll[data-poll]').forEach(function (f) {
+    var id = f.dataset.poll, key = 'poll:' + id;
+    var msg = f.querySelector('[data-poll-msg]'), show = f.querySelector('[data-poll-show]');
+    var btns = f.querySelectorAll('.poll-opt');
+    var mine = null;
+    try { mine = localStorage.getItem(key); } catch (e) {}
+    function render(d) {
+      if (!d || !d.counts) return;
+      var total = d.total || 0;
+      btns.forEach(function (b) {
+        var n = d.counts[b.dataset.opt] || 0, p = total ? Math.round(n * 100 / total) : 0;
+        b.querySelector('.poll-bar').style.width = p + '%';
+        b.querySelector('.poll-pct').textContent = p + '\u00a0%';
+        b.classList.toggle('mine', b.dataset.opt === mine);
+      });
+      f.classList.add('done');
+      msg.textContent = (mine ? f.dataset.lThanks + ' ' : '') + total + '\u00a0' + f.dataset.lVotes;
+      show.hidden = true;
+    }
+    function load() { return fetch('/api/poll/' + id).then(function (r) { return r.ok ? r.json() : null; }).then(render).catch(function () {}); }
+    if (mine) { f.classList.add('voted'); load(); }
+    show.addEventListener('click', load);
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (mine) return;
+        fetch('/api/poll/' + id, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ option: b.dataset.opt }) })
+          .then(function (r) { return r.ok || r.status === 429 ? r.json() : Promise.reject(); })
+          .then(function (d) {
+            mine = b.dataset.opt;
+            try { localStorage.setItem(key, mine); } catch (e) {}
+            f.classList.add('voted');
+            render(d);
+          })
+          .catch(function () { msg.textContent = f.dataset.lError; });
+      });
+    });
+  });
+})();
