@@ -1,5 +1,6 @@
 ---
 id: metering
+cover: /img/clanky/titulky/meranie-sk.jpg
 title: Čím začať smart dom? Meraním elektriny, vody a plynu
 description: Prečo každému odporúčam začať smart domácnosť centrálnym meraním spotreby – od úspor cez bezpečnosť až po odhalenie zaseknutého splachovača na dovolenke.
 section: energy

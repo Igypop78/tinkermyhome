@@ -1,5 +1,6 @@
 ---
 id: metering
+cover: /img/clanky/titulky/meranie-en.jpg
 title: Where to start a smart home? Metering electricity, water and gas
 description: Why I recommend starting any smart home with whole-house metering – from savings and security to catching a stuck toilet flush while you're on holiday.
 section: energy
