@@ -225,10 +225,10 @@ ${badge ? `<span class="badge">${esc(badge)}</span>` : ''}${href ? chevron : ''}
   return href ? `<a class="row" href="${href}">${inner}</a>` : `<div class="row dim">${inner}</div>`;
 }
 function projectRows(lang) {
-  return projects.map((p) => `<div class="row">
+  return projects.map((p) => `<a class="row" href="${p.url}" rel="noopener">
 <span class="ico big" style="background:${p.color}">${icon(p.icon, 28, 1.8)}</span>
 <span class="txt"><span class="t">${esc(lang === 'en' && p.nameEn ? p.nameEn : p.name)}</span><span class="s">${esc(p[lang])}</span></span>
-<a class="get" href="${p.url}" rel="noopener">${p.tag}</a></div>`).join('');
+<span class="get">${p.tag}</span></a>`).join('');
 }
 
 // Karta „Ako funguje náš dom“ so živými číslami z HA (úvod aj sekcia Môj dom).

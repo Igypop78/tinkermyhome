@@ -97,6 +97,8 @@ section.wrap { padding-bottom: 56px; }
 .shead { display: flex; flex-direction: column; gap: 4px; margin: 0 4px 16px; }
 .shead h2 { margin: 0; font-size: 28px; }
 .shead p { margin: 0; color: var(--muted); }
+.posts + .list { margin-top: 20px; }
+a.row:hover .get { background: var(--card); }
 .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 .card { background: var(--card); border-radius: 22px; box-shadow: var(--shadow); }
 .post { overflow: hidden; display: flex; flex-direction: column; color: var(--ink); text-decoration: none; transition: transform .2s; }
