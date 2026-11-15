@@ -59,13 +59,13 @@ These are the things running right now – every day, without me touching them:
 - **Tesla in Home Assistant, locally** – controlling the car over Bluetooth straight from the house, without the Tesla cloud.
 - **Garden relays** – 4- and 8-channel boards for everything in the garden that switches on and off.
 - **Gas boiler** – controlling the boiler and measuring temperatures in the hot water tank and on the pipes from the boiler.
-- **Room temperatures over LAN cables** – temperature sensors in the rooms connected to the ESP through network (LAN) cables.
+- **Room temperatures over LAN cables** – **DS18B20** temperature sensors (1-Wire bus) in the rooms connected to the ESP through network (LAN) cables.
 - **Wall tablet backlight** – an addressable LED strip around the display that shows the state of the house by colour, visible from across the room.
 - **Samsung air conditioner** – an older unit the manufacturer stopped supporting. With ESP it works normally in HA.
 - **3 × JK BMS over Bluetooth** – reading data from all three BMS of my batteries.
 - **SOC from a Victron SmartShunt into the Deye inverter** – the ESP pretends to be a battery and feeds the inverter the exact state of charge from the SmartShunt instead of an inaccurate estimate.
 - **A "dumb" cooker hood controlled from the hob (Hob2Hood)** – the hob sends an infrared signal meant for the hood, the ESP catches it and switches the hood via relays.
-- **Water and gas metering** – over Zigbee.
+- **Water and gas metering** – on an **ESP32-C6** that sits directly in the Zigbee network.
 - **Garden watering and pool filtration.**
 
 And projects that ran on ESP in the past:
