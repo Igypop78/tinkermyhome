@@ -110,7 +110,8 @@ const CSS = read(path.join(ROOT, 'assets/style.css'));
 const JS = read(path.join(ROOT, 'assets/app.js'));
 const V = hash(CSS + JS);
 
-function layout({ lang, title, description, url, alt, active, body, ogType = 'website', jsonld }) {
+function layout({ lang, title, description, url, alt, active, body, ogType = 'website', jsonld, image }) {
+  const img = image ? (image.startsWith('http') ? image : site.url + image) : site.url + '/img/og-default.jpg';
   const L = T[lang];
   const full = title ? `${title} · ${site.name}` : `${site.name} – ${L.tagline}`;
   const other = site.langs.find((l) => l !== lang);
@@ -134,6 +135,9 @@ ${alt ? `<link rel="alternate" hreflang="${other}" href="${site.url}${alt}">` : 
 <meta property="og:description" content="${esc(description || L.siteDesc)}">
 <meta property="og:url" content="${site.url}${url}">
 <meta property="og:locale" content="${L.locale}">
+<meta property="og:image" content="${esc(img)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${esc(img)}">
 <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -347,7 +351,7 @@ ${pathBox}
 </div>
 </article>`;
   const jsonld = { '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.description, datePublished: d.date, dateModified: d.updated || d.date, inLanguage: d.lang, author: { '@type': 'Person', name: site.author }, url: site.url + d.url };
-  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt, active: d.section, body, ogType: 'article', jsonld });
+  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt, active: d.section, body, ogType: 'article', jsonld, image: d.cover || (d.video ? `https://i.ytimg.com/vi/${d.video}/hqdefault.jpg` : null) });
 }
 
 function plainPage(d) {
