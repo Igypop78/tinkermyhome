@@ -1,5 +1,6 @@
 ---
 id: heating
+cover: /img/clanky/titulky/kurenie.jpg
 title: Smart heating – how to do it depending on what heats your home
 description: How to automate heating in Home Assistant with district heating, your own boiler or room heaters – radiator heads, thermal actuators, sensors, virtual thermostats, open windows and ready-to-use automations.
 section: home

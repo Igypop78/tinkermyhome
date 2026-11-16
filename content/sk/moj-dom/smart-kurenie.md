@@ -1,5 +1,6 @@
 ---
 id: heating
+cover: /img/clanky/titulky/kurenie.jpg
 title: Smart kúrenie – ako na to podľa toho, čím doma kúriš
 description: Ako zautomatizovať kúrenie v Home Assistante pri centrálnom zdroji, vlastnom kotle aj lokálnom kúrení – hlavice, termopohony, senzory, virtuálne termostaty, otvorené okno a hotové automatizácie.
 section: home
