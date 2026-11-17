@@ -173,8 +173,8 @@ interval:
     then:
       - lambda: |-
           if (id(shunt_voltage).has_state() && id(shunt_soc).has_state() && id(shunt_current).has_state()) {
-            // 1. CAN ID 0x351 - Limity (CVL 56.8V, CCL 200A, DCL 200A, DVL 47.0V)
-            uint16_t cvl = 568;
+            // 1. CAN ID 0x351 - Limity (CVL 55.4V, CCL 200A, DCL 200A, DVL 47.0V)
+            uint16_t cvl = 554;
             uint16_t ccl = 2000;
             uint16_t dcl = 2000;
             uint16_t dvl = 470;
@@ -227,13 +227,13 @@ Flash it over USB-C the first time; later changes go over WiFi. The SmartShunt s
 
 | CAN ID | Content | My values |
 |---|---|---|
-| `0x351` | battery limits | charge voltage 56.8 V, charge and discharge max. 200 A, minimum voltage 47.0 V |
+| `0x351` | battery limits | charge voltage 55.4 V (3.46 V per cell), charge and discharge max. 200 A, minimum voltage 47.0 V |
 | `0x355` | state of charge | SOC from the SmartShunt, state of health (SOH) 100 % |
 | `0x356` | measured values | voltage and current from the SmartShunt, temperature fixed at 25 °C |
 | `0x359` | alarms and protections | all OK |
 | `0x35E` | manufacturer | `PYLON` |
 
-Adjust the limits to your battery. I set the current to **200 A** so the Deye can charge the battery from the grid at the full **10 kW** – I need that for spot-price arbitrage.
+Adjust the limits to your battery. I keep the charge voltage low on purpose: at 55.4 V my highest cell only reached 3.47 V, so the BMS doesn't disconnect at full charge. I set the current to **200 A** so the Deye can charge the battery from the grid at the full **10 kW** – I need that for spot-price arbitrage.
 
 ## Deye settings
 

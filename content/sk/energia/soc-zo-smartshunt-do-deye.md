@@ -173,8 +173,8 @@ interval:
     then:
       - lambda: |-
           if (id(shunt_voltage).has_state() && id(shunt_soc).has_state() && id(shunt_current).has_state()) {
-            // 1. CAN ID 0x351 - Limity (CVL 56.8V, CCL 200A, DCL 200A, DVL 47.0V)
-            uint16_t cvl = 568;
+            // 1. CAN ID 0x351 - Limity (CVL 55.4V, CCL 200A, DCL 200A, DVL 47.0V)
+            uint16_t cvl = 554;
             uint16_t ccl = 2000;
             uint16_t dcl = 2000;
             uint16_t dvl = 470;
@@ -227,13 +227,13 @@ Prvýkrát nahraj firmvér cez USB-C, ďalšie zmeny už idú cez WiFi. Senzory 
 
 | CAN ID | Obsah | Moje hodnoty |
 |---|---|---|
-| `0x351` | limity batérie | nabíjacie napätie 56,8 V, nabíjanie aj vybíjanie max. 200 A, spodné napätie 47,0 V |
+| `0x351` | limity batérie | nabíjacie napätie 55,4 V (3,46 V na článok), nabíjanie aj vybíjanie max. 200 A, spodné napätie 47,0 V |
 | `0x355` | stav nabitia | SOC zo SmartShuntu, zdravie (SOH) 100 % |
 | `0x356` | merané hodnoty | napätie a prúd zo SmartShuntu, teplota pevne 25 °C |
 | `0x359` | alarmy a ochrany | všetko v poriadku |
 | `0x35E` | výrobca | `PYLON` |
 
-Limity si prispôsob svojej batérii. Ja mám prúd nastavený na **200 A**, aby Deye mohol batériu nabíjať zo siete plným výkonom **10 kW** – pri arbitráži so spotom to potrebujem.
+Limity si prispôsob svojej batérii. Nabíjacie napätie mám nízko schválne: pri 55,4 V išiel najvyšší článok len na 3,47 V, takže BMS sa pri plnom nabití neodpája. Ja mám prúd nastavený na **200 A**, aby Deye mohol batériu nabíjať zo siete plným výkonom **10 kW** – pri arbitráži so spotom to potrebujem.
 
 ## Nastavenie Deye
 
