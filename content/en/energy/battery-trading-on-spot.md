@@ -6,6 +6,7 @@ description: How my home battery buys electricity at the low tariff and sells it
 section: energy
 level: 3
 date: 2026-11-08
+updated: 2026-11-17
 time: '22:30'
 slug: battery-trading-on-spot
 tldr: Since September I sell electricity at **spot prices** and still buy at a **fixed two-rate tariff**. I charge the battery at the low tariff for €0.12/kWh and sell it in the most expensive 15-minute slots – morning and evening. My integration **AI Energy** plans it and a Home Assistant automation switches the Deye inverter. In September and October electricity earned me **€352**; in July and August, on a virtual battery with 65 % more solar, only **€95**.
@@ -283,6 +284,17 @@ mode: restart
 The `select.menic_…`, `number.menic_…` and `switch.menic_…` entities come from the Solarman integration, just renamed in Slovak following my [naming scheme](/en/my-home/smart-home-rules/#6-be-structured). Yours will be named differently.
 
 ## What to watch out for
+
+:::warn Check the rules for your own situation
+What works for me doesn't automatically apply to everyone. Before you switch to spot or start charging the battery from the grid to sell, check:
+
+- **Subsidies.** If you got support for your solar system (in Slovakia e.g. Zelená domácnostiam), read its conditions. During the sustainability period they may restrict selling electricity, and a breach can mean paying the subsidy back.
+- **Your grid connection contract** with the distribution company – the allowed export power and whether the battery is included.
+- **The tariff conditions** of the supplier you buy from.
+- **Taxes and contributions** on income from selling electricity – ideally with a tax advisor.
+
+I'm not a lawyer or a tax advisor. This article shows how it works technically, not what is allowed in your particular case.
+:::
 
 :::warn Main breaker
 Once, car charging and battery charging from the grid started at the same time. I was at the limit of my main breaker (3 × 25 A). Luckily I noticed straight away. On top of that, my inverter and wallbox share one cable, so the draw must stay below 12 kW. AI Energy now knows the breaker and the shared limit, and the battery takes priority over the car when charging.

@@ -6,6 +6,7 @@ description: Ako moja batéria nakupuje elektrinu v nízkej tarife a predáva ju
 section: energy
 level: 3
 date: 2026-11-08
+updated: 2026-11-17
 time: '22:30'
 slug: bateria-obchoduje-na-spote
 tldr: Od septembra predávam elektrinu za **spotové ceny** a nakupujem stále za **pevnú dvojtarifu**. Batériu v nízkej tarife nabijem za 0,12 €/kWh a predám ju v drahých 15-minútových úsekoch – ráno aj večer. Plánuje to moja integrácia **AI Energy**, menič Deye prepína automatizácia v Home Assistante. Elektrina mi za september a október zarobila **352 €**, v júli a auguste s virtuálnou batériou a o 65 % väčšou výrobou FVE len **95 €**.
@@ -283,6 +284,17 @@ mode: restart
 Entity `select.menic_…`, `number.menic_…` a `switch.menic_…` sú z integrácie Solarman, len premenované po slovensky podľa mojej [schémy názvov](/moj-dom/zasady-smart-domu/#6-bud-strukturovany). U teba sa budú volať inak.
 
 ## Na čo si dať pozor
+
+:::warn Podmienky si over pre svoju situáciu
+Ako to mám ja, neplatí automaticky pre každého. Kým prejdeš na spot alebo začneš nabíjať batériu zo siete na predaj, skontroluj si:
+
+- **Dotáciu.** Ak si na FVE dostal podporu, napríklad zo Zelenej domácnostiam, prečítaj si jej podmienky. Počas udržateľnosti môžu obmedzovať predaj elektriny a porušenie môže znamenať vrátenie dotácie.
+- **Zmluvu o pripojení zdroja** s distribučnou spoločnosťou – povolený výkon dodávky a či je v nej batéria.
+- **Podmienky sadzby** u dodávateľa, od ktorého nakupuješ.
+- **Dane a odvody** z príjmu za predaj elektriny – najlepšie s daňovým poradcom.
+
+Nie som právnik ani daňový poradca. Článok ukazuje, ako to funguje technicky, nie čo je dovolené práve v tvojom prípade.
+:::
 
 :::warn Hlavný istič
 Raz sa naraz spustilo nabíjanie auta aj nabíjanie batérie zo siete. Bol som na hranici hlavného ističa (3 × 25 A). Našťastie som si to hneď všimol. Menič a wallbox mám navyše na jednom kábli, takže odber musí ostať pod 12 kW. AI Energy dnes pozná istič aj spoločný limit a batéria má pri nabíjaní prednosť pred autom.
