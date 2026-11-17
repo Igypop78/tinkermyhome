@@ -6,10 +6,17 @@ description: Ako som dostal presný stav nabitia batérie z Victron SmartShuntu 
 section: energy
 level: 2
 date: 2026-11-16
+updated: 2026-11-18
 time: '20:00'
 slug: soc-zo-smartshunt-do-deye
-tldr: 'BMS v mojich batériách po týždňoch bez nabitia na 100 % **ukazovali SOC, ktoré nesedelo s realitou**. Presne meria až **Victron SmartShunt** – lenže ten sa s meničom Deye nevie rozprávať. Vyriešila to doska **Waveshare ESP32-S3-RS485-CAN za 24 €**: cez Bluetooth číta SmartShunt, tvári sa ako batéria **Pylontech** a posiela meniču údaje cez **CAN**. Deye tak beží v režime **Lithium** s presným SOC. Nižšie je zapojenie, párovanie aj kód na skopírovanie.'
+tldr: 'BMS v mojich batériách po týždňoch bez nabitia na 100 % **ukazovali SOC, ktoré nesedelo s realitou**. Presne meria až **Victron SmartShunt** – lenže ten sa s meničom Deye nevie rozprávať. Vyriešila to doska **Waveshare ESP32-S3-RS485-CAN za 24 €**: cez Bluetooth číta SmartShunt, tvári sa ako batéria **Pylontech** a posiela meniču údaje cez **CAN**. Deye tak beží v režime **Lithium** s presným SOC. Nižšie je zapojenie, párovanie aj kód. **Pozor: zatiaľ je to rizikové zapojenie – menič nevidí stav BMS. Pracujem na verzii s údajmi z BMS.**'
 ---
+
+:::warn Rizikové zapojenie – work in progress
+V tejto verzii menič **nevie nič o stave batérií** okrem SOC, napätia a prúdu zo SmartShuntu. ESP mu posiela pevnú teplotu, pevné limity 200 A a stále „žiadny alarm“. Ak BMS jednej batérie odpojí (napríklad pre teplotu), menič o tom nevie, nespustí alarm a môže ďalej tlačiť plný prúd do zvyšných batérií.
+
+Preto toto zapojenie **neodporúčam kopírovať do ostrého systému**, kým nebude hotová verzia, v ktorej ESP berie skutočné údaje z BMS (pozri [Ďalší krok](#dalsi-krok-udaje-z-bms)). Ber článok zatiaľ ako popis experimentu, nie hotový návod.
+:::
 
 Od začiatku mojej FVE riešim jednu vec: **ako dostať do meniča správny stav nabitia batérie (SOC)**.
 
@@ -239,13 +246,24 @@ Do minúty by sa na displeji mal objaviť SOC a údaje o batérii. Ak nie, skont
 
 ## Na čo si dať pozor
 
-- **Ochranu stále robí BMS.** ESP posiela meniču vždy „všetko OK“ a pevné limity. O prepätí, podpätí či teplote článkov menič nevie nič – to stráži JK BMS v každej batérii. Bez funkčnej BMS takéto riešenie nepoužívaj.
+- **Menič nabíja naslepo.** ESP posiela meniču vždy „všetko OK“ a pevné limity. O prepätí, podpätí, teplote článkov ani o odpojenej batérii menič nevie nič. Príklad: mám 3 batérie paralelne. Keď BMS jednej z nich batériu odpojí, menič nespustí alarm a ďalej posiela až 200 A do zvyšných dvoch. Toto je hlavný dôvod, prečo je toto zapojenie zatiaľ rizikové.
 - **Teplota je pevná.** Deye dostáva stále 25 °C. Ak máš batériu v nevykurovanej garáži, nabíjanie pri mraze musí zastaviť BMS.
 - **Výpadok Bluetooth.** Keď ESP prestane prijímať údaje zo SmartShuntu, posiela meniču ďalej posledné známe hodnoty. U mňa to zatiaľ istí BMS – keby sa napätie článkov dostalo mimo bezpečného rozsahu, batériu odpojí. Poistku priamo v ESP (prestať posielať, keď sú údaje staré) plánujem doplniť.
 - **Iné meniče.** Rovnako by to malo fungovať s každým meničom, ktorý podporuje batérie Pylontech cez CAN (napríklad GoodWe, Growatt, Solis). Pinout portu BMS si však over v návode svojho meniča.
 
+## Ďalší krok: údaje z BMS
+
+Moje JK BMS majú výstup pre menič (protokol Pylontech cez CAN/RS485) a sú zapojené paralelne – jedna hlavná zbiera údaje z ostatných. Plán:
+
+- hlavná BMS posiela údaje do ESP (doska Waveshare má CAN aj RS485, takže jeden port je vstup a druhý výstup),
+- ESP v správach **nahradí len SOC** hodnotou zo SmartShuntu – alarmy, teploty, limity prúdu a povolenie nabíjania či vybíjania pôjdu do meniča tak, ako ich pošle BMS,
+- keď ESP prestane dostávať čerstvé údaje z BMS alebo zo SmartShuntu, **prestane posielať** a menič ohlási chybu komunikácie s batériou,
+- zvažujem aj pripojenie SmartShuntu cez **VE.Direct** (s galvanickým oddelením) namiesto Bluetooth.
+
+Keď to budem mať hotové a otestované, článok aktualizujem.
+
 ## Výsledok
 
-Deye má konečne **presný SOC** a beží v režime **Lithium** – bez obchádzok cez napäťový režim a bez toho, aby Home Assistant musel na pozadí neustále meniť nastavenia meniča. **Zariadenie za 24 € mi vyriešilo problém, ktorý som dovtedy musel pracne obchádzať.**
+Deye má konečne **presný SOC** a beží v režime **Lithium** – bez obchádzok cez napäťový režim a bez toho, aby Home Assistant musel na pozadí neustále meniť nastavenia meniča. **Zariadenie za 24 € mi vyriešilo problém, ktorý som dovtedy musel pracne obchádzať** – no kým nedokončím verziu s údajmi z BMS, je to experiment, nie riešenie na kopírovanie.
 
 Ďalšie projekty na ESP32 nájdeš v článku [ESP32 – čip za pár eur, ktorý mi v dome vyriešil najviac](/diy/esp32-moje-projekty/). Ak ti niečo nefunguje, [napíš mi](/o-mne/).

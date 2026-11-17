@@ -6,10 +6,17 @@ description: How I got the exact battery state of charge from a Victron SmartShu
 section: energy
 level: 2
 date: 2026-11-16
+updated: 2026-11-18
 time: '20:00'
 slug: soc-from-smartshunt-to-deye
-tldr: 'After weeks without a full charge, the BMS in my batteries **showed an SOC that had little to do with reality**. The accurate one is the **Victron SmartShunt** – but it can't talk to a Deye inverter. A **€24 Waveshare ESP32-S3-RS485-CAN** board fixed that: it reads the SmartShunt over Bluetooth, pretends to be a **Pylontech** battery and sends the data to the inverter over **CAN**. The Deye now runs in **Lithium** mode with an accurate SOC. Wiring, pairing and code to copy are below.'
+tldr: 'After weeks without a full charge, the BMS in my batteries **showed an SOC that had little to do with reality**. The accurate one is the **Victron SmartShunt** – but it can't talk to a Deye inverter. A **€24 Waveshare ESP32-S3-RS485-CAN** board fixed that: it reads the SmartShunt over Bluetooth, pretends to be a **Pylontech** battery and sends the data to the inverter over **CAN**. The Deye now runs in **Lithium** mode with an accurate SOC. Wiring, pairing and code are below. **Warning: this is a risky setup for now – the inverter can't see the BMS status. I'm working on a version with BMS data.**'
 ---
+
+:::warn Risky setup – work in progress
+In this version the inverter **knows nothing about the batteries** except SOC, voltage and current from the SmartShunt. The ESP sends a fixed temperature, fixed 200 A limits and always "no alarm". If the BMS of one battery disconnects it (e.g. over-temperature), the inverter doesn't know, raises no alarm and may keep pushing full current into the remaining batteries.
+
+That's why I **don't recommend copying this into a production system** until the version where the ESP uses real BMS data is done (see [Next step](#next-step-data-from-the-bms)). For now, treat this article as a description of an experiment, not a finished guide.
+:::
 
 Since I built my solar setup, one thing has bugged me: **how to get the right battery state of charge (SOC) into the inverter**.
 
@@ -239,13 +246,24 @@ Within a minute the display should show the SOC and battery data. If not, check 
 
 ## Things to watch out for
 
-- **The BMS still does the protection.** The ESP always tells the inverter "all OK" and sends fixed limits. The inverter knows nothing about cell over- or undervoltage or temperature – the JK BMS in each battery guards that. Don't use this without a working BMS.
+- **The inverter charges blind.** The ESP always tells the inverter "all OK" and sends fixed limits. The inverter knows nothing about cell over- or undervoltage, temperature or a disconnected battery. Example: I have 3 batteries in parallel. When the BMS of one of them disconnects it, the inverter raises no alarm and keeps sending up to 200 A into the other two. This is the main reason this setup is risky for now.
 - **The temperature is fixed.** The Deye always gets 25 °C. If your battery is in an unheated garage, the BMS must stop charging in freezing temperatures.
 - **Bluetooth dropouts.** When the ESP stops receiving SmartShunt data, it keeps sending the last known values to the inverter. At my place the BMS covers this for now – if cell voltages leave the safe range, it disconnects the battery. I plan to add a safeguard directly in the ESP (stop sending when the data is stale).
 - **Other inverters.** This should work the same with any inverter that supports Pylontech batteries over CAN (e.g. GoodWe, Growatt, Solis). Check the BMS port pinout in your inverter's manual, though.
 
+## Next step: data from the BMS
+
+My JK BMSs have an inverter output (Pylontech protocol over CAN/RS485) and run in parallel – one master collects data from the others. The plan:
+
+- the master BMS sends its data to the ESP (the Waveshare board has both CAN and RS485, so one port is the input and the other the output),
+- the ESP **replaces only the SOC** with the SmartShunt value – alarms, temperatures, current limits and charge/discharge enable go to the inverter exactly as the BMS sends them,
+- when the ESP stops getting fresh data from the BMS or the SmartShunt, it **stops sending** and the inverter reports a battery communication fault,
+- I'm also considering connecting the SmartShunt via **VE.Direct** (with galvanic isolation) instead of Bluetooth.
+
+Once it's done and tested, I'll update this article.
+
 ## The result
 
-The Deye finally has an **accurate SOC** and runs in **Lithium** mode – no workaround through voltage mode, and Home Assistant doesn't have to keep changing inverter settings in the background. **A €24 device solved a problem I'd been painfully working around.**
+The Deye finally has an **accurate SOC** and runs in **Lithium** mode – no workaround through voltage mode, and Home Assistant doesn't have to keep changing inverter settings in the background. **A €24 device solved a problem I'd been painfully working around** – but until the version with BMS data is finished, it's an experiment, not something to copy.
 
 You'll find more ESP32 projects in [ESP32 – the few-euro chip that solved the most in my house](/en/diy/esp32-my-projects/). If something doesn't work for you, [get in touch](/en/about/).
