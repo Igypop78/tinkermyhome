@@ -96,4 +96,4 @@ From electricity alone (sales minus purchases) I made **€95** in July and Augu
 
 ## What I would do differently today
 
-I would do it **all properly in one go**. I built my solar system step by step. Why I would not do that today is coming in a separate article.
+I would do it **all properly in one go**. I built my solar system step by step – the whole story, mistakes included, is in [My solar journey](/en/energy/my-solar-journey/).

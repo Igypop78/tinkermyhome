@@ -96,4 +96,4 @@ Za samotnú elektrinu (predaj mínus nákup) som v júli a auguste s virtuálnou
 
 ## Čo by som dnes spravil inak
 
-Spravil by som to **celé poriadne naraz**. FVE som staval postupne. Prečo by som to dnes nerobil, napíšem v samostatnom článku.
+Spravil by som to **celé poriadne naraz**. FVE som staval postupne – celý príbeh aj s chybami je v článku [Moja FVE cesta](/energia/moja-fve-cesta/).
