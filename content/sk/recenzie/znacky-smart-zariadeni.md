@@ -11,7 +11,7 @@ slug: znacky-smart-zariadeni
 tldr: Neviažem sa na jednu značku – vyberám podľa typu zariadenia. **Shelly** na moduly za vypínače, **Aqara** na batériové senzory, **Fibaro** na Z-Wave, **ESP32** na kutilské projekty, **Tado X** na hlavice, **UniFi** na WiFi. **IKEA** má najlepšiu cenu, ale s výhradami. **Tuya** mi nikdy nesadla a batériové Shelly tiež nie.
 ---
 
-Ktorú značku smart zariadení kúpiť? Túto otázku dostávam najčastejšie. Odpoveď je jednoduchá a zároveň nie: **jednu značku na všetko neodporúčam**. Každý výrobca je dobrý v niečom inom.
+Ktorú značku smart zariadení kúpiť? Túto otázku dostávam najčastejšie. Odpoveď je jednoduchá a zároveň nie: **jednu značku na všetko neodporúčam**. Každý výrobca je dobrý v niečom inom. A každému používateľovi môže vyhovovať niečo iné.
 
 Smart domácnosť mám od roku 2013 a dnes mám v dome **311 zariadení v Home Assistante**. Toto je zhrnutie, čo mi za ten čas vydržalo, čo funguje s výhradami a čo skončilo v koši.
 

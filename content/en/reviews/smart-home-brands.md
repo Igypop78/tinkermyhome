@@ -11,7 +11,7 @@ slug: smart-home-brands
 tldr: I don't stick to one brand – I pick by device type. **Shelly** for in-wall modules, **Aqara** for battery sensors, **Fibaro** for Z-Wave, **ESP32** for DIY projects, **Tado X** for radiator valves, **UniFi** for WiFi. **IKEA** is the best value, but with caveats. **Tuya** never clicked with me, and neither did battery-powered Shelly.
 ---
 
-Which smart home brand should you buy? That's the question I get most often. The answer is simple and not simple at the same time: **I don't recommend one brand for everything**. Every maker is good at something different.
+Which smart home brand should you buy? That's the question I get most often. The answer is simple and not simple at the same time: **I don't recommend one brand for everything**. Every maker is good at something different. And every user may be happy with something different.
 
 I've had a smart home since 2013 and today our house has **311 devices in Home Assistant**. This is a summary of what has lasted, what works with caveats and what ended up in the bin.
 
