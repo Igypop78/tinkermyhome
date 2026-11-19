@@ -34,7 +34,7 @@ Spoločné pravidlá:
 4. **Prvá LiFePO4** – 105 Ah + JK BMS, „funguje dodnes“.
 5. **Strmý sklon a nepokojný spánok** – plachta proti vetru, znížený sklon. *Fotka starej konštrukcie.*
 6. **Deye a 10 kW** – MRK 10 kW, články 280 Ah, police bez stlačenia → skrine. *Záber na skrine.*
-7. **Raz a poriadne (jar 2026)** – K2, 22 × JA Solar 500 W, zváranie Fatrafolu. *Najsilnejší B-roll: demontáž → hotovo.* [DOPLNIŤ: máš video zo zvárania fólie / timelapse?]
+7. **Raz a poriadne (jar 2026)** – K2, 22 × JA Solar 500 W, zváranie Fatrafolu. *Najsilnejší B-roll: demontáž → hotovo* (fotky z článku; zváranie fólie stačí porozprávať pri zábere na opravenú strechu).
    *→ výzva na odber: „Ďalšie video bude o tom, ako táto batéria sama obchoduje na spote.“*
 8. **Koľko to stálo** – tabuľka ~8 200 € (Deye 1 700, panely 1 700, batéria 3 500, K2 ~1 000, ostatné ~300), práca vlastná, revízia povinná.
 9. **4 veci, ktoré som sa naučil** – návykové / poriadne na prvý raz / choď na maximum / ale začni radšej v malom.
@@ -105,7 +105,7 @@ Spoločné pravidlá:
 3. **Obývačka** – žalúzie, ovládač IKEA, zvonček cez Sonos.
 4. **Komora – srdce systému** – rack, Proxmox, Frigate, NAS, záložná batéria. *Detail na rack.*
    *→ výzva na odber: „Každej miestnosti spravím samostatné video, odober, nech ti neujdú.“*
-5. **Izby chalanov** – Nanoleaf, WLED, obraz s podsvietením, ktorý Jakub navrhol. [DOPLNIŤ: chcú byť chlapci vo videu? inak len zábery bez tvárí]
+5. **Izby chalanov** – Nanoleaf, WLED, obraz s podsvietením, ktorý Jakub navrhol. Chalani vo videu áno – nech každý sám ukáže a povie, čo má najradšej (Martin efekty, Jakub svoj obraz). To je najsilnejší moment videa.
 6. **Kúrenie izba po izbe** – Aqara W100, relé na ventiloch, kotol sa zapne, len keď kúri aspoň jedna izba; otvorené okno = kúrenie vypnuté. (Katkina obľúbená vec.)
 7. **Kúpeľne** – senzory zatopenia, práčka a sušička AEG v HA.
 8. **Spálňa – jeden záber** – synchronizovaná roleta a žalúzie.

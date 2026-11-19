@@ -11,7 +11,7 @@ export const site = {
   latestVideo: { id: 'BzZWU2o-ohQ', sk: 'Predaj elektriny na spote: moja cesta a AI Energy', en: 'Selling electricity at spot prices: my journey and AI Energy', len: '8:45' },
   // údaje o videách pre Google (VideoObject). date = deň zverejnenia na YouTube; bez neho sa použije dátum článku.
   videos: {
-    'BzZWU2o-ohQ': { len: '8:45' },
+    'BzZWU2o-ohQ': { date: '2026-11-10', len: '8:45' },
   },
   // Cloudflare Web Analytics (bez cookies): token z Cloudflare → Analytics & Logs → Web Analytics → Add a site.
   // Prázdne = skript sa nevkladá (dá sa zapnúť aj automaticky v Cloudflare bez zmeny kódu).
@@ -158,7 +158,7 @@ export const t = {
     poll: { hint: 'Klikni na jednu možnosť.', show: 'Ukázať výsledky', votes: 'hlasov', thanks: 'Ďakujem za hlas!', error: 'Hlas sa nepodarilo uložiť, skús neskôr.' },
     about: 'O nás', contact: 'Kontakt', rss: 'RSS', notFound: 'Stránka sa nenašla', notFoundText: 'Tento odkaz nikam nevedie. Skús úvodnú stránku.',
     backHome: 'Na úvod', minRead: (n) => `${n} min čítania`, tldr: 'V skratke',
-    subTitle: 'Páčil sa ti článok?', subText: 'Na YouTube ukazujem to isté naživo – z nášho domu, s reálnymi číslami. Odber je zadarmo a pomôže mi točiť ďalej.',
+    subTitle: 'Páčil sa ti článok?', subText: 'Na YouTube ukazujem to isté naživo – z nášho domu, s reálnymi číslami. Odober si kanál, nech ti neujde ďalšie video.',
     subBtn: 'Odoberať na YouTube', subSide: 'Videá z nášho domu', subSideText: 'Smart dom a FVE naživo na YouTube.',
     watchAlso: 'Pozri si aj video', related: 'Mohlo by ťa zaujímať', rss2: 'Nové články cez RSS',
     share: 'Zdieľať', shareText: 'Pomôže to, ak článok pošleš niekomu, komu sa zíde:', copyLink: 'Kopírovať odkaz', linkCopied: 'Odkaz skopírovaný',
@@ -184,7 +184,7 @@ export const t = {
     poll: { hint: 'Pick one option.', show: 'Show results', votes: 'votes', thanks: 'Thanks for your vote!', error: 'Could not save your vote, try again later.' },
     about: 'About us', contact: 'Contact', rss: 'RSS', notFound: 'Page not found', notFoundText: 'This link leads nowhere. Try the home page.',
     backHome: 'Home', minRead: (n) => `${n} min read`, tldr: 'TL;DR',
-    subTitle: 'Enjoyed the article?', subText: 'On YouTube I show the same things live from our house, with real numbers (videos in Slovak for now). Subscribing is free and helps me keep going.',
+    subTitle: 'Enjoyed the article?', subText: 'On YouTube I show the same things live from our house, with real numbers (videos in Slovak for now). Subscribe so you don’t miss the next one.',
     subBtn: 'Subscribe on YouTube', subSide: 'Videos from our house', subSideText: 'Smart home and solar, live on YouTube.',
     watchAlso: 'Watch the video', related: 'You might also like', rss2: 'New articles via RSS',
     share: 'Share', shareText: 'It really helps if you send this to someone who could use it:', copyLink: 'Copy link', linkCopied: 'Link copied',
