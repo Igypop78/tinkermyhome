@@ -71,7 +71,7 @@ For DIY home projects the **ESP32** is made for the job – for example the **ES
 
 ## Tado X – radiator valves
 
-Radiator valves were my longest search. **Aqara, Tuya and Popp/Danfoss all ended up in the bin.** What finally lasted was **Tado X**:
+Radiator valves were my longest search. **Aqara, Tuya and older versions of the Popp and Danfoss valves all ended up in the bin.** What finally lasted was **Tado X**:
 
 - **quiet**,
 - **rechargeable batteries** via USB-C that last the whole season,

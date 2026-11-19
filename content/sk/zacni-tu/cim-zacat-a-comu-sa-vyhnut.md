@@ -79,7 +79,7 @@ Premenovať takmer 3000 entít mi trvalo **dva dni**. Keby som mal schému od za
 
 ### 6. Lacné batériové zariadenia a hlavice
 
-Batériové zariadenia sú najväčšia lotéria. Batériové Shelly mi nesadli a batériové zariadenia IKEA občas vypadávajú a žerú batérie. Pri hlaviciach na radiátory skončili v koši **Aqara, Tuya aj Popp/Danfoss**, kým som našiel Tado X. Ktoré značky mi vydržali, je v článku [Značky smart zariadení](/recenzie/znacky-smart-zariadeni/).
+Batériové zariadenia sú najväčšia lotéria. Batériové Shelly mi nesadli a batériové zariadenia IKEA občas vypadávajú a žerú batérie. Pri hlaviciach na radiátory skončili v koši **Aqara, Tuya aj staršie verzie hlavíc Popp a Danfoss**, kým som našiel Tado X. Ktoré značky mi vydržali, je v článku [Značky smart zariadení](/recenzie/znacky-smart-zariadeni/).
 
 ### 7. Uzavretá centrála a spotrebiče bez integrácie
 

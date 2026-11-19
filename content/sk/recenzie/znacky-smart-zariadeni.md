@@ -71,7 +71,7 @@ Na domáce kutilské projekty je **ESP32** ako stvorené – napríklad **ESP32-
 
 ## Tado X – hlavice na radiátory
 
-Hlavice na radiátory boli u mňa najdlhšie hľadanie. **Aqara, Tuya aj Popp/Danfoss skončili v koši.** Vydržal až **Tado X**:
+Hlavice na radiátory boli u mňa najdlhšie hľadanie. **Aqara, Tuya aj staršie verzie hlavíc Popp a Danfoss skončili v koši.** Vydržal až **Tado X**:
 
 - **tiché**,
 - **nabíjateľné batérie** cez USB-C, vydržia celú sezónu,

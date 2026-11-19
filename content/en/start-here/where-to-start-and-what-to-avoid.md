@@ -79,7 +79,7 @@ Renaming almost 3,000 entities took me **two days**. With a scheme from the star
 
 ### 6. Cheap battery devices and radiator valves
 
-Battery devices are the biggest lottery. Battery-powered Shelly didn't work out for me, and IKEA battery devices occasionally drop out and eat batteries. For radiator valves, **Aqara, Tuya and Popp/Danfoss** all ended up in the bin before I found Tado X. The brands that lasted are in [Smart home brands](/en/reviews/smart-home-brands/).
+Battery devices are the biggest lottery. Battery-powered Shelly didn't work out for me, and IKEA battery devices occasionally drop out and eat batteries. For radiator valves, **Aqara, Tuya and older versions of the Popp and Danfoss valves** all ended up in the bin before I found Tado X. The brands that lasted are in [Smart home brands](/en/reviews/smart-home-brands/).
 
 ### 7. A closed hub and appliances without integration
 
