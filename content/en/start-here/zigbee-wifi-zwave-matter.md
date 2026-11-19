@@ -98,4 +98,4 @@ One SLZB-MRW10U multi-radio adapter handles both Zigbee (via Zigbee2MQTT) and Z-
 
 Which device brands lasted in my house and which ended up in the bin is in [Smart home brands](/en/reviews/smart-home-brands/).
 
-Next part: **Where to start at home and what to avoid**.
+Next part: [Where to start a smart home and what to avoid](/en/start-here/where-to-start-and-what-to-avoid/).
