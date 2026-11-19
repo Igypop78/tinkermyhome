@@ -180,6 +180,7 @@ ${body}
 <span>${site.url.replace('https://', '')} · ${site.author} · © ${site.year}</span>
 <span class="links">
 <a href="${lang === 'sk' ? '/o-mne/' : '/en/about/'}">${L.about}</a>
+<a href="${lang === 'sk' ? '/caste-otazky/' : '/en/faq/'}">${L.faq}</a>
 <a href="${SUB_URL}" rel="noopener">${L.youtube}</a>
 <a href="${site.github}" rel="noopener">GitHub</a>
 <a href="${prefix(lang)}/feed.xml">${L.rss}</a>
@@ -405,7 +406,8 @@ ${relatedBox}
 
 function plainPage(d) {
   const body = `<article class="wrap article"><header class="art-head"><h1>${esc(d.title)}</h1></header><div class="art-grid"><div class="prose">${d.html}</div></div></article>`;
-  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt: translationOf(d), body });
+  const jsonld = d.faqs?.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage: d.lang, url: site.url + d.url, mainEntity: d.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) } : null;
+  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt: translationOf(d), body, jsonld });
 }
 
 function notFound() {

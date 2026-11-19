@@ -35,7 +35,7 @@ cover: /img/foto.jpg    # voliteľné – vlastná fotka na kartu (súbor do sta
 Titulka karty: `cover:` → inak miniatúra prvého `::youtube` videa (na úvode nie, ak je to `latestVideo`) → inak vygenerovaná „Linka“ (farba a ikona sekcie, vzor podľa `id`).
 
 Markdown: `##` nadpisy (tvoria obsah), tabuľky, ```` ```yaml nazov.yaml ```` (blok s tlačidlom Kopírovať), rámčeky `:::me Ako to mám ja` / `:::tip` / `:::info` / `:::warn` … `:::`.
-Časté otázky: `:::faq Časté otázky` + riadky `? Otázka` a pod nimi odpoveď … `:::` (rozbaľovacie otázky + FAQPage pre Google/AI). Ku každému novému článku 2–4 otázky, len z faktov v článku.
+Časté otázky sú na jednom mieste: `content/sk/caste-otazky.md` a `content/en/faq.md` (blok `:::faq Nadpis` + riadky `? Otázka` a pod nimi krátka odpoveď s odkazom `→ [Článok](/…/)` … `:::`, vytvára FAQPage pre Google/AI). Do článkov FAQ nedávame. Keď nový článok odpovedá na častú otázku, doplň ju tam (SK aj EN), len z faktov v článku.
 
 Pod každým článkom sa automaticky zobrazí zdieľanie, blok s odberom YouTube (+ `latestVideo`, ak článok nemá vlastné video) a 3 súvisiace články. Video v článku (`::youtube`) dostane VideoObject – dátum zverejnenia videa doplň do `site.videos` v `site.config.mjs`.
 

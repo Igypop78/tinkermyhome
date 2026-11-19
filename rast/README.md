@@ -26,16 +26,9 @@ dlhé videá a články budujú dôveru a vyhľadávanie.
 | **Sitemap s `lastmod`** | Google rýchlejšie zistí nové a upravené články |
 | Pripravené **Cloudflare Web Analytics** a **Google Search Console** (stačí doplniť token v `site.config.mjs`) | Konečne čísla |
 
-FAQ blok v článku:
-```
-:::faq Časté otázky
-? Koľko stojí FVE 10 kWp?
-Odpoveď…
-:::
-```
-Pozn.: Google od 2023 zobrazuje rozbalené FAQ vo výsledkoch už len pri úradných a zdravotníckych weboch.
-Prínos je hlavne v AI vyhľadávačoch a v tom, že otázky zodpovedajú presne tomu, čo ľudia hľadajú.
-FAQ do existujúcich článkov doplním, keď schváliš – otázky a odpovede len z faktov v článkoch.
+Časté otázky sú na jednej stránke **/caste-otazky/** (EN **/en/faq/**), odkaz je v päte webu. Každá odpoveď je krátka
+a odkazuje na článok. Do článkov FAQ nedávame (duplicita, ľudia ich na konci článku nečítajú). Či stránku niekto číta,
+uvidíme vo Web Analytics – ak nie, zmažeme ju. Odkaz na ňu sa hodí do FB skupín namiesto opakovaného vysvetľovania.
 
 ## Čo musíš spraviť ty (15–30 min, jednorazovo)
 

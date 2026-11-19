@@ -20,8 +20,8 @@ Legenda: **Hľadanosť** ●●● vysoká / ●● stredná / ● nízka (ale p
 | Téma / dopyt | Hľadanosť | Konk. | Existuje? | Čo spraviť |
 |---|---|---|---|---|
 | fotovoltika návratnosť / oplatí sa FVE 2026 | ●●● | V | čiastočne (Moja FVE) | nový článok `fve-payback` s tvojimi číslami (plánovaný) |
-| fotovoltika s batériou cena / koľko stojí FVE 10 kW | ●●● | V | Moja FVE (8 200 €) | doplniť FAQ, do titulku „koľko stála“ |
-| spotové ceny elektriny / OKTE / predaj elektriny na spot | ●● | N | áno | FAQ + video už je, Shorts |
+| fotovoltika s batériou cena / koľko stojí FVE 10 kW | ●●● | V | Moja FVE (8 200 €) | do titulku „koľko stála“ |
+| spotové ceny elektriny / OKTE / predaj elektriny na spot | ●● | N | áno | video už je, Shorts |
 | virtuálna batéria – oplatí sa? | ●● | S | spomenuté vo videu | samostatný článok: virtuálna vs. fyzická batéria |
 | Deye nastavenie / Deye Home Assistant | ●● | N | áno (spot, SOC) | samostatný návod „Deye do Home Assistanta“ (SK+EN) |
 | LiFePO4 batéria svojpomocne / 280 Ah skriňa | ●● | S | spomenuté v FVE ceste | článok „Batéria 34 kWh svojpomocne“ |
@@ -33,7 +33,7 @@ Legenda: **Hľadanosť** ●●● vysoká / ●● stredná / ● nízka (ale p
 ### Home Assistant (Začni tu)
 | Téma / dopyt | Hľadanosť | Konk. | Existuje? | Čo spraviť |
 |---|---|---|---|---|
-| Home Assistant návod slovensky / čo je Home Assistant | ●● | N | áno | FAQ, video „HA za 10 minút“ |
+| Home Assistant návod slovensky / čo je Home Assistant | ●● | N | áno | video „HA za 10 minút“ |
 | Home Assistant inštalácia / Raspberry Pi / Green | ●● | S | áno | video |
 | Zigbee vs WiFi vs Matter | ●● | S | áno | Shorts |
 | smart žiarovka a vypínač | ●● | N | áno | **video – evergreen**, schémy sa dobre ukazujú |
@@ -85,7 +85,7 @@ Poradie podľa potenciálu a toho, čo už máš v hlave. Každý článok SK + 
 9. Autonómia domu za rok 2026 (`autonomy`, z živých dát)
 10. Recenzia: [DOPLNIŤ – zariadenie, ktoré odporúčaš najviac]
 
-Ku každému článku: 2–4 otázky do `:::faq` (otázky, ktoré sa ľudia reálne pýtajú v skupinách).
+Ak nový článok odpovedá na otázku, ktorú ľudia často kladú v skupinách, doplním ju na stránku Časté otázky.
 
 ## Tipy na SEO pri písaní (zapracujem automaticky)
 - Kľúčové slovo v `title`, v prvej vete a v jednom `##` nadpise. Titulok do ~60 znakov, `description` do ~155.
