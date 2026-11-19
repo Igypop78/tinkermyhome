@@ -13,7 +13,7 @@ tldr: Our best automations **watch, warn and take worries away** – arrivals an
 
 When people ask about a smart home, they usually expect lights that switch on by themselves. In our house it's different. The best automations are the ones **you barely notice** – until they save your food, warn you about running water or tell you the power is out at home.
 
-These are seven automations that have proven their worth over the years. They all run in Home Assistant and I describe each one the way I have it at home.
+I have **over 90 automations** in Home Assistant. These are the seven that have proven their worth the most over the years. They all run in Home Assistant and I describe each one the way I have it at home.
 
 ## 1. Arrivals and departures – who's home
 

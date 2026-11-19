@@ -13,7 +13,7 @@ tldr: Najlepšie automatizácie u nás **strážia, upozornia a ušetria starost
 
 Keď sa ľudia pýtajú na smart dom, väčšinou čakajú svetlá, ktoré sa samy zapínajú. U nás je to inak. Najlepšie automatizácie sú tie, **ktoré si skoro nevšimneš** – kým raz nezachránia potraviny, neupozornia na tečúcu vodu alebo ti nepovedia, že doma vypadol prúd.
 
-Toto je sedem automatizácií, ktoré mi za tie roky dokázali, že majú zmysel. Všetky bežia v Home Assistante a každú opíšem tak, ako ju mám doma.
+V Home Assistante mám **vyše 90 automatizácií**. Toto je sedem z nich, ktoré mi za tie roky dokázali, že majú zmysel najviac. Všetky bežia v Home Assistante a každú opíšem tak, ako ju mám doma.
 
 ## 1. Príchod a odchod – kto je doma
 
