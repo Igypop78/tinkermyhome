@@ -130,3 +130,25 @@
     });
   });
 })();
+
+// Zdieľanie článku: natívne zdieľanie (mobil) a kopírovanie odkazu.
+(function () {
+  var box = document.querySelector('[data-share-url]');
+  if (!box) return;
+  var url = box.dataset.shareUrl, title = box.dataset.shareTitle;
+  var nat = box.querySelector('[data-share-native]');
+  if (nat && navigator.share) {
+    nat.hidden = false;
+    nat.addEventListener('click', function () { navigator.share({ title: title, url: url }).catch(function () {}); });
+  }
+  var cp = box.querySelector('[data-copy-link]');
+  if (cp && navigator.clipboard) {
+    var label = cp.textContent;
+    cp.addEventListener('click', function () {
+      navigator.clipboard.writeText(url).then(function () {
+        cp.textContent = cp.dataset.done;
+        setTimeout(function () { cp.textContent = label; }, 1600);
+      });
+    });
+  }
+})();

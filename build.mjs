@@ -59,6 +59,10 @@ const PHOTO = fs.existsSync(path.join(ROOT, 'assets/igy.jpg')) ? '/assets/igy.jp
 const avatar = (size) => PHOTO
   ? `<img class="avatar" src="${PHOTO}" alt="" width="${size}" height="${size}" style="width:${size}px;height:${size}px">`
   : `<span class="avatar" aria-hidden="true" style="width:${size}px;height:${size}px;font-size:${Math.round(size * 0.38)}px">Ig</span>`;
+const SUB_URL = site.youtube + '?sub_confirmation=1';
+const ytThumb = (id, q = 'hqdefault') => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+const isoDur = (len) => { const p = String(len || '').split(':').map(Number); if (!p.length || p.some(isNaN)) return undefined; const [s = 0, m = 0, h = 0] = p.reverse(); return `PT${h ? h + 'H' : ''}${m ? m + 'M' : ''}${s}S`; };
+const person = { '@type': 'Person', name: site.author, url: site.url + '/o-mne/', sameAs: [site.youtube, site.github] };
 const levelChip = (lvl, lang) => levels[lvl] ? `<span class="lvl ${levels[lvl].cls}">${levels[lvl][lang]}</span>` : '';
 
 // ---------- obsah ----------
@@ -84,7 +88,7 @@ for (const lang of site.langs) {
     const words = body.replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length;
     const url = type === 'page' ? `${prefix(lang)}/${data.slug}/` : `${secUrl(data.section, lang)}${data.slug}/`;
     const video = (body.match(/^::youtube\s+([\w-]{6,20})/m) || [])[1] || null;
-    docs.push({ ...data, video, type, lang, url, html: md.html, toc: md.toc, minutes: Math.max(1, Math.round(words / 200)), file: rel });
+    docs.push({ ...data, video, type, lang, url, html: md.html, toc: md.toc, faqs: md.faqs, minutes: Math.max(1, Math.round(words / 200)), file: rel });
   }
 }
 const articles = (lang) => docs.filter((d) => d.type === 'article' && d.lang === lang).sort((a, b) => `${b.date} ${b.time || ''}`.localeCompare(`${a.date} ${a.time || ''}`));
@@ -140,13 +144,14 @@ ${alt ? `<link rel="alternate" hreflang="${other}" href="${site.url}${alt}">` : 
 <meta name="twitter:image" content="${esc(img)}">
 <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+${site.googleVerification ? `<meta name="google-site-verification" content="${esc(site.googleVerification)}">` : ''}
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;text=tinkermyhome&amp;display=swap">
 <link rel="stylesheet" href="/assets/style.css?v=${V}">
 <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
-${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
+${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, "\\u003c")}</script>` : ''}
 </head>
 <body>
 <a class="skip" href="#main">${lang === 'sk' ? 'Preskočiť na obsah' : 'Skip to content'}</a>
@@ -175,12 +180,13 @@ ${body}
 <span>${site.url.replace('https://', '')} · ${site.author} · © ${site.year}</span>
 <span class="links">
 <a href="${lang === 'sk' ? '/o-mne/' : '/en/about/'}">${L.about}</a>
-<a href="${site.youtube}" rel="noopener">${L.youtube}</a>
+<a href="${SUB_URL}" rel="noopener">${L.youtube}</a>
 <a href="${site.github}" rel="noopener">GitHub</a>
 <a href="${prefix(lang)}/feed.xml">${L.rss}</a>
 </span>
 </footer>
 <script src="/assets/app.js?v=${V}" defer></script>
+${site.cfAnalyticsToken ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify({ token: site.cfAnalyticsToken })}'></script>` : ''}
 </body>
 </html>
 `;
@@ -288,7 +294,7 @@ ${site.latestVideo ? `<figure class="yt"><a class="yt-play" href="https://www.yo
 <div class="shead"><h2>${L.projects}</h2><p>${L.projectsSub}</p></div>
 <div class="list projects">${projectRows(lang)}</div>
 </section>`;
-  const jsonld = { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url + T[lang].home, inLanguage: lang, author: { '@type': 'Person', name: site.author } };
+  const jsonld = { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url + T[lang].home, inLanguage: lang, description: L.siteDesc, author: person, publisher: person };
   return layout({ lang, url: T[lang].home, alt: T[site.langs.find((l) => l !== lang)].home, body, jsonld });
 }
 
@@ -329,6 +335,28 @@ function articlePage(d) {
       : `<div class="pn ${dir} dim"><span>${dir === 'next' ? L.next : L.prev} · ${L.soon}</span><b>${esc(p.title)}</b></div>`) : '<span></span>';
     return `<nav class="prevnext" aria-label="${esc(s[d.lang].name)}">${cell(prev, 'prev')}${cell(next, 'next')}</nav>`;
   })() : '';
+  const pageUrl = site.url + d.url;
+  const enc = encodeURIComponent;
+  const shareLinks = [
+    ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${enc(pageUrl)}`],
+    ['WhatsApp', `https://wa.me/?text=${enc(d.title + ' ' + pageUrl)}`],
+    ['X', `https://x.com/intent/post?url=${enc(pageUrl)}&text=${enc(d.title)}`],
+    ['Reddit', `https://www.reddit.com/submit?url=${enc(pageUrl)}&title=${enc(d.title)}`],
+    ['LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`],
+  ];
+  const share = `<div class="share" data-share-url="${pageUrl}" data-share-title="${esc(d.title)}">
+<p class="cap">${L.share}</p><p class="share-txt">${L.shareText}</p>
+<div class="share-btns"><button type="button" class="chip" data-share-native hidden>${L.share}</button>${shareLinks.map(([n, u]) => `<a class="chip" href="${u}" target="_blank" rel="noopener nofollow">${n}</a>`).join('')}<button type="button" class="chip" data-copy-link data-done="${esc(L.linkCopied)}">${L.copyLink}</button></div></div>`;
+  const vid = site.latestVideo && !d.video && site.latestVideo.id;
+  const subBox = `<aside class="subbox">
+<div class="sub-txt"><span class="cap">YouTube · TinkerMyHome</span><h2 class="sub-h">${L.subTitle}</h2><p>${L.subText}</p>
+<a class="btn yt-sub" href="${SUB_URL}" target="_blank" rel="noopener">${icon('play', 20, 2)}<span>${L.subBtn}</span></a></div>
+${vid ? `<a class="sub-vid" href="https://www.youtube.com/watch?v=${vid}" target="_blank" rel="noopener"><span class="cover photo"><img src="${ytThumb(vid)}" alt="" loading="lazy"><span class="yt-badge">${icon('play', 16, 2)}</span></span><span class="sub-vt"><span class="cap">${L.watchAlso}</span><b>${esc(site.latestVideo[d.lang])}</b><span>${site.latestVideo.len}</span></span></a>` : ''}
+</aside>`;
+  const others = articles(d.lang).filter((x) => x.url !== d.url);
+  const related = [...others.filter((x) => x.section === d.section), ...others.filter((x) => x.section !== d.section)].slice(0, 3);
+  const relatedBox = related.length ? `<section class="related"><h2 class="ghead">${L.related}</h2><div class="posts">${related.map((x) => articleCard(x, d.lang)).join('')}</div></section>` : '';
+  const sideSub = `<a class="side-box side-yt" href="${SUB_URL}" target="_blank" rel="noopener"><span class="ico" style="background:#FF0000">${icon('play')}</span><span><b>${L.subSide}</b><span>${L.subSideText}</span></span></a>`;
   const dateLine = d.updated && d.updated !== d.date ? `${L.updated} ${fmtDate(d.updated, d.lang)}` : fmtDate(d.date, d.lang);
   const body = `<article class="wrap article">
 <header class="art-head">
@@ -343,15 +371,36 @@ ${alt ? `<a class="other" href="${alt}" hreflang="${d.lang === 'sk' ? 'en' : 'sk
 ${d.tldr ? `<div class="tldr"><span class="cap">${L.tldr}</span><p>${inline(d.tldr)}</p></div>` : ''}
 ${d.html}
 ${prevNext}
+${share}
+${subBox}
 </div>
 <aside class="side">
 ${d.toc.length > 1 ? `<nav class="side-box toc" aria-label="${esc(L.toc)}"><span class="cap">${L.toc}</span>${d.toc.map((h) => `<a href="#${h.id}">${esc(h.text)}</a>`).join('')}</nav>` : ''}
 ${pathBox}
+${sideSub}
 </aside>
 </div>
+${relatedBox}
 </article>`;
-  const jsonld = { '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.description, datePublished: d.date, dateModified: d.updated || d.date, inLanguage: d.lang, author: { '@type': 'Person', name: site.author }, url: site.url + d.url };
-  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt, active: d.section, body, ogType: 'article', jsonld, image: d.cover || (d.video ? `https://i.ytimg.com/vi/${d.video}/hqdefault.jpg` : null) });
+  const image = d.cover || (d.video ? ytThumb(d.video) : null);
+  const imgAbs = image ? (image.startsWith('http') ? image : site.url + image) : site.url + '/img/og-default.jpg';
+  const graph = [
+    { '@type': 'Article', headline: d.title, description: d.description, image: imgAbs, datePublished: d.date, dateModified: d.updated || d.date, inLanguage: d.lang, author: person, publisher: person, url: pageUrl, mainEntityOfPage: pageUrl, articleSection: s[d.lang].name },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: site.name, item: site.url + L.home },
+      { '@type': 'ListItem', position: 2, name: s[d.lang].name, item: site.url + secUrl(d.section, d.lang) },
+      { '@type': 'ListItem', position: 3, name: d.title, item: pageUrl }] },
+  ];
+  if (d.video) {
+    const meta = (site.videos || {})[d.video] || {};
+    const caption = (d.html.match(new RegExp(`data-yt="${d.video}"[\\s\\S]*?<figcaption>([\\s\\S]*?)</figcaption>`)) || [])[1];
+    graph.push({ '@type': 'VideoObject', name: meta[d.lang] || (site.latestVideo?.id === d.video ? site.latestVideo[d.lang] : d.title),
+      description: caption ? caption.replace(/<[^>]+>/g, '').trim() : d.description, thumbnailUrl: [ytThumb(d.video), ytThumb(d.video, 'maxresdefault')],
+      uploadDate: meta.date || d.date, duration: isoDur(meta.len), embedUrl: `https://www.youtube-nocookie.com/embed/${d.video}`, contentUrl: `https://www.youtube.com/watch?v=${d.video}`, author: person });
+  }
+  if (d.faqs?.length) graph.push({ '@type': 'FAQPage', mainEntity: d.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+  const jsonld = { '@context': 'https://schema.org', '@graph': graph };
+  return layout({ lang: d.lang, title: d.title, description: d.description, url: d.url, alt, active: d.section, body, ogType: 'article', jsonld, image });
 }
 
 function plainPage(d) {
@@ -393,7 +442,7 @@ pages.set('/404.html', notFound());
 const urls = [...pages.keys()].filter((k) => k.endsWith('index.html')).map((k) => k.replace(/index\.html$/, ''));
 pages.set('/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `<url><loc>${site.url}${u}</loc></url>`).join('\n')}
+${urls.map((u) => { const d = docs.find((x) => x.url === u); const lm = d && (d.updated || d.date); return `<url><loc>${site.url}${u}</loc>${lm ? `<lastmod>${lm}</lastmod>` : ''}</url>`; }).join('\n')}
 </urlset>
 `);
 pages.set('/polls.json', JSON.stringify(POLLS));

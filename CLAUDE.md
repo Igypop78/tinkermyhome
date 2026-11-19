@@ -35,6 +35,12 @@ cover: /img/foto.jpg    # voliteľné – vlastná fotka na kartu (súbor do sta
 Titulka karty: `cover:` → inak miniatúra prvého `::youtube` videa (na úvode nie, ak je to `latestVideo`) → inak vygenerovaná „Linka“ (farba a ikona sekcie, vzor podľa `id`).
 
 Markdown: `##` nadpisy (tvoria obsah), tabuľky, ```` ```yaml nazov.yaml ```` (blok s tlačidlom Kopírovať), rámčeky `:::me Ako to mám ja` / `:::tip` / `:::info` / `:::warn` … `:::`.
+Časté otázky: `:::faq Časté otázky` + riadky `? Otázka` a pod nimi odpoveď … `:::` (rozbaľovacie otázky + FAQPage pre Google/AI). Ku každému novému článku 2–4 otázky, len z faktov v článku.
+
+Pod každým článkom sa automaticky zobrazí zdieľanie, blok s odberom YouTube (+ `latestVideo`, ak článok nemá vlastné video) a 3 súvisiace články. Video v článku (`::youtube`) dostane VideoObject – dátum zverejnenia videa doplň do `site.videos` v `site.config.mjs`.
+
+## Rast návštevnosti
+Plán, témy s potenciálom a scenáre videí sú v `rast/` (nenasadzuje sa). Pri novom článku: kľúčové slovo v `title`, prvej vete a jednom `##`; 2–3 interné odkazy na staršie články a jeden starší článok doplniť o odkaz na nový.
 
 ## Štýl písania
 - Tykanie, priateľsky, konkrétne. Krátke odseky, žiadna vata.

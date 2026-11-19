@@ -248,3 +248,35 @@ a.post:hover { transform: translateY(-2px); }
 .poll-opt.mine .poll-t { font-weight: 700; }
 .poll-foot { margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px !important; color: var(--muted); }
 .poll-show { border: 0; background: none; color: var(--acc); font: 500 14px var(--font); cursor: pointer; padding: 6px 0; }
+/* zdieľanie, odber YouTube, súvisiace články, časté otázky */
+.share { margin-top: 3em !important; display: flex; flex-direction: column; gap: 6px; }
+.share .cap { margin: 0; }
+.prose .share-txt { margin: 0; font-size: 15px; color: var(--muted); }
+.share-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: var(--card); color: var(--ink); font: 500 15px var(--font); text-decoration: none; cursor: pointer; }
+.chip:hover { color: var(--acc); }
+.subbox { margin-top: 2em !important; background: var(--card); border-radius: 18px; padding: 22px 24px; display: grid; gap: 20px; align-items: center; }
+@media (min-width: 700px) { .subbox { grid-template-columns: 1fr 240px; } }
+.subbox .cap { color: #FF0000; }
+.prose .sub-h { margin: 4px 0 6px; font-size: 22px; }
+.subbox p { margin: 0 0 14px; color: var(--muted); font-size: 16px; }
+.btn.yt-sub { background: #FF0000; color: #fff; gap: 10px; min-height: 46px; padding: 0 20px; }
+.sub-vid { display: flex; flex-direction: column; gap: 8px; color: var(--ink); text-decoration: none; }
+.sub-vid .cover { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0f1114; color: #fff; }
+.sub-vid .cover img { width: 100%; height: 100%; object-fit: cover; margin: 0; border-radius: 0; }
+.sub-vid .yt-badge { position: absolute; right: 10px; bottom: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,.65); display: flex; align-items: center; justify-content: center; }
+.sub-vt { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--muted); }
+.sub-vt b { color: var(--ink); font-size: 15px; }
+.sub-vid:hover b { color: var(--acc); }
+.side-yt { flex-direction: row; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.side-yt .ico { flex: none; }
+.side-yt > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.side-yt > span:last-child span { color: var(--muted); font-size: 14px; }
+.side-yt:hover b { color: var(--acc); }
+.related { margin-top: 48px; }
+.faq details { background: var(--card); border-radius: 14px; padding: 14px 18px; }
+.faq details + details { margin-top: 8px; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq details[open] summary { margin-bottom: 8px; }
+.faq details > p { margin: 0; }
+@media print { .share, .subbox, .related, .side-yt { display: none !important; } }
