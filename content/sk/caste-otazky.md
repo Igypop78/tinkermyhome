@@ -52,6 +52,8 @@ U mňa ani raz. Bál som sa toho najviac a zbytočne. → [Život s elektromobil
 :::faq Home Assistant a smart dom
 ? Zigbee, WiFi, Z-Wave alebo Matter?
 WiFi máš zadarmo, ale pri desiatkach zariadení potrebuješ dobrý router. Zigbee a Z-Wave sú stavané pre smart home a potrebujú adaptér. Matter je ešte mladý – ja sa mu zatiaľ vyhýbam. Rozhodni sa na začiatku. → [Zigbee, WiFi, Z-Wave alebo Matter](/zacni-tu/zigbee-wifi-zwave-matter/)
+? Ktoré automatizácie sa naozaj oplatia?
+U nás tie, ktoré **strážia a upozornia**: otvorená mraznička, tečúca voda, výpadok elektriny, zvonček s fotkou na mobil. K tomu kúrenie izba po izbe, digestor, ktorý sa zapne sám, a brána, ktorá sa otvorí pri príchode. Automatické svetlá len tam, kde to dáva zmysel. → [7 automatizácií, ktoré u nás naozaj fungujú](/moj-dom/najlepsie-automatizacie/)
 ? Prečo smart žiarovka nefunguje, keď ju vypnem vypínačom?
 Potrebuje prúd stále. Najlepšie je nechať ju pod prúdom a z vypínača spraviť len tlačidlo – alebo použiť smart relé s odpojeným vstupom. → [Smart žiarovka a vypínač](/zacni-tu/smart-ziarovka-a-vypinac/)
 ? Čo je ESP32 a potrebujem vedieť programovať?

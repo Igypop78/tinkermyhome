@@ -53,7 +53,7 @@ Dve veci, ktoré je ľahké odložiť a ťažké dobehnúť:
 - **Záloha mimo zariadenia** – na iný počítač, NAS alebo do cloudu. Centrála sa môže pokaziť tiež.
 - **Názvy podľa jednej schémy** – napríklad `sensor.kupelna_dole_teplota` (`doména.miestnosť_zariadenie_veličina`). Keď zariadení pribudnú desiatky, poďakuješ si.
 
-Potom už pridávaj **zariadenie po zariadení**. Pri každom sa opýtaj, či ho naozaj budeš používať.
+Potom už pridávaj **zariadenie po zariadení**. Pri každom sa opýtaj, či ho naozaj budeš používať. Inšpiráciu, ktoré automatizácie sa oplatia, nájdeš v článku [7 automatizácií, ktoré u nás naozaj fungujú](/moj-dom/najlepsie-automatizacie/).
 
 ## Čomu sa vyhnúť: 8 chýb
 

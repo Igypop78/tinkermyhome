@@ -50,6 +50,8 @@ Yes. I have a SmartEVSE wallbox, and in AI mode my AI Energy integration picks t
 :::faq Home Assistant and the smart home
 ? Zigbee, WiFi, Z-Wave or Matter?
 WiFi is free, but with dozens of devices you need a good router. Zigbee and Z-Wave are built for smart homes and need an adapter. Matter is still young – I avoid it for now. Decide at the start. → [Zigbee, WiFi, Z-Wave or Matter](/en/start-here/zigbee-wifi-zwave-matter/)
+? Which automations are really worth it?
+For us, the ones that **watch and warn**: an open freezer, running water, a power outage, a doorbell with a photo on the phone. Plus room-by-room heating, a cooker hood that turns on by itself and a gate that opens when we arrive. Automatic lights only where they make sense. → [7 automations that really work in our house](/en/my-home/best-automations/)
 ? Why does my smart bulb stop working when I flip the wall switch?
 It needs power all the time. Best is to keep it powered and turn the switch into a button – or use a smart relay with a detached input. → [Smart bulb and wall switch](/en/start-here/smart-bulb-and-wall-switch/)
 ? What is an ESP32 and do I need to code?

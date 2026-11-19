@@ -53,7 +53,7 @@ Two things that are easy to postpone and hard to catch up on:
 - **A backup off the device** – to another computer, a NAS or the cloud. The hub can fail too.
 - **Names following one scheme** – for example `sensor.bathroom_downstairs_temperature` (`domain.room_device_quantity`). Once you have dozens of devices, you'll thank yourself.
 
-Then add **one device at a time**. With each one, ask yourself whether you'll really use it.
+Then add **one device at a time**. With each one, ask yourself whether you'll really use it. For ideas on which automations are worth it, see [7 automations that really work in our house](/en/my-home/best-automations/).
 
 ## What to avoid: 8 mistakes
 
