@@ -14,7 +14,21 @@ Today I would start by **metering electricity, water and gas**. It shows where e
 ? What's the best hardware to run Home Assistant on?
 For beginners I recommend **Home Assistant OS** on a dedicated always-on device – Home Assistant Green, a mini PC or a Raspberry Pi. Performance doesn't matter much, power draw does. Mine runs as a virtual machine on an HP mini PC with Proxmox, but leave that for later. → [Installing Home Assistant](/en/start-here/installing-home-assistant/)
 ? Which device brand do you recommend?
-[DOPLNIŤ]
+I don't stick to one brand – I pick by device type. This is what I've tested at home:
+
+- **Shelly (modules)** – excellent. The first generations had capacitor problems and died after 2–3 years, the newer ones are versatile and reliable: WiFi and Zigbee, local control without the cloud and a great price. **Battery-powered Shelly** devices didn't work out for me, though.
+- **Aqara (battery sensors)** – temperature, motion, doors and windows. Small, good-looking, reliable and the batteries last incredibly long.
+- **IKEA** – best value and great bulbs (light output). But pairing is a pain, stability is occasionally an issue, and battery devices drop out and eat batteries. Since 2025 new products are Matter only.
+- **Sonoff** – great value and a huge range of modules for both WiFi and Zigbee.
+- **Fibaro (Z-Wave)** – the modules from my very first install still work, not a single one has died. They're pricier.
+- **ESP32** (ESP32-C6 mini, ESP32 WROOM and similar) – made for DIY home projects.
+- **Radiator valves: Tado X** – quiet, rechargeable batteries, beautiful design and controls. Pricier, Matter only and they need their bridge. Aqara, Tuya and Popp/Danfoss all ended up in the bin for me.
+- **WiFi network:** **UniFi**, no question.
+- **Cameras:** Hikvision and Aqara G5 – both do colour night vision, Hikvision has more settings.
+- **Lidl** – they work but are rather bulky. The exception is the doorbell button: weatherproof, it's been outside in sun and rain for over 2 years and still works.
+- **Tuya** – never clicked with me. Even though local control is possible, most devices push a cloud connection.
+
+→ [Zigbee, WiFi, Z-Wave or Matter](/en/start-here/zigbee-wifi-zwave-matter/) · [Smart heating](/en/my-home/smart-heating/)
 :::
 
 :::faq Solar and battery

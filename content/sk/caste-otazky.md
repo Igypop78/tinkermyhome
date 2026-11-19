@@ -14,7 +14,21 @@ Ja by som dnes začal **meraním elektriny, vody a plynu**. Ukáže, kam energia
 ? Na čom je najlepšie bežať Home Assistant?
 Začiatočníkovi odporúčam **Home Assistant OS** na samostatnom zariadení, ktoré beží stále – Home Assistant Green, mini PC alebo Raspberry Pi. Výkon nie je dôležitý, spotreba áno. Mne beží ako virtuálny stroj na HP mini PC s Proxmoxom, ale to nechaj na neskôr. → [Inštalácia Home Assistanta](/zacni-tu/instalacia-home-assistanta/)
 ? Ktorú značku zariadení odporúčaš?
-[DOPLNIŤ]
+Neviažem sa na jednu značku – vyberám podľa typu zariadenia. Toto mám doma vyskúšané:
+
+- **Shelly (moduly)** – výborné. Prvé generácie mali problém s kondenzátormi a odišli po 2–3 rokoch, novšie sú univerzálne a spoľahlivé: WiFi aj Zigbee, lokálne ovládanie bez cloudu a super cena. **Batériové Shelly** mi však nesadli.
+- **Aqara (batériové senzory)** – teplota, pohyb, dvere a okná. Malé, pekné, funkčné a batérie vydržia neuveriteľne dlho.
+- **IKEA** – najlepšia cena, výborné žiarovky (svietivosť). Ale párovanie je trápenie, občas nestabilita a batériové zariadenia vypadávajú a žerú batérie. Novinky od roku 2025 sú už len Matter.
+- **Sonoff** – super pomer cena/výkon a obrovský výber modulov na WiFi aj Zigbee.
+- **Fibaro (Z-Wave)** – moduly z mojej prvej inštalácie fungujú dodnes, neodišiel ani jeden. Sú drahšie.
+- **ESP32** (ESP32-C6 mini, ESP32 WROOM a pod.) – na domáce kutilské projekty ako stvorené.
+- **Hlavice na radiátory: Tado X** – tiché, nabíjateľné batérie, krásny dizajn aj ovládanie. Drahšie, len Matter a treba ich bránu. Aqara, Tuya aj Popp/Danfoss u mňa skončili v koši.
+- **WiFi sieť:** jednoznačne **UniFi**.
+- **Kamery:** Hikvision a Aqara G5 – obe zvládnu nočný režim vo farbe, Hikvision má viac možností nastavenia.
+- **Lidl** – funkčné, ale dosť objemné. Výnimka je tlačidlo zvončeka: odolné voči počasiu, visí vonku na slnku aj daždi vyše 2 roky a funguje.
+- **Tuya** – mne nikdy nesadla. Aj keď sa dá ovládať lokálne, väčšina zariadení tlačí pripojenie cez cloud.
+
+→ [Zigbee, WiFi, Z-Wave alebo Matter](/zacni-tu/zigbee-wifi-zwave-matter/) · [Smart kúrenie](/moj-dom/smart-kurenie/)
 :::
 
 :::faq Fotovoltika a batéria
