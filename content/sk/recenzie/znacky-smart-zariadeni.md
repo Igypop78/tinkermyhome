@@ -1,5 +1,6 @@
 ---
 id: brands
+cover: /img/clanky/titulky/znacky.jpg
 title: Značky smart zariadení – čo u mňa vydržalo a čo skončilo v koši
 description: Shelly, Aqara, IKEA, Sonoff, Fibaro, Tado, UniFi, Hikvision, Lidl aj Tuya – moje skúsenosti so značkami smart zariadení po 13 rokoch smart domácnosti. Čo odporúčam, čo s výhradami a čomu sa vyhýbam.
 section: reviews

@@ -1,5 +1,6 @@
 ---
 id: start-avoid
+cover: /img/clanky/titulky/cim-zacat.jpg
 title: Čím začať smart dom a čomu sa vyhnúť – 6 krokov a 8 chýb
 description: Čím začať smart dom krok za krokom – od centrály a protokolu cez meranie spotreby až po prvé svetlá – a 8 chýb, ktoré ma za 13 rokov stáli najviac času a peňazí.
 section: start

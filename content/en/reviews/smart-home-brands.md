@@ -1,5 +1,6 @@
 ---
 id: brands
+cover: /img/clanky/titulky/znacky.jpg
 title: Smart home brands – what lasted in my house and what ended up in the bin
 description: Shelly, Aqara, IKEA, Sonoff, Fibaro, Tado, UniFi, Hikvision, Lidl and Tuya – my experience with smart home brands after 13 years of a smart home. What I recommend, what comes with caveats and what I avoid.
 section: reviews

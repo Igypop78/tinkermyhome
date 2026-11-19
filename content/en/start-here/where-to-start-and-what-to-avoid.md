@@ -1,5 +1,6 @@
 ---
 id: start-avoid
+cover: /img/clanky/titulky/cim-zacat.jpg
 title: Where to start a smart home and what to avoid – 6 steps and 8 mistakes
 description: How to start a smart home step by step – from the hub and protocol through energy metering to the first lights – and the 8 mistakes that cost me the most time and money in 13 years.
 section: start
