@@ -118,7 +118,7 @@ I probably have the most expensive solar system in the neighbourhood if I count 
 | Battery ~34 kWh | €3,500 |
 | K2 mounting system | ~€1,000 |
 | Cables and the rest | ~€300 (estimate) |
-| **Total** | **~€8,200** |
+| **Total** | **~€8,000** |
 | Labour | priceless 🙂 |
 
 :::warn The price assumes DIY installation

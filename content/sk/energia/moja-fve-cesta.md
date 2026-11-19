@@ -122,7 +122,7 @@ Mám asi najdrahšiu FVE v okolí, keď zarátam všetky predchádzajúce kolá 
 | Batéria ~34 kWh | 3 500 € |
 | Konštrukcia K2 | ~1 000 € |
 | Káble a ostatné | ~300 € (odhad) |
-| **Spolu** | **~8 200 €** |
+| **Spolu** | **~8 000 €** |
 | Práca | na nezaplatenie 🙂 |
 
 :::warn Cena platí pri vlastnej montáži
