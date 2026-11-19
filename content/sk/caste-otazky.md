@@ -10,7 +10,7 @@ Na tieto otázky odpovedám najčastejšie. Odpovede sú krátke a z nášho dom
 
 :::faq Kde začať
 ? Čím začať?
-Ja by som dnes začal **meraním elektriny, vody a plynu**. Ukáže, kam energia ide, prezradí, čo práve beží, postráži dom, keď nikto nie je doma, a nájde aj únik vody. → [Začni meraním spotreby](/energia/zacni-meranim-spotreby/) · celý postup v 6 krokoch: [Čím začať smart dom](/zacni-tu/cim-zacat-a-comu-sa-vyhnut/)
+Ja by som dnes začal **meraním elektriny, vody a plynu**. Ukáže, kam energia ide, prezradí, čo práve beží, postráži dom, keď nikto nie je doma, a nájde aj únik vody. → [Začni meraním spotreby](/energia/zacni-meranim-spotreby/) · celý postup v 6 krokoch: [Čím začať a čomu sa vyhnúť](/zacni-tu/cim-zacat-a-comu-sa-vyhnut/)
 ? Na čom je najlepšie bežať Home Assistant?
 Začiatočníkovi odporúčam **Home Assistant OS** na samostatnom zariadení, ktoré beží stále – Home Assistant Green, mini PC alebo Raspberry Pi. Výkon nie je dôležitý, spotreba áno. Mne beží ako virtuálny stroj na HP mini PC s Proxmoxom, ale to nechaj na neskôr. → [Inštalácia Home Assistanta](/zacni-tu/instalacia-home-assistanta/)
 ? Ktorú značku zariadení odporúčaš?

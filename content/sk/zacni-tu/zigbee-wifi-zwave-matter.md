@@ -98,4 +98,4 @@ Zigbee (cez Zigbee2MQTT) aj Z-Wave mi obsluhuje jeden multi-radio adaptér SLZB-
 
 Ktoré značky zariadení mi doma vydržali a ktoré skončili v koši, som spísal v článku [Značky smart zariadení](/recenzie/znacky-smart-zariadeni/).
 
-V ďalšej časti: [Čím začať smart dom a čomu sa vyhnúť](/zacni-tu/cim-zacat-a-comu-sa-vyhnut/).
+V ďalšej časti: [Čím začať a čomu sa vyhnúť pri smart domácnosti](/zacni-tu/cim-zacat-a-comu-sa-vyhnut/).

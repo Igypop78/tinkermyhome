@@ -1,7 +1,7 @@
 ---
 id: start-avoid
 cover: /img/clanky/titulky/cim-zacat.jpg
-title: Where to start a smart home and what to avoid – 6 steps and 8 mistakes
+title: Where to start and what to avoid with a smart home – 6 steps and 8 mistakes
 description: How to start a smart home step by step – from the hub and protocol through energy metering to the first lights – and the 8 mistakes that cost me the most time and money in 13 years.
 section: start
 level: 1
@@ -12,11 +12,11 @@ slug: where-to-start-and-what-to-avoid
 tldr: Start with **a hub and one protocol**, then **energy metering**, and only then lights via **relays behind the wall switch**. From day one, **back up** and **name things properly**. Avoid cloud-only devices, removing wall switches, automating everything and cheap battery devices. And if it doesn't work the first time, don't give up – I gave up on Home Assistant twice.
 ---
 
-You've done the first three parts: you know [what Home Assistant is](/en/start-here/home-assistant-explained/), [what to run it on](/en/start-here/installing-home-assistant/) and [which language devices speak](/en/start-here/zigbee-wifi-zwave-matter/). Now comes the question I get most often: **where do you start a smart home?**
+You've done the first three parts: you know [what Home Assistant is](/en/start-here/home-assistant-explained/), [what to run it on](/en/start-here/installing-home-assistant/) and [which language devices speak](/en/start-here/zigbee-wifi-zwave-matter/). Now comes the question I get most often: **where do you start with a smart home?**
 
 My answer comes from experience. I've had a smart home since 2013, and in that time I've gone through five hubs and made almost every mistake there is. Here's the order I'd choose today, and the mistakes to avoid.
 
-## Where to start a smart home: 6 steps
+## Where to start with a smart home: 6 steps
 
 ### 1. Be sure you actually want one
 

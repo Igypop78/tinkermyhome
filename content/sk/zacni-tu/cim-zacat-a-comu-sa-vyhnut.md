@@ -1,8 +1,8 @@
 ---
 id: start-avoid
 cover: /img/clanky/titulky/cim-zacat.jpg
-title: Čím začať smart dom a čomu sa vyhnúť – 6 krokov a 8 chýb
-description: Čím začať smart dom krok za krokom – od centrály a protokolu cez meranie spotreby až po prvé svetlá – a 8 chýb, ktoré ma za 13 rokov stáli najviac času a peňazí.
+title: Čím začať a čomu sa vyhnúť pri smart domácnosti – 6 krokov a 8 chýb
+description: Čím začať pri smart domácnosti krok za krokom – od centrály a protokolu cez meranie spotreby až po prvé svetlá – a 8 chýb, ktoré ma za 13 rokov stáli najviac času a peňazí.
 section: start
 level: 1
 step: 4
@@ -12,11 +12,11 @@ slug: cim-zacat-a-comu-sa-vyhnut
 tldr: Začni **centrálou a jedným protokolom**, potom **meraním spotreby** a až potom svetlami cez **relé za vypínačom**. Od prvého dňa **zálohuj** a **pomenúvaj poriadne**. Vyhni sa zariadeniam len cez cloud, rušeniu vypínačov, automatizovaniu všetkého a lacným batériovým zariadeniam. A ak to prvýkrát nepôjde, nevzdávaj sa – ja som Home Assistant vzdal dvakrát.
 ---
 
-Máš za sebou prvé tri časti: vieš, [čo je Home Assistant](/zacni-tu/home-assistant-pre-zaciatocnikov/), [na čom ho spustiť](/zacni-tu/instalacia-home-assistanta/) a [akým jazykom sa zariadenia rozprávajú](/zacni-tu/zigbee-wifi-zwave-matter/). Teraz príde otázka, ktorú dostávam najčastejšie: **čím začať smart dom?**
+Máš za sebou prvé tri časti: vieš, [čo je Home Assistant](/zacni-tu/home-assistant-pre-zaciatocnikov/), [na čom ho spustiť](/zacni-tu/instalacia-home-assistanta/) a [akým jazykom sa zariadenia rozprávajú](/zacni-tu/zigbee-wifi-zwave-matter/). Teraz príde otázka, ktorú dostávam najčastejšie: **čím začať pri smart domácnosti?**
 
 Odpoveď mám z vlastnej skúsenosti. Smart domácnosť mám od roku 2013 a za ten čas som vystriedal päť centrál a spravil skoro každú chybu, ktorá sa dá spraviť. Tu je poradie, ktoré by som dnes zvolil, a chyby, ktorým sa vyhni.
 
-## Čím začať smart dom: 6 krokov
+## Čím začať pri smart domácnosti: 6 krokov
 
 ### 1. Ujasni si, či ho naozaj chceš
 

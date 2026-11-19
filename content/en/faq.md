@@ -10,7 +10,7 @@ These are the questions I get asked most. The answers are short and come from ou
 
 :::faq Where to start
 ? Where should I start?
-Today I would start by **metering electricity, water and gas**. It shows where energy goes, tells you what is running right now, keeps an eye on the house when nobody's home and even finds water leaks. → [Start with energy metering](/en/energy/start-with-energy-metering/) · the full plan in 6 steps: [Where to start a smart home](/en/start-here/where-to-start-and-what-to-avoid/)
+Today I would start by **metering electricity, water and gas**. It shows where energy goes, tells you what is running right now, keeps an eye on the house when nobody's home and even finds water leaks. → [Start with energy metering](/en/energy/start-with-energy-metering/) · the full plan in 6 steps: [Where to start and what to avoid](/en/start-here/where-to-start-and-what-to-avoid/)
 ? What's the best hardware to run Home Assistant on?
 For beginners I recommend **Home Assistant OS** on a dedicated always-on device – Home Assistant Green, a mini PC or a Raspberry Pi. Performance doesn't matter much, power draw does. Mine runs as a virtual machine on an HP mini PC with Proxmox, but leave that for later. → [Installing Home Assistant](/en/start-here/installing-home-assistant/)
 ? Which device brand do you recommend?
