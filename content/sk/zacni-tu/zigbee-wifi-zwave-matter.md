@@ -96,4 +96,6 @@ Nemusíš si vybrať len jednu. Home Assistant zvládne všetky naraz a väčši
 Zigbee (cez Zigbee2MQTT) aj Z-Wave mi obsluhuje jeden multi-radio adaptér SLZB-MRW10U. Bluetooth zariadenia chytám cez Bluetooth proxy – malé ESP32 zariadenia, ktoré zachytia signál a pošlú ho do Home Assistanta. Shelly a ďalšie zariadenia idú cez WiFi alebo kábel (LAN). Matter cez Thread zatiaľ obchádzam.
 :::
 
+Ktoré značky zariadení mi doma vydržali a ktoré skončili v koši, som spísal v článku [Značky smart zariadení](/recenzie/znacky-smart-zariadeni/).
+
 V ďalšej časti: **Čím doma začať a čomu sa vyhnúť**.

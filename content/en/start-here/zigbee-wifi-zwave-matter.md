@@ -96,4 +96,6 @@ You don't have to pick just one. Home Assistant handles all of them at once, and
 One SLZB-MRW10U multi-radio adapter handles both Zigbee (via Zigbee2MQTT) and Z-Wave. Bluetooth devices are picked up by Bluetooth proxies – small ESP32 devices that catch the signal and pass it to Home Assistant. Shelly and other devices go over WiFi or cable (LAN). Matter over Thread I'm steering clear of for now.
 :::
 
+Which device brands lasted in my house and which ended up in the bin is in [Smart home brands](/en/reviews/smart-home-brands/).
+
 Next part: **Where to start at home and what to avoid**.
