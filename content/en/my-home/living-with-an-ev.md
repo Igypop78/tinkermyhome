@@ -23,7 +23,7 @@ On longer trips, though, I started wondering what a pure EV would be like. Even 
 
 ## Tesla Model Y RWD
 
-![Our Tesla Model Y – turns out the frunk isn’t just for luggage 🙂](/img/clanky/elektromobil-tesla.jpg)
+![Our Tesla Model Y](/img/clanky/elektromobil-tesla.jpg)
 
 It didn't take long before I decided to go fully electric. Price to performance gave a clear green light to the **Tesla Model Y RWD**. In September 2023 I sat behind its wheel for the first time. It was the **first brand-new car of my life** – until then I had only ever bought used ones.
 

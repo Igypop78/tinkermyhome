@@ -23,7 +23,7 @@ Na dlhších cestách som sa však začal zamýšľať, aké by to bolo s čist�
 
 ## Tesla Model Y RWD
 
-![Naša Tesla Model Y – a frunk má aj iné využitie ako na batožinu 🙂](/img/clanky/elektromobil-tesla.jpg)
+![Naša Tesla Model Y](/img/clanky/elektromobil-tesla.jpg)
 
 Dlho netrvalo a prišlo rozhodnutie ísť do plnohodnotného elektromobilu. Pomer cena/výkon dal jasnú zelenú **Tesle Model Y RWD**. V septembri 2023 som si prvýkrát sadol za jej volant. Bolo to moje **prvé úplne nové auto v živote** – dovtedy som kupoval len jazdené.
 
