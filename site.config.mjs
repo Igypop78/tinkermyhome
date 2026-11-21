@@ -8,10 +8,11 @@ export const site = {
   github: 'https://github.com/Igypop78',
   youtube: 'https://www.youtube.com/@TinkerMyHome',
   // najnovšie video na úvode (sekcia Videá)
-  latestVideo: { id: 'BzZWU2o-ohQ', sk: 'Predaj elektriny na spote: moja cesta a AI Energy', en: 'Selling electricity at spot prices: my journey and AI Energy', len: '8:45' },
+  latestVideo: { id: 'q4zdemKQTMA', sk: '7 automatizácií, ktoré u nás naozaj fungujú – a prečo medzi nimi nie sú svetlá', en: '7 automations that really work in our house – and why lights aren\'t among them', len: '5:59' },
   // údaje o videách pre Google (VideoObject). date = deň zverejnenia na YouTube; bez neho sa použije dátum článku.
   videos: {
     'BzZWU2o-ohQ': { date: '2026-11-10', len: '8:45' },
+    'q4zdemKQTMA': { date: '2026-11-21', len: '5:59' },
   },
   // Cloudflare Web Analytics (bez cookies): token z Cloudflare → Analytics & Logs → Web Analytics → Add a site.
   // Prázdne = skript sa nevkladá (dá sa zapnúť aj automaticky v Cloudflare bez zmeny kódu).
@@ -151,7 +152,7 @@ export const t = {
     tourText: 'Miestnosť po miestnosti: čo kde máme, prečo práve to a čo by sme dnes spravili inak.', tourCta: 'Spustiť prehliadku',
     liveEyebrow: 'Naživo z Home Assistanta', liveText: 'Výroba, batéria a bilancia nášho domu – čísla sa sem posielajú priamo z Home Assistanta každých 5 minút.',
     projects: 'Moje projekty', projectsSub: 'Čo beží u nás doma, môžeš mať aj ty – zadarmo.',
-    ytTitle: 'Videá', ytSub: 'Prvé video je vonku. Odober si kanál, nech ti nič neujde.', ytRow: 'TinkerMyHome na YouTube', ytRowSub: 'Videá zo života nášho domu', youtube: 'YouTube',
+    ytTitle: 'Videá', ytSub: 'Nové video je vonku. Odober si kanál, nech ti nič neujde.', ytRow: 'TinkerMyHome na YouTube', ytRowSub: 'Videá zo života nášho domu', youtube: 'YouTube',
     planned: 'Pripravujem', startMore: 'Ďalšie články nielen pre začiatočníkov', soon: 'čoskoro', articles: 'Články',
     toc: 'Na tejto stránke', updated: 'Aktualizované', published: 'Publikované', readOther: 'Read in English',
     pathOf: (n, m) => `časť ${n} z ${m}`, next: 'Ďalej', prev: 'Späť', copy: 'Kopírovať', copied: 'Skopírované',
@@ -177,7 +178,7 @@ export const t = {
     tourText: 'Room by room: what we have, why we chose it and what we would do differently today.', tourCta: 'Start the tour',
     liveEyebrow: 'Live from Home Assistant', liveText: 'Solar, battery and the balance of our house – the numbers come straight from our Home Assistant every 5 minutes.',
     projects: 'My projects', projectsSub: 'What runs in our house can run in yours – for free.',
-    ytTitle: 'Videos', ytSub: 'The first video is out (in Slovak). Subscribe so you don\'t miss the next ones.', ytRow: 'TinkerMyHome on YouTube', ytRowSub: 'Videos from life in our house', youtube: 'YouTube',
+    ytTitle: 'Videos', ytSub: 'A new video is out (in Slovak). Subscribe so you don\'t miss the next ones.', ytRow: 'TinkerMyHome on YouTube', ytRowSub: 'Videos from life in our house', youtube: 'YouTube',
     planned: 'Coming up', startMore: 'More articles, not just for beginners', soon: 'soon', articles: 'Articles',
     toc: 'On this page', updated: 'Updated', published: 'Published', readOther: 'Čítať po slovensky',
     pathOf: (n, m) => `part ${n} of ${m}`, next: 'Next', prev: 'Back', copy: 'Copy', copied: 'Copied',

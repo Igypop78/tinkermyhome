@@ -15,6 +15,8 @@ When people ask about a smart home, they usually expect lights that switch on by
 
 I have **over 90 automations** in Home Assistant. These are the seven that have proven their worth the most over the years. They all run in Home Assistant and I describe each one the way I have it at home.
 
+::youtube q4zdemKQTMA All 7 automations on video (in Slovak) – live demos, how they are wired and why lights aren't among them.
+
 ## 1. Arrivals and departures – who's home
 
 Home Assistant knows who's home thanks to the **Home Assistant app on the phone** – from its location and from the phone **joining the home WiFi** when we arrive. The **home security** is tied to presence as well.

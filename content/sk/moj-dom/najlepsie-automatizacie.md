@@ -15,6 +15,8 @@ Keď sa ľudia pýtajú na smart dom, väčšinou čakajú svetlá, ktoré sa sa
 
 V Home Assistante mám **vyše 90 automatizácií**. Toto je sedem z nich, ktoré mi za tie roky dokázali, že majú zmysel najviac. Všetky bežia v Home Assistante a každú opíšem tak, ako ju mám doma.
 
+::youtube q4zdemKQTMA Všetkých 7 automatizácií vo videu – ukážky naživo, ako ich mám zapojené a prečo medzi nimi nie sú svetlá.
+
 ## 1. Príchod a odchod – kto je doma
 
 Home Assistant vie, kto je doma, vďaka **aplikácii Home Assistant v mobile** – podľa polohy a toho, že sa mobil po príchode **pripojí na domácu WiFi**. Na prítomnosť je naviazané aj **zabezpečenie domu**.
