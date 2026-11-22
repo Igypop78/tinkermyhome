@@ -78,6 +78,9 @@ for (const lang of site.langs) {
     if (type === 'article') {
       for (const k of ['id', 'section', 'date', 'description']) if (!data[k]) throw new Error(`${rel}: chýba "${k}"`);
       if (!sec(data.section)) throw new Error(`${rel}: neznáma sekcia "${data.section}"`);
+      // also: ďalšie sekcie, kde sa článok zobrazí (adresa ostáva v hlavnej sekcii)
+      data.also = String(data.also || '').split(',').map((x) => x.trim()).filter(Boolean);
+      for (const a of data.also) if (!sec(a)) throw new Error(`${rel}: neznáma sekcia v also "${a}"`);
     }
     const md = markdown(body, { copyLabel: T[lang].copy, linesLabel: T[lang].lines, avatar: avatar(28), poll: T[lang].poll });
     for (const pl of md.polls) {
@@ -301,7 +304,7 @@ ${site.latestVideo ? `<figure class="yt"><a class="yt-play" href="https://www.yo
 
 function sectionPage(s, lang) {
   const L = T[lang];
-  const list = articles(lang).filter((d) => d.section === s.key);
+  const list = articles(lang).filter((d) => d.section === s.key || (d.also || []).includes(s.key));
   let content;
   if (s.key === 'start') {
     const sp = startPath(lang);

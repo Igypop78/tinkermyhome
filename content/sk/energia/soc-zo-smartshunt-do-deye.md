@@ -4,6 +4,7 @@ cover: /img/clanky/titulky/deye-soc.jpg
 title: Tri BMS, jeden Deye – presné SOC a citlivé nabíjanie cez ESP32
 description: Ako som z troch JK BMS a Victron SmartShuntu spravil pre menič Deye jeden „inteligentný BMS“ na ESP32 – presné SOC, limity z článkov, plynulé znižovanie prúdu pri uletenom článku a hotový kód pre ESPHome.
 section: energy
+also: diy
 level: 3
 date: 2026-11-16
 updated: 2026-11-22

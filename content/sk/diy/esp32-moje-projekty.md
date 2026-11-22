@@ -63,7 +63,7 @@ Toto je zoznam vecí, ktoré mi bežia teraz – každý deň, bez zásahu:
 - **Podsvietenie nástenného tabletu** – adresovateľný LED pás okolo displeja, ktorý farbou ukazuje stavy domu, vidno to aj z druhého konca miestnosti.
 - **Klimatizácia Samsung** – staršia jednotka, ktorú výrobca prestal podporovať. S ESP je normálne v HA.
 - **3 × JK BMS cez Bluetooth** – zber dát zo všetkých troch BMS mojich batérií.
-- **SOC z Victron SmartShunt do meniča Deye** – ESP sa meniču tvári ako batéria a posiela mu presný stav nabitia zo SmartShuntu namiesto nepresného odhadu. [Návod so zapojením a kódom](/energia/soc-zo-smartshunt-do-deye/).
+- **Tri BMS a SmartShunt do meniča Deye** – ESP sa meniču tvári ako jedna batéria, posiela mu presný stav nabitia zo SmartShuntu a cez Bluetooth číta tri JK BMS, podľa ktorých plynulo znižuje nabíjací prúd. [Návod so zapojením a kódom](/energia/soc-zo-smartshunt-do-deye/).
 - **„Hlúpy“ digestor ovládaný z varnej dosky (Hob2Hood)** – varná doska vysiela infračervený signál pre digestor, ESP ho zachytí a zapne digestor cez relé.
 - **Meranie spotreby vody a plynu** – na **ESP32-C6**, ktoré je priamo v Zigbee sieti.
 - **Polievanie a filtrácia bazéna.**

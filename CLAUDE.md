@@ -21,6 +21,7 @@ id: deye-soc            # rovnaké v SK aj EN; ak je v planned, nahradí „Prip
 title: …
 description: …          # 1 veta pre Google a sociálne siete
 section: energy         # start | energy | home | diy | ai | reviews | projects
+also: diy               # voliteľné – článok sa ukáže aj v ďalších sekciách (čiarkou), adresa ostáva v hlavnej
 level: 3                # 1 Začiatočník, 2 Pokročilý, 3 Expert
 step: 2                 # len pre sekciu start (poradie v ceste Začni tu)
 date: 2026-11-08

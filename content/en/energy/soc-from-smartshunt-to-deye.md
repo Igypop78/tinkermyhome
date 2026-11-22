@@ -4,6 +4,7 @@ cover: /img/clanky/titulky/deye-soc.jpg
 title: Three BMS, one Deye – accurate SOC and gentle charging with an ESP32
 description: How I turned three JK BMS and a Victron SmartShunt into one “smart BMS” for a Deye inverter on an ESP32 – accurate SOC, limits from the cells, smooth current reduction when a cell runs away, and the full ESPHome code.
 section: energy
+also: diy
 level: 3
 date: 2026-11-16
 updated: 2026-11-22
