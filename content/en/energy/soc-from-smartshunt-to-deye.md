@@ -819,7 +819,8 @@ interval:
           if (ccl > 0) flags |= 0x80;   // charging allowed
           if (dcl > 0) flags |= 0x40;   // discharging allowed
           std::vector<uint8_t> d35c = {flags, 0};
-          id(deye_can)->send_data(0x35C, false, d35c);```
+          id(deye_can)->send_data(0x35C, false, d35c);
+```
 
 Flash the firmware over USB-C the first time, later changes go over Wi-Fi.
 

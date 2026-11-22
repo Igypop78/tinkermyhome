@@ -819,7 +819,8 @@ interval:
           if (ccl > 0) flags |= 0x80;   // nabíjanie povolené
           if (dcl > 0) flags |= 0x40;   // vybíjanie povolené
           std::vector<uint8_t> d35c = {flags, 0};
-          id(deye_can)->send_data(0x35C, false, d35c);```
+          id(deye_can)->send_data(0x35C, false, d35c);
+```
 
 Prvýkrát nahraj firmvér cez USB-C, ďalšie zmeny už idú cez Wi-Fi.
 

@@ -79,7 +79,7 @@ for (const lang of site.langs) {
       for (const k of ['id', 'section', 'date', 'description']) if (!data[k]) throw new Error(`${rel}: chýba "${k}"`);
       if (!sec(data.section)) throw new Error(`${rel}: neznáma sekcia "${data.section}"`);
     }
-    const md = markdown(body, { copyLabel: T[lang].copy, avatar: avatar(28), poll: T[lang].poll });
+    const md = markdown(body, { copyLabel: T[lang].copy, linesLabel: T[lang].lines, avatar: avatar(28), poll: T[lang].poll });
     for (const pl of md.polls) {
       const prev = POLLS[pl.id];
       if (prev && prev.join() !== pl.options.join()) throw new Error(`${rel}: anketa ${pl.id} má iné možnosti ako v druhom jazyku`);
