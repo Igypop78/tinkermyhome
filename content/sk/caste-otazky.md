@@ -35,7 +35,7 @@ Ak môžeš, **raz a poriadne** – kompromisné riešenia ma stáli najviac. Ch
 ? Čo je MRK?
 Maximálna rezervovaná kapacita – koľko výkonu smieš posielať do siete. Určí ti ju distribučka pri pripojení zdroja. Ako súkromná osoba mám **10 kW**. → [Moja FVE cesta](/energia/moja-fve-cesta/)
 ? Prečo menič Deye ukazuje nepresné SOC batérie?
-BMS po týždňoch bez nabitia na 100 % ukazujú stav nabitia, ktorý nesedí s realitou. Presne meria až Victron SmartShunt – ten som do Deye dostal cez ESP32 za 24 €. Zatiaľ je to však riziková verzia, pracujem na lepšej. → [Presné SOC v meniči Deye](/energia/soc-zo-smartshunt-do-deye/)
+BMS po dňoch bez nabitia na 100 % ukazujú stav nabitia, ktorý nesedí s realitou. Presne meria až Victron SmartShunt – ten som do Deye dostal cez ESP32 za 24 €, ktoré zároveň číta všetky tri JK BMS a podľa článkov plynulo znižuje nabíjací prúd. → [Tri BMS, jeden Deye](/energia/soc-zo-smartshunt-do-deye/)
 :::
 
 :::faq Elektromobil

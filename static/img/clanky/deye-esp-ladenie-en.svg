@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" role="img" aria-label="“Deye – sent charge current” chart (redrawn)">
+<text x="40" y="44" font-size="21" fill="#8E8E93" font-weight="700">“Deye – sent charge current” chart (redrawn)</text>
+<text x="40" y="90" font-size="16" fill="#6E6E73" font-weight="700">v1: limit rose every second, BMS data every 10 s</text>
+<text x="40" y="110" font-size="13" fill="#8E8E93">cell 3.60 V → 0 A → voltage drops → +50 A blind → 3.60 V again</text>
+<path d="M70 280 H 960" stroke="#8E8E93" stroke-opacity=".5"/><path d="M70 205.0 H 960" stroke="#8E8E93" stroke-opacity=".15"/><text x="62" y="209.0" font-size="11" fill="#8E8E93" text-anchor="end">100 A</text>
+<path d="M70 130.0 H 960" stroke="#8E8E93" stroke-opacity=".15"/><text x="62" y="134.0" font-size="11" fill="#8E8E93" text-anchor="end">200 A</text>
+<text x="62" y="284" font-size="11" fill="#8E8E93" text-anchor="end">0 A</text>
+<polyline points="70.0,130.0 81.6,130.0 93.1,130.0 104.7,130.0 116.2,130.0 127.8,130.0 139.4,130.0 150.9,130.0 162.5,190.0 174.0,190.0 185.6,190.0 197.1,261.2 208.7,261.2 220.3,261.2 231.8,280.0 243.4,280.0 254.9,280.0 266.5,280.0 278.1,280.0 289.6,280.0 301.2,238.8 312.7,238.8 324.3,238.8 335.8,212.5 347.4,212.5 359.0,212.5 370.5,280.0 382.1,280.0 393.6,280.0 405.2,280.0 416.8,280.0 428.3,280.0 439.9,257.5 451.4,257.5 463.0,257.5 474.5,223.8 486.1,223.8 497.7,223.8 509.2,280.0 520.8,280.0 532.3,280.0 543.9,280.0 555.5,280.0 567.0,280.0 578.6,235.0 590.1,235.0 601.7,235.0 613.2,216.2 624.8,216.2 636.4,216.2 647.9,280.0 659.5,280.0 671.0,280.0 682.6,280.0 694.2,280.0 705.7,280.0 717.3,246.2 728.8,246.2 740.4,246.2 751.9,220.0 763.5,220.0 775.1,220.0 786.6,280.0 798.2,280.0 809.7,280.0 821.3,280.0 832.9,280.0 844.4,280.0 856.0,242.5 867.5,242.5 879.1,242.5 890.6,227.5 902.2,227.5 913.8,227.5 925.3,280.0 936.9,280.0 948.4,280.0 960.0,280.0" fill="none" stroke="#FF3B30" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="40" y="330" font-size="16" fill="#6E6E73" font-weight="700">v3 (simulation): controller with 10 s step, decreases from the sent current</text>
+<text x="40" y="350" font-size="13" fill="#8E8E93">cell settles around 3.50 V, current falls smoothly</text>
+<path d="M70 520 H 960" stroke="#8E8E93" stroke-opacity=".5"/><path d="M70 445.0 H 960" stroke="#8E8E93" stroke-opacity=".15"/><text x="62" y="449.0" font-size="11" fill="#8E8E93" text-anchor="end">100 A</text>
+<path d="M70 370.0 H 960" stroke="#8E8E93" stroke-opacity=".15"/><text x="62" y="374.0" font-size="11" fill="#8E8E93" text-anchor="end">200 A</text>
+<text x="62" y="524" font-size="11" fill="#8E8E93" text-anchor="end">0 A</text>
+<polyline points="70.0,370.0 105.6,370.0 141.2,370.0 176.8,370.0 212.4,400.0 248.0,430.0 283.6,452.5 319.2,467.5 354.8,478.0 390.4,484.8 426.0,490.0 461.6,494.5 497.2,498.2 532.8,501.2 568.4,504.2 604.0,506.5 639.6,508.8 675.2,510.2 710.8,511.8 746.4,513.2 782.0,514.0 817.6,514.8 853.2,515.5 888.8,516.2 924.4,516.2 960.0,517.0" fill="none" stroke="#34C759" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="960" y="568" font-size="12" fill="#8E8E93" text-anchor="end">time →</text>
+</svg>

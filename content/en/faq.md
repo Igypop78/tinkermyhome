@@ -33,7 +33,7 @@ In my view, no. You shouldn't discharge lead-acid below ~50 %, so you really onl
 ? Start small or do it all at once?
 If you can, **do it once and do it right** – compromises cost me the most. Go for the maximum your roof and grid operator allow; the consumption will come. But starting small still beats not starting at all. → [My solar journey](/en/energy/my-solar-journey/)
 ? Why does my Deye inverter show an inaccurate battery SOC?
-After weeks without a full charge, BMS state of charge drifts away from reality. A Victron SmartShunt measures it precisely – I fed it into the Deye with a €24 ESP32 board. It's still a risky version though; I'm working on a better one. → [Accurate SOC in a Deye inverter](/en/energy/soc-from-smartshunt-to-deye/)
+After days without a full charge, BMS state of charge drifts away from reality. A Victron SmartShunt measures it precisely – I fed it into the Deye with a €24 ESP32 board that also reads all three JK BMS and smoothly lowers the charge current based on the cells. → [Three BMS, one Deye](/en/energy/soc-from-smartshunt-to-deye/)
 :::
 
 :::faq Electric car
