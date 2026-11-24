@@ -28,6 +28,10 @@ Menič **Deye SUN-10K-SG04LP3-EU**, batéria LiFePO4 ~34 kWh zložená z troch p
 Mal som dva problémy naraz:
 
 - **SOC z BMS nie je presné.** BMS počíta SOC sčítavaním prúdu a opraví sa až pri nabití na 100 %. V zime sa tam batéria dostane menej často a po pár dňoch číslo s realitou nesedí. **SmartShunt** meria celú banku a je výrazne presnejší aj po týždňoch – lenže Deye ho nepozná.
+
+  ![Rozdiel SOC troch BMS od SmartShuntu počas noci 23.–24. 11. 2026: po nabití na 100 % sa BMS za 3 hodiny znova rozídu o 8 percentuálnych bodov](/img/clanky/soc-drift-bms-sk.svg)
+
+  Takto to vyzerá u mňa: pri 100 % sa všetky tri BMS zosynchronizujú, ale už 3 hodiny po nabití sa rozídu o 8 percentuálnych bodov. Časť rozdielu môže byť skutočná – packy s rôznou kapacitou sa nevybíjajú úplne rovnomerne. Deye však potrebuje jedno číslo za celú banku a to dáva SmartShunt.
 - **JK BMS ku koncu nabíjania prúd neznižuje.** Pošle meniču pevné nabíjacie napätie a pevný prúd. Spomalenie robí až menič v CV fáze – podľa napätia **celej batérie**. Keď jeden článok uletí hore, celá banka je ešte „v pohode“, článok však dôjde až na ochranu BMS (u mňa 3,65 V) a BMS **tvrdo odpojí**. To nie je dobré ani pre články, ani pre tranzistory v BMS.
 
 Na fórach sa navyše často spomínajú problémy Deye s JK BMS cez CAN – napríklad iné meranie napätia v meniči a v BMS alebo reštart absorpcie pri krátkom poklese napätia. Sám som ich neoveroval, ale aj to bol dôvod chcieť mať logiku vo vlastných rukách.

@@ -28,6 +28,10 @@ Inverter **Deye SUN-10K-SG04LP3-EU**, a ~34 kWh LiFePO4 battery made up of three
 I had two problems at once:
 
 - **The BMS SOC isn't accurate.** A BMS calculates SOC by adding up current and only corrects itself at 100 %. In winter the battery gets there less often, and after a few days the number no longer matches reality. The **SmartShunt** measures the whole bank and stays much more accurate even after weeks – but Deye doesn't know it.
+
+  ![SOC difference of three BMS from the SmartShunt over the night of 23–24 Nov 2026: after charging to 100 % the BMS drift 8 percentage points apart within 3 hours](/img/clanky/soc-drift-bms-en.svg)
+
+  This is how it looks at my place: at 100 % all three BMS sync up, but just 3 hours after charging they are 8 percentage points apart again. Part of the difference may be real – packs with different capacities don't discharge perfectly evenly. But Deye needs one number for the whole bank, and the SmartShunt provides it.
 - **The JK BMS doesn't reduce the current at the end of charging.** It sends a fixed charge voltage and a fixed current. The slowdown is done by the inverter in the CV phase – based on the voltage of the **whole battery**. When one cell runs high, the bank is still "fine", but the cell goes all the way to the BMS protection (3.65 V for me) and the BMS **cuts off hard**. That's bad for the cells and for the MOSFETs in the BMS.
 
 Forums also often mention issues between Deye and JK BMS over CAN – for example different voltage readings in the inverter and the BMS, or absorption restarting after a short voltage dip. I haven't verified them myself, but it was another reason to keep the logic in my own hands.
