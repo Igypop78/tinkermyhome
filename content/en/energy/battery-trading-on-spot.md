@@ -6,7 +6,7 @@ description: How my home battery buys electricity at the low tariff and sells it
 section: energy
 level: 3
 date: 2026-11-08
-updated: 2026-11-17
+updated: 2026-11-25
 time: '22:30'
 slug: battery-trading-on-spot
 tldr: Since September I sell electricity at **spot prices** and still buy at a **fixed two-rate tariff**. I charge the battery at the low tariff for €0.12/kWh and sell it in the most expensive 15-minute slots – morning and evening. My integration **AI Energy** plans it and a Home Assistant automation switches the Deye inverter. In September and October electricity earned me **€352**; in July and August, on a virtual battery with 65 % more solar, only **€95**.
@@ -17,7 +17,7 @@ I often hear that a battery for solar is nice to have but will never pay for its
 ::youtube BzZWU2o-ohQ The whole story on video (8:45, in Slovak): from a virtual battery to selling at spot prices, and the AI Energy integration.
 
 :::warn For advanced users
-This article assumes you have solar with a battery, an inverter you can control from Home Assistant, and you know what HACS is. If not, start with the [Start here](/en/start-here/home-assistant-explained/) series.
+This article assumes you have solar with a battery, an inverter you can control from Home Assistant, and you know how to add community integrations to Home Assistant (the Marketplace, HACS in older versions). If not, start with the [Start here](/en/start-here/home-assistant-explained/) series.
 :::
 
 ## How it started
@@ -83,7 +83,7 @@ You see it all on the cards that install with the integration. The Igy Price Act
 - **A solar forecast** – I use Solcast. My real production is about 80 % of the forecast, which is why AI Energy has a correction.
 - **A contract to sell at spot.** I sell through V-elektra and keep buying from ZSE.
 - **A two-rate tariff.** Without a cheap low tariff there's nothing cheap to charge from. Without it you can only sell what the sun produces.
-- **HACS** and the [AI Energy](https://github.com/Igypop78/ai-energy) integration.
+- The [AI Energy](/en/projects/ai-energy/) integration – installed through the Home Assistant **Marketplace** (HACS up to version 2026.10).
 
 ## How Home Assistant switches the Deye
 
@@ -328,7 +328,7 @@ If you have a battery and a two-rate tariff and you're still on a virtual batter
 
 ## Getting started with AI Energy
 
-1. In HACS add the custom repository `https://github.com/Igypop78/ai-energy` (category Integration), download **AI Energy** and restart Home Assistant.
+1. **Settings → Marketplace → Add from link** → paste `https://github.com/Igypop78/ai-energy`, install **AI Energy** and restart Home Assistant. On version 2026.10 or older you do the same through HACS – see the [AI Energy](/en/projects/ai-energy/#installation-step-by-step) article.
 2. **Settings → Devices & services → Add integration → AI Energy.** The wizard guides you step by step: prices, tariff, selling, battery, solar, inverter, car charger and breaker.
 3. At first, leave **Battery control off**. The integration then only recommends, switches nothing, and you see what it would do and why.
 

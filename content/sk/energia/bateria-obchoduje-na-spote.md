@@ -6,7 +6,7 @@ description: Ako moja batéria nakupuje elektrinu v nízkej tarife a predáva ju
 section: energy
 level: 3
 date: 2026-11-08
-updated: 2026-11-17
+updated: 2026-11-25
 time: '22:30'
 slug: bateria-obchoduje-na-spote
 tldr: Od septembra predávam elektrinu za **spotové ceny** a nakupujem stále za **pevnú dvojtarifu**. Batériu v nízkej tarife nabijem za 0,12 €/kWh a predám ju v drahých 15-minútových úsekoch – ráno aj večer. Plánuje to moja integrácia **AI Energy**, menič Deye prepína automatizácia v Home Assistante. Elektrina mi za september a október zarobila **352 €**, v júli a auguste s virtuálnou batériou a o 65 % väčšou výrobou FVE len **95 €**.
@@ -17,7 +17,7 @@ tldr: Od septembra predávam elektrinu za **spotové ceny** a nakupujem stále z
 ::youtube BzZWU2o-ohQ Celý príbeh vo videu (8:45): od virtuálnej batérie k predaju na spote a integrácia AI Energy.
 
 :::warn Pre pokročilých
-Článok predpokladá, že máš FVE s batériou, menič ovládateľný z Home Assistanta a vieš, čo je HACS. Ak nie, začni sériou [Začni tu](/zacni-tu/home-assistant-pre-zaciatocnikov/).
+Článok predpokladá, že máš FVE s batériou, menič ovládateľný z Home Assistanta a vieš, ako sa do Home Assistanta pridávajú komunitné integrácie (Marketplace, v starších verziách HACS). Ak nie, začni sériou [Začni tu](/zacni-tu/home-assistant-pre-zaciatocnikov/).
 :::
 
 ## Čo tomu predchádzalo
@@ -83,7 +83,7 @@ Všetko vidíš na kartách, ktoré sa inštalujú spolu s integráciou. Igy Pri
 - **Predpoveď výroby FVE** – ja používam Solcast. Reálna výroba je u mňa zhruba 80 % predpovede, preto má AI Energy aj korekciu.
 - **Zmluvu na predaj za spot.** Ja predávam cez V-elektru a nakupujem ďalej od ZSE.
 - **Dvojtarifu.** Bez lacnej NT nemáš lacno za čo nabíjať. Bez nej sa dá predávať len to, čo vyrobí slnko.
-- **HACS** a integráciu [AI Energy](https://github.com/Igypop78/ai-energy).
+- Integráciu [AI Energy](/projekty/ai-energy/) – inštaluje sa cez **Marketplace** v Home Assistante (do verzie 2026.10 cez HACS).
 
 ## Ako Home Assistant prepína Deye
 
@@ -328,7 +328,7 @@ Ak máš batériu a dvojtarifu a si zatiaľ na virtuálnej batérii alebo pevnom
 
 ## Ako začať s AI Energy
 
-1. V HACS pridaj vlastný repozitár `https://github.com/Igypop78/ai-energy` (kategória Integration), stiahni **AI Energy** a reštartuj Home Assistant.
+1. **Nastavenia → Marketplace → Pridať z odkazu** (Add from link) → vlož `https://github.com/Igypop78/ai-energy`, nainštaluj **AI Energy** a reštartuj Home Assistant. Na verzii 2026.10 a staršej to isté spravíš cez HACS – postup je v článku [AI Energy](/projekty/ai-energy/#instalacia-krok-za-krokom).
 2. **Nastavenia → Zariadenia a služby → Pridať integráciu → AI Energy.** Sprievodca ťa prevedie krok po kroku: ceny, tarifa, predaj, batéria, FVE, menič, nabíjačka auta a istič.
 3. Na začiatku nechaj **Batéria – riadenie vypnuté**. Integrácia vtedy len odporúča, nič neprepína, a vidíš, čo by robila a prečo.
 
