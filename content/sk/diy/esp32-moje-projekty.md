@@ -112,4 +112,8 @@ Postupne sem pridám návody na moje projekty – s presným zapojením, YAML pr
 - voda-plyn: Meranie vody a plynu
 :::
 
+:::info Prvý návod je vonku
+Anketu vyhralo **meranie vody a plynu** – návod so zapojením, schémami a kódom nájdeš tu: [Meranie vody a plynu cez ESP32](/diy/meranie-vody-a-plynu-esp32/). Hlasovať môžeš ďalej, rozhodne o ďalšom návode.
+:::
+
 Ak máš nápad na niečo, čo by sa dalo s ESP vyriešiť, alebo chceš, aby som sa pozrel na tvoj projekt, [napíš mi](/o-mne/).

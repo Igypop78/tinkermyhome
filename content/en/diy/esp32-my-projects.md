@@ -112,4 +112,8 @@ I will gradually add guides for my projects here – with exact wiring, ESPHome 
 - voda-plyn: Water and gas metering
 :::
 
+:::info The first guide is out
+**Water and gas metering** won the poll – the guide with wiring, diagrams and code is here: [Water and gas metering with an ESP32](/en/diy/water-and-gas-metering-esp32/). Keep voting, it decides the next guide.
+:::
+
 If you have an idea for something ESP could solve, or want me to look at your project, [get in touch](/en/about/).

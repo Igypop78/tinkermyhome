@@ -111,6 +111,8 @@ Installing a meter in the distribution board means working with voltage that kil
 
 ## What's next
 
+If you want to read water and gas straight from the utility meters, the full how-to is in [Water and gas metering with an ESP32](/en/diy/water-and-gas-metering-esp32/).
+
 Continuous metering gives you many more options like these. Just watch it for a while – and the house will start telling you what's going on inside.
 
 :::poll meranie-doma What do you already measure at home?

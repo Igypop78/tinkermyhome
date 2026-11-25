@@ -111,6 +111,8 @@ Montáž merača do rozvádzača je práca s napätím, ktoré zabíja. Ak to ni
 
 ## Čo ďalej
 
+Ak chceš merať vodu a plyn priamo z fakturačných meračov, celý postup je v návode [Meranie vody a plynu cez ESP32](/diy/meranie-vody-a-plynu-esp32/).
+
 Takýchto možností ti priebežné meranie dá oveľa viac. Stačí ho chvíľu pozorovať – a dom ti začne sám rozprávať, čo sa v ňom deje.
 
 :::poll meranie-doma Čo už dnes doma meriaš?
