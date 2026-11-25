@@ -2,10 +2,11 @@
 id: pattern-pilot
 cover: /img/clanky/titulky/pattern-pilot.jpg
 title: Pattern Pilot – Home Assistant, ktorý sa učí, čo robíš ručne, a navrhne automatizácie
-description: Moja HACS integrácia Pattern Pilot sleduje, čo doma robíme ručne, hľadá súvislosti medzi vodou, elektrinou, pohybom a svetlami a navrhne automatizácie s dôkazom z histórie. Všetko lokálne, bez cloudu a bez AI.
+description: Moja integrácia Pattern Pilot pre Home Assistant sleduje, čo doma robíme ručne, hľadá súvislosti medzi vodou, elektrinou, pohybom a svetlami a navrhne automatizácie s dôkazom z histórie. Všetko lokálne, bez cloudu a bez AI.
 section: projects
 level: 2
 date: 2026-11-15
+updated: 2026-11-25
 time: '18:00'
 slug: pattern-pilot
 tldr: Smart dom je smart vtedy, keď veci robí za teba. **Pattern Pilot** je moja integrácia pre Home Assistant, ktorá sleduje, čo doma robíš **ručne**, učí sa súvislosti (voda, elektrina, pohyb, typ dňa) a po pár týždňoch navrhne automatizácie – každú s **dôkazom z vlastnej histórie**. Sama nič nespustí, beží len lokálne. Je zatiaľ **vo vývoji** (verzia 0.2.0), zber dát u mňa beží od 4. novembra.
@@ -37,7 +38,7 @@ Nehľadal som „AI, ktorá vymyslí automatizácie“. Chcel som nástroj, ktor
 
 ## Čo je Pattern Pilot
 
-Pattern Pilot je integrácia pre Home Assistant, ktorú nainštaluješ cez HACS. Sleduje, čo ľudia doma robia ručne, učí sa rutiny a navrhuje automatizácie. Pri každom návrhu ukáže dôkaz z tvojej vlastnej histórie, napríklad „9 z 9 pracovných dní, v spätnom teste 0 zbytočných spustení“. Automatizácia vznikne až po kliknutí na **Prijať**.
+Pattern Pilot je integrácia pre Home Assistant, ktorú nainštaluješ cez Marketplace (v starších verziách cez HACS). Sleduje, čo ľudia doma robia ručne, učí sa rutiny a navrhuje automatizácie. Pri každom návrhu ukáže dôkaz z tvojej vlastnej histórie, napríklad „9 z 9 pracovných dní, v spätnom teste 0 zbytočných spustení“. Automatizácia vznikne až po kliknutí na **Prijať**.
 
 Všetko ostáva doma: žiadny cloud, žiadne veľké jazykové modely (LLM). A nič netreba nastavovať ručne – senzory, počítadlá z Energy panela, sviatky aj počasie si nájde sama.
 
@@ -197,13 +198,13 @@ Pattern Pilot nie je prvý nápad tohto druhu. Férovo, stav k novembru 2026:
 | [Automation Miner](https://github.com/nutstownwarrior/automation_miner) | add-on, hľadá pravidlá a postupnosti v recorderi, rozlišuje kto čo urobil, robí spätný test | koncepčne najbližší a rýchlo sa vyvíja; je to add-on (nie integrácia) a závisí od dĺžky histórie v recorderi |
 | [TaraHome](https://github.com/TaraHome/taraassistant-public) | samostatný „sidecar“, ktorý sleduje akcie v Home Assistante a hľadá návyky | beží mimo HA, nie cez HACS |
 
-Čím je Pattern Pilot iný: je to bežná integrácia cez HACS, má vlastnú dlhú históriu, presne rozlišuje „kto to urobil“ (aj pri oneskorenom Zigbee), funguje bez nastavovania, je v slovenčine aj angličtine a má vlastnú kartu.
+Čím je Pattern Pilot iný: je to bežná komunitná integrácia z Marketplace, má vlastnú dlhú históriu, presne rozlišuje „kto to urobil“ (aj pri oneskorenom Zigbee), funguje bez nastavovania, je v slovenčine aj angličtine a má vlastnú kartu.
 
 ## Inštalácia krok za krokom
 
-Potrebuješ Home Assistant **2025.6** alebo novší (ikona integrácie sa zobrazuje od 2026.3) a nainštalovaný HACS.
+Potrebuješ Home Assistant **2025.6** alebo novší (ikona integrácie sa zobrazuje od 2026.3).
 
-1. **HACS → ⋮ → Custom repositories** → vlož `https://github.com/Igypop78/pattern-pilot`, typ **Integration**.
+1. **Nastavenia → Marketplace → Pridať z odkazu** (Add from link) → vlož `https://github.com/Igypop78/pattern-pilot`. Na verzii 2026.10 a staršej: **HACS → ⋮ → Custom repositories**, typ **Integration**.
 2. Nainštaluj **Pattern Pilot** a reštartuj Home Assistant.
 3. **Nastavenia → Zariadenia a služby → Pridať integráciu → Pattern Pilot**.
 4. Sprievodca má dva kroky:

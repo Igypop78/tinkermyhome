@@ -2,17 +2,17 @@
 id: ha-basics
 cover: /img/clanky/titulky/home-assistant.jpg
 title: Home Assistant pre začiatočníkov: entity, zariadenia, automatizácie a celý ten zvyšok
-description: Integrácia, zariadenie, entita, automatizácia, scéna, aplikácie, HACS, dashboardy a karty – vysvetlené jednoducho, na príkladoch z reálneho domu.
+description: Integrácia, zariadenie, entita, automatizácia, scéna, aplikácie, Marketplace (HACS), dashboardy a karty – vysvetlené jednoducho, na príkladoch z reálneho domu.
 section: start
 level: 1
 step: 1
 date: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-25
 slug: home-assistant-pre-zaciatocnikov
 tldr: **Integrácia** sa spojí s tvojím hardvérom a vytvorí **zariadenia**. Každé zariadenie má **entity** – jednotlivé hodnoty a ovládače. **Automatizácie** na entity reagujú, **scény** nastavia veľa entít naraz a **dashboardy** ich ukazujú na **kartách**. Keď pochopíš týchto pár slov, zvyšok Home Assistanta dáva zmysel.
 ---
 
-Keď prvýkrát otvoríš Home Assistant, zasype ťa slovami: integrácie, entity, pomocníci, scény, skripty, HACS, karty… Netreba sa ich učiť naspamäť. Stačí pochopiť, ako do seba zapadajú – a na to ti stačí jeden obrázok v hlave.
+Keď prvýkrát otvoríš Home Assistant, zasype ťa slovami: integrácie, entity, pomocníci, scény, skripty, Marketplace, karty… Netreba sa ich učiť naspamäť. Stačí pochopiť, ako do seba zapadajú – a na to ti stačí jeden obrázok v hlave.
 
 ## Celé to v jednom riadku
 
@@ -51,7 +51,7 @@ Rovnako to funguje aj pri malom senzore: integrácia Zigbee2MQTT nájde pohybov�
 | Skript | Postupnosť krokov, ktorú spustíš jedným príkazom | Odchod z domu |
 | Pomocník (helper) | Tvoja vlastná virtuálna entita | prepínač „Hostia doma“ |
 | Aplikácie (doplnky) | Ďalšie programy bežiace vedľa HA na tom istom stroji | Mosquitto, Zigbee2MQTT |
-| HACS | Komunitný obchod s neoficiálnymi integráciami a kartami | AI Energy, Igy Cards |
+| Marketplace (predtým HACS) | Komunitný obchod s neoficiálnymi integráciami a kartami | AI Energy, Igy Cards |
 | Dashboard a karta | Obrazovka tvojho domu a jeden blok na nej | prehľad na mobile, karta termostatu |
 
 ### Entita je to najdôležitejšie
@@ -89,11 +89,11 @@ actions:
 - **Skript** je recept krok za krokom: „zhasni všetko, počkaj minútu, zamkni“. Spustíš ho ty, tlačidlo alebo automatizácia.
 - **Automatizácia** sa spúšťa sama, keď nastane spúšťač.
 
-## Aplikácie a HACS – ako rozšíriť Home Assistant
+## Aplikácie a Marketplace – ako rozšíriť Home Assistant
 
 **Aplikácie** (predtým doplnky) sú samostatné programy, ktoré bežia vedľa Home Assistanta – napríklad MQTT broker Mosquitto alebo Zigbee2MQTT. Máš ich, ak používaš Home Assistant OS.
 
-**HACS** je komunitný obchod. Nájdeš tam integrácie a karty, ktoré nie sú oficiálne – často presne tie, ktoré ti chýbajú. Aj moje [projekty](/projekty/) sa inštalujú cez HACS. Len pozor: čo nie je oficiálne, môže sa po aktualizácii HA pokaziť.
+**Marketplace** je komunitný obchod priamo v Home Assistante (Nastavenia → Marketplace). Nájdeš tam integrácie a karty, ktoré nie sú oficiálne – často presne tie, ktoré ti chýbajú. Do verzie 2026.10 sa volal **HACS** a inštaloval sa zvlášť, preto ho v mnohých návodoch nájdeš pod týmto menom. Aj moje [projekty](/projekty/) sa inštalujú cez Marketplace. Len pozor: čo nie je oficiálne, môže sa po aktualizácii HA pokaziť.
 
 ## Dashboardy a karty
 
@@ -109,7 +109,7 @@ Mám doma okolo 3000 entít a 94 automatizácií. Najviac času mi nezabrala ele
 
 - **Automatizácie na zariadenie namiesto entity.** Spúšťač „zariadenie“ sa viaže na konkrétny kus hardvéru – keď senzor vymeníš, automatizácia prestane fungovať. Spúšťač na entitu stačí premenovať.
 - **Nechané predvolené názvy** typu `sensor.0x00158d0001_temperature`. Za mesiac nebudeš vedieť, čo to je.
-- **Dvadsať vecí z HACS v prvom týždni.** Začni bez nich a pridávaj, až keď niečo naozaj chýba.
+- **Dvadsať vecí z Marketplace v prvom týždni.** Začni bez nich a pridávaj, až keď niečo naozaj chýba.
 - **Žiadna záloha** pred prvou veľkou aktualizáciou. Zapni si automatické zálohy a aspoň jednu drž mimo počítača s HA.
 - **Všetko naraz.** Začni jednou miestnosťou a jednou automatizáciou, ktorá ti reálne pomáha.
 

@@ -6,6 +6,7 @@ description: How to automate heating in Home Assistant with district heating, yo
 section: home
 level: 2
 date: 2026-11-16
+updated: 2026-11-25
 time: '21:00'
 slug: smart-heating
 tldr: 'Well-tuned heating **raises comfort and lowers costs** – and it can even rescue a badly designed system where one room is always cold. How to do it depends mainly on the **heat source**: district heating and room heaters are the easiest to automate, **your own boiler is the tricky one**, because you have to control it too. Below is how I do it at home: **temperatures from an ESP over LAN cables, 230 V thermal actuators on relays, the boiler on an ESP relay**, all driven by virtual thermostats in HA. Automations and an open-window blueprint included.'
@@ -275,7 +276,7 @@ Downstairs I also have **electric underfloor heating** as an alternative to gas 
 
 ![Aqara W100 – controller and display in the room](/img/clanky/kurenie-aqara-w100.jpg)
 
-This is the thermostat card on my dashboard (Slovak UI) – it's `igy-thermostat-card` from my card bundle [Igy Cards](https://github.com/Igypop78/igy-cards) (install via HACS). You can see at a glance which rooms are heating right now (orange), their temperature and the target. The orange strip at the bottom shows **when heating ran in the last 24 hours**. The card can also warn about an open window.
+This is the thermostat card on my dashboard (Slovak UI) – it's `igy-thermostat-card` from my card bundle [Igy Cards](https://github.com/Igypop78/igy-cards) (install via the Marketplace, HACS in older versions). You can see at a glance which rooms are heating right now (orange), their temperature and the target. The orange strip at the bottom shows **when heating ran in the last 24 hours**. The card can also warn about an open window.
 
 ![Thermostat card on the dashboard](/img/clanky/kurenie-karta-termostatov.png)
 

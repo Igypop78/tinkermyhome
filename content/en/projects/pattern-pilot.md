@@ -2,10 +2,11 @@
 id: pattern-pilot
 cover: /img/clanky/titulky/pattern-pilot.jpg
 title: Pattern Pilot – a Home Assistant integration that learns what you do by hand and suggests automations
-description: My HACS integration Pattern Pilot watches what we do manually at home, finds links between water, electricity, motion and lights, and suggests automations backed by your own history. Fully local, no cloud, no AI.
+description: My Home Assistant integration Pattern Pilot watches what we do manually at home, finds links between water, electricity, motion and lights, and suggests automations backed by your own history. Fully local, no cloud, no AI.
 section: projects
 level: 2
 date: 2026-11-15
+updated: 2026-11-25
 time: '18:00'
 slug: pattern-pilot
 tldr: A smart home is smart when it does things for you. **Pattern Pilot** is my Home Assistant integration that watches what you do **by hand**, learns how things connect (water, electricity, motion, type of day) and after a few weeks suggests automations – each with **proof from your own history**. It never acts on its own and runs fully local. It is still **in development** (version 0.2.0); in our house it has been collecting data since November 4.
@@ -37,7 +38,7 @@ I wasn't looking for "AI that invents automations". I wanted a tool that:
 
 ## What Pattern Pilot is
 
-Pattern Pilot is a Home Assistant integration you install via HACS. It watches what people do by hand at home, learns routines and suggests automations. For every suggestion it shows proof from your own history, e.g. "9 of 9 workdays, 0 misfires in the backtest". An automation is only created after you click **Accept**.
+Pattern Pilot is a Home Assistant integration you install via the Marketplace (HACS in older versions). It watches what people do by hand at home, learns routines and suggests automations. For every suggestion it shows proof from your own history, e.g. "9 of 9 workdays, 0 misfires in the backtest". An automation is only created after you click **Accept**.
 
 Everything stays at home: no cloud, no large language models (LLMs). And there's nothing to configure by hand – it finds sensors, Energy dashboard meters, public holidays and weather on its own.
 
@@ -197,13 +198,13 @@ Pattern Pilot isn't the first idea of its kind. To be fair, as of November 2026:
 | [Automation Miner](https://github.com/nutstownwarrior/automation_miner) | add-on that mines rules and sequences from the recorder, knows who did what, backtests | conceptually the closest and evolving fast; it's an add-on (not an integration) and depends on recorder history length |
 | [TaraHome](https://github.com/TaraHome/taraassistant-public) | standalone "sidecar" that watches actions in Home Assistant and detects habits | runs outside HA, not via HACS |
 
-What makes Pattern Pilot different: it's a regular HACS integration, keeps its own long history, precisely tells "who did it" (even with late Zigbee replies), works without configuration, speaks Slovak and English and has its own card.
+What makes Pattern Pilot different: it's a regular community integration from the Marketplace, keeps its own long history, precisely tells "who did it" (even with late Zigbee replies), works without configuration, speaks Slovak and English and has its own card.
 
 ## Installation step by step
 
-You need Home Assistant **2025.6** or newer (the integration icon shows from 2026.3) and HACS installed.
+You need Home Assistant **2025.6** or newer (the integration icon shows from 2026.3).
 
-1. **HACS → ⋮ → Custom repositories** → paste `https://github.com/Igypop78/pattern-pilot`, type **Integration**.
+1. **Settings → Marketplace → Add from link** → paste `https://github.com/Igypop78/pattern-pilot`. On version 2026.10 or older: **HACS → ⋮ → Custom repositories**, type **Integration**.
 2. Install **Pattern Pilot** and restart Home Assistant.
 3. **Settings → Devices & services → Add integration → Pattern Pilot**.
 4. The wizard has two steps:

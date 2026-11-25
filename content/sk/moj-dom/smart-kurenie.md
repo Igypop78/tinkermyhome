@@ -6,6 +6,7 @@ description: Ako zautomatizovať kúrenie v Home Assistante pri centrálnom zdro
 section: home
 level: 2
 date: 2026-11-16
+updated: 2026-11-25
 time: '21:00'
 slug: smart-kurenie
 tldr: 'Dobre nastavené kúrenie **zvýši komfort a zníži náklady** – a vie zachrániť aj zle naprojektované kúrenie, kde je jedna izba stále studená. Ako na to, rozhoduje hlavne **zdroj tepla**: centrálny cudzí zdroj a lokálne kúrenie sa automatizujú najľahšie, **vlastný kotol je oriešok**, lebo treba riadiť aj ten. Nižšie je, ako to mám doma: **teplota z ESP cez LAN káble, termopohony 230 V cez relé, kotol cez ESP relé** a všetko riadia virtuálne termostaty v HA. Aj s automatizáciami a blueprintom na otvorené okno.'
@@ -273,7 +274,7 @@ Dole mám okrem toho **elektrické podlahové kúrenie** ako alternatívu ku ply
 
 ![Aqara W100 – ovládač a displej v izbe](/img/clanky/kurenie-aqara-w100.jpg)
 
-Takto vyzerá karta termostatov na mojom dashboarde – je to `igy-thermostat-card` z môjho balíka kariet [Igy Cards](https://github.com/Igypop78/igy-cards) (inštalácia cez HACS). Hneď vidno, ktoré izby práve kúria (oranžové), aká je v nich teplota a aký je cieľ. Oranžový pás dole ukazuje, **kedy sa kúrilo za posledných 24 hodín**. Karta vie upozorniť aj na otvorené okno.
+Takto vyzerá karta termostatov na mojom dashboarde – je to `igy-thermostat-card` z môjho balíka kariet [Igy Cards](https://github.com/Igypop78/igy-cards) (inštalácia cez Marketplace, v starších verziách cez HACS). Hneď vidno, ktoré izby práve kúria (oranžové), aká je v nich teplota a aký je cieľ. Oranžový pás dole ukazuje, **kedy sa kúrilo za posledných 24 hodín**. Karta vie upozorniť aj na otvorené okno.
 
 ![Karta termostatov na dashboarde](/img/clanky/kurenie-karta-termostatov.png)
 

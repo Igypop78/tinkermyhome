@@ -2,17 +2,17 @@
 id: ha-basics
 cover: /img/clanky/titulky/home-assistant.jpg
 title: Home Assistant explained: devices, entities, automations and the rest
-description: Integration, device, entity, automation, scene, apps, HACS, dashboards and cards – explained simply, with examples from a real house.
+description: Integration, device, entity, automation, scene, apps, Marketplace (HACS), dashboards and cards – explained simply, with examples from a real house.
 section: start
 level: 1
 step: 1
 date: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-25
 slug: home-assistant-explained
 tldr: An **integration** connects to your hardware and creates **devices**. Every device has **entities** – single values and controls. **Automations** react to entities, **scenes** set many of them at once and **dashboards** show them on **cards**. Learn these few words and the rest of Home Assistant makes sense.
 ---
 
-The first time you open Home Assistant, it throws a lot of words at you: integrations, entities, helpers, scenes, scripts, HACS, cards… You don't need to memorise them. You only need to see how they fit together – and one picture in your head is enough for that.
+The first time you open Home Assistant, it throws a lot of words at you: integrations, entities, helpers, scenes, scripts, Marketplace, cards… You don't need to memorise them. You only need to see how they fit together – and one picture in your head is enough for that.
 
 ## The whole thing in one line
 
@@ -51,7 +51,7 @@ It works the same with a small sensor: the Zigbee2MQTT integration finds a motio
 | Script | A sequence of steps you run with one command | Leaving home |
 | Helper | Your own virtual entity | a "Guests at home" toggle |
 | Apps (add-ons) | Extra programs running next to HA on the same machine | Mosquitto, Zigbee2MQTT |
-| HACS | Community store for unofficial integrations and cards | AI Energy, Igy Cards |
+| Marketplace (formerly HACS) | Community store for unofficial integrations and cards | AI Energy, Igy Cards |
 | Dashboard and card | A screen of your home and one block on it | phone overview, thermostat card |
 
 ### The entity is what matters most
@@ -89,11 +89,11 @@ actions:
 - A **script** is a recipe, step by step: "turn everything off, wait a minute, lock the door". You, a button or an automation starts it.
 - An **automation** starts by itself when its trigger fires.
 
-## Apps and HACS – how to extend Home Assistant
+## Apps and the Marketplace – how to extend Home Assistant
 
 **Apps** (formerly add-ons) are separate programs that run next to Home Assistant – for example the Mosquitto MQTT broker or Zigbee2MQTT. You have them if you run Home Assistant OS.
 
-**HACS** is a community store. It has integrations and cards that are not official – often exactly the ones you are missing. My own [projects](/en/projects/) install through HACS too. Just keep in mind: anything unofficial can break after an HA update.
+The **Marketplace** is a community store built right into Home Assistant (Settings → Marketplace). It has integrations and cards that are not official – often exactly the ones you are missing. Up to version 2026.10 it was called **HACS** and installed separately, so many guides still use that name. My own [projects](/en/projects/) install through the Marketplace too. Just keep in mind: anything unofficial can break after an HA update.
 
 ## Dashboards and cards
 
@@ -109,7 +109,7 @@ I have around 3,000 entities and 94 automations at home. What took me the most t
 
 - **Automations on a device instead of an entity.** A device trigger is tied to one specific piece of hardware – replace the sensor and the automation stops working. An entity trigger only needs renaming.
 - **Keeping default names** like `sensor.0x00158d0001_temperature`. In a month you won't know what it is.
-- **Twenty things from HACS in week one.** Start without any and add them only when something is really missing.
+- **Twenty things from the Marketplace in week one.** Start without any and add them only when something is really missing.
 - **No backup** before the first big update. Turn on automatic backups and keep at least one off the HA machine.
 - **Everything at once.** Start with one room and one automation that actually helps you.
 

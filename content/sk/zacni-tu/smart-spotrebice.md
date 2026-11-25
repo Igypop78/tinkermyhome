@@ -6,6 +6,7 @@ description: Pri kúpe práčky, umývačky či klimatizácie sa oplatí pozrie�
 section: start
 level: 1
 date: 2026-11-08
+updated: 2026-11-25
 time: '21:40'
 slug: smart-spotrebice
 tldr: Konektivita je dnes bežná súčasť spotrebičov a oplatí sa na ňu myslieť aj vtedy, keď ešte smart home nemáš. Pred kúpou si však **over, či sa spotrebič dá integrovať do Home Assistanta** – veľa „smart“ spotrebičov je uzavretých a pre zvyšok domu nepoužiteľných.
@@ -28,7 +29,7 @@ Tu je háčik. Veľa spotrebičov má uzavreté riešenie, ktoré sa nedá jedno
 
 1. **Zisti presný model** spotrebiča.
 2. **Opýtaj sa Googlu alebo AI**, či sa daný model dá integrovať do Home Assistanta. Hľadaj napríklad „názov modelu Home Assistant“.
-3. **Pozri sa do zoznamu integrácií** na webe Home Assistanta, či výrobca má oficiálnu integráciu. Ak nie, existuje často komunitná cez [HACS](/zacni-tu/home-assistant-pre-zaciatocnikov/).
+3. **Pozri sa do zoznamu integrácií** na webe Home Assistanta, či výrobca má oficiálnu integráciu. Ak nie, existuje často komunitná cez [Marketplace](/zacni-tu/home-assistant-pre-zaciatocnikov/#aplikacie-a-marketplace-ako-rozsirit-home-assistant) (predtým HACS).
 4. **Over, či integrácia funguje lokálne alebo cez cloud.** Cloudová integrácia prestane fungovať, keď vypadne internet alebo výrobca zmení podmienky – viac v [6 zásadách](/moj-dom/zasady-smart-domu/#5-vyhni-sa-cloudu-kde-sa-da).
 
 :::tip Smart nie je hlavný parameter

@@ -6,6 +6,7 @@ description: When buying a washing machine, dishwasher or air conditioner, it pa
 section: start
 level: 1
 date: 2026-11-08
+updated: 2026-11-25
 time: '21:40'
 slug: smart-appliances
 tldr: Connectivity is a normal part of appliances today and worth considering even if you don't have a smart home yet. Before buying, though, **check whether the appliance can be integrated into Home Assistant** – many "smart" appliances are closed and useless to the rest of the house.
@@ -28,7 +29,7 @@ Here's the catch. Many appliances have a closed solution that can't easily be co
 
 1. **Find the exact model** of the appliance.
 2. **Ask Google or an AI** whether that model can be integrated into Home Assistant. Search for something like "model name Home Assistant".
-3. **Check the integrations list** on the Home Assistant website for an official integration from the manufacturer. If there isn't one, there's often a community one via [HACS](/en/start-here/home-assistant-explained/).
+3. **Check the integrations list** on the Home Assistant website for an official integration from the manufacturer. If there isn't one, there's often a community one via the [Marketplace](/en/start-here/home-assistant-explained/#apps-and-the-marketplace-how-to-extend-home-assistant) (formerly HACS).
 4. **Check whether the integration works locally or through the cloud.** A cloud integration stops working when the internet goes down or the vendor changes its terms – more in the [6 rules](/en/my-home/smart-home-rules/#5-avoid-the-cloud-where-you-can).
 
 :::tip Smart isn't the main spec
