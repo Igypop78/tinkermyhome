@@ -56,6 +56,8 @@ For us, the ones that **watch and warn**: an open freezer, running water, a powe
 It needs power all the time. Best is to keep it powered and turn the switch into a button – or use a smart relay with a detached input. → [Smart bulb and wall switch](/en/start-here/smart-bulb-and-wall-switch/)
 ? What is an ESP32 and do I need to code?
 A small board with WiFi and Bluetooth for a few euros. With ESPHome you flash it without programming and it shows up in Home Assistant by itself. → [ESP32 – my projects](/en/diy/esp32-my-projects/)
+? How do I get water and gas usage from the utility meters into Home Assistant?
+With pulses: an inductive sensor on the water meter (wheel with a metal plate, 1 turn = 1 l for me), a reed sensor on the gas meter (magnet in the last wheel, 0.01 m³). An ESP32 counts the pulses and sends usage, flow and gas power to the Energy dashboard. The meter itself stays untouched. → [Water and gas metering with an ESP32](/en/diy/water-and-gas-metering-esp32/)
 ? Should a smart home work without the internet?
 I think so – the house must work without the smart home, manual control stays, and I avoid the cloud. → [Smart home rules](/en/my-home/smart-home-rules/)
 :::

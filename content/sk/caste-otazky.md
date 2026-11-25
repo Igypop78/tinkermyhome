@@ -58,6 +58,8 @@ U nás tie, ktoré **strážia a upozornia**: otvorená mraznička, tečúca vod
 Potrebuje prúd stále. Najlepšie je nechať ju pod prúdom a z vypínača spraviť len tlačidlo – alebo použiť smart relé s odpojeným vstupom. → [Smart žiarovka a vypínač](/zacni-tu/smart-ziarovka-a-vypinac/)
 ? Čo je ESP32 a potrebujem vedieť programovať?
 Malá doska s WiFi a Bluetooth za pár eur. S ESPHome ju nahráš bez programovania a v Home Assistante sa objaví sama. → [ESP32 – moje projekty](/diy/esp32-moje-projekty/)
+? Ako dostať spotrebu vody a plynu z fakturačných meračov do Home Assistanta?
+Impulzmi: na vodomer indukčný snímač (koliesko s kovom, u mňa 1 otáčka = 1 l), na plynomer reed snímač (magnet v poslednom koliesku, 0,01 m³). Impulzy počíta ESP32 a posiela spotrebu, prietok aj výkon plynu do Energy panela. Do merača sa nezasahuje. → [Meranie vody a plynu cez ESP32](/diy/meranie-vody-a-plynu-esp32/)
 ? Musí smart dom fungovať aj bez internetu?
 Podľa mňa áno – dom musí fungovať aj bez smart home, ručné ovládanie zostáva a cloudu sa vyhýbam. → [6 zásad smart domu](/moj-dom/zasady-smart-domu/)
 :::

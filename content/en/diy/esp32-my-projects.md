@@ -65,7 +65,7 @@ These are the things running right now – every day, without me touching them:
 - **3 × JK BMS over Bluetooth** – reading data from all three BMS of my batteries.
 - **Three BMS and a SmartShunt into the Deye inverter** – the ESP presents itself as one battery, feeds the inverter the exact state of charge from the SmartShunt and reads three JK BMS over Bluetooth to smoothly lower the charge current. [Guide with wiring and code](/en/energy/soc-from-smartshunt-to-deye/).
 - **A "dumb" cooker hood controlled from the hob (Hob2Hood)** – the hob sends an infrared signal meant for the hood, the ESP catches it and switches the hood via relays.
-- **Water and gas metering** – on an **ESP32-C6** that sits directly in the Zigbee network.
+- **Water and gas metering** – on an **ESP32-C6** that sits directly in the Zigbee network. [Guide with wiring and code](/en/diy/water-and-gas-metering-esp32/) (it won the poll below).
 - **Garden watering and pool filtration.**
 
 And projects that ran on ESP in the past:

@@ -101,7 +101,7 @@ Ak polievaš záhradu z vodovodu, meranie ti pomôže dávkovať **presné množ
 Menej, než by si čakal.
 
 - **Elektrina:** odporúčam **Shelly 3EM-63W Gen3**. Nasadí sa na ističe, vodiče prechádzajú cez otvory s meracími transformátormi, takže **v rozvádzači nezaberie ani jednu pozíciu**. Meria tri fázy (alebo tri samostatné okruhy) a v Home Assistante funguje lokálne a spoľahlivo.
-- **Voda a plyn:** mňa stáli spolu zhruba **30 €**. Snímam priamo fakturačné meradlá: vodomer **indukčným snímačom**, plynomer **magnetickým snímačom** (takým, aký je v senzoroch na dvere). Obe bežia na **ESP32-C6**, ktoré je priamo v Zigbee sieti. Vyžaduje to však trochu zručnosti s ESP – viac v článku [ESP32 – čip za pár eur, ktorý mi v dome vyriešil najviac](/diy/esp32-moje-projekty/).
+- **Voda a plyn:** mňa stáli spolu zhruba **30 €**. Snímam priamo fakturačné meradlá: vodomer **indukčným snímačom**, plynomer **magnetickým snímačom** (takým, aký je v senzoroch na dvere). Obe bežia na **ESP32-C6**, ktoré je priamo v Zigbee sieti. Vyžaduje to však trochu zručnosti s ESP – celý postup so zapojením a kódom je v návode [Meranie vody a plynu cez ESP32](/diy/meranie-vody-a-plynu-esp32/).
 
 ![Shelly 3EM-63W Gen3 – trojfázový merač, ktorý sa nasadí priamo na ističe](/img/clanky/shelly-3em-63w-gen3.png)
 

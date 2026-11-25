@@ -101,7 +101,7 @@ If you water the garden from the mains, metering helps you dose **exactly the ri
 Less than you'd expect.
 
 - **Electricity:** I recommend the **Shelly 3EM-63W Gen3**. It sits on top of the breakers and the wires pass through holes with current transformers, so it **takes up no space on the DIN rail**. It measures three phases (or three separate circuits) and works locally and reliably in Home Assistant.
-- **Water and gas:** cost me about **€30** in total. I read the utility meters directly: the water meter with an **inductive sensor**, the gas meter with a **magnetic sensor** (the kind used in door sensors). Both run on an **ESP32-C6** that sits directly in the Zigbee network. It does take some ESP skills, though – more in [ESP32 – the few-euro chip that solved the most in my house](/en/diy/esp32-my-projects/).
+- **Water and gas:** cost me about **€30** in total. I read the utility meters directly: the water meter with an **inductive sensor**, the gas meter with a **magnetic sensor** (the kind used in door sensors). Both run on an **ESP32-C6** that sits directly in the Zigbee network. It does take some ESP skills, though – the full how-to with wiring and code is in [Water and gas metering with an ESP32](/en/diy/water-and-gas-metering-esp32/).
 
 ![Shelly 3EM-63W Gen3 – a three-phase meter that sits directly on the breakers](/img/clanky/shelly-3em-63w-gen3.png)
 

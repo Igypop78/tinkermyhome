@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" role="img" aria-label="How it works: pulse from the meter → ESP32 → Home Assistant">
+<text x="40" y="44" font-size="21" fill="#8E8E93" font-weight="700">How it works: pulse from the meter → ESP32 → Home Assistant</text>
+<rect x="40" y="80" width="200" height="100" rx="18" fill="#0A84FF" fill-opacity="0.1" stroke="#0A84FF" stroke-width="2"/>
+<text x="140" y="114" font-size="19" fill="#0A84FF" font-weight="700" text-anchor="middle">Water meter</text>
+<text x="140" y="140" font-size="13" fill="#6E6E73" text-anchor="middle">wheel with a metal</text>
+<text x="140" y="160" font-size="13" fill="#6E6E73" text-anchor="middle">plate · 1 turn = 1 l</text>
+<path d="M240 130 L276 130" stroke="#0A84FF" stroke-width="3"/><path d="M266.3 135.3 L276 130 L266.3 124.7" fill="none" stroke="#0A84FF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="280" y="92" width="180" height="76" rx="18" fill="#0A84FF" fill-opacity="0.06" stroke="#0A84FF" stroke-width="2"/>
+<text x="370" y="124" font-size="16" fill="#0A84FF" font-weight="700" text-anchor="middle">Inductive sensor</text>
+<text x="370" y="148" font-size="13" fill="#6E6E73" text-anchor="middle">powered by 5 V</text>
+<path d="M460 130 L496 130" stroke="#0A84FF" stroke-width="3"/><path d="M486.3 135.3 L496 130 L486.3 124.7" fill="none" stroke="#0A84FF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="500" y="92" width="180" height="76" rx="18" fill="#FF9500" fill-opacity="0.08" stroke="#FF9500" stroke-width="2"/>
+<text x="590" y="124" font-size="15" fill="#FF9500" font-weight="700" text-anchor="middle">Logic level converter</text>
+<text x="590" y="148" font-size="13" fill="#6E6E73" text-anchor="middle">5 V → 3.3 V</text>
+<rect x="40" y="230" width="200" height="100" rx="18" fill="#34C759" fill-opacity="0.1" stroke="#34C759" stroke-width="2"/>
+<text x="140" y="264" font-size="19" fill="#34C759" font-weight="700" text-anchor="middle">Gas meter</text>
+<text x="140" y="290" font-size="13" fill="#6E6E73" text-anchor="middle">magnet on the last</text>
+<text x="140" y="310" font-size="13" fill="#6E6E73" text-anchor="middle">wheel · 1 pulse = 0.01 m³</text>
+<path d="M240 280 L276 280" stroke="#34C759" stroke-width="3"/><path d="M266.3 285.3 L276 280 L266.3 274.7" fill="none" stroke="#34C759" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="280" y="242" width="180" height="76" rx="18" fill="#34C759" fill-opacity="0.06" stroke="#34C759" stroke-width="2"/>
+<text x="370" y="274" font-size="16" fill="#34C759" font-weight="700" text-anchor="middle">Reed module</text>
+<text x="370" y="298" font-size="13" fill="#6E6E73" text-anchor="middle">powered by 3.3 V</text>
+<rect x="730" y="120" width="160" height="170" rx="18" fill="#30B0C7" fill-opacity="0.1" stroke="#30B0C7" stroke-width="2"/>
+<text x="810" y="162" font-size="22" fill="#30B0C7" font-weight="700" text-anchor="middle">ESP32</text>
+<text x="810" y="192" font-size="15" fill="#30B0C7" font-weight="600" text-anchor="middle">ESPHome</text>
+<text x="810" y="220" font-size="13" fill="#6E6E73" text-anchor="middle">counts pulses</text>
+<text x="810" y="242" font-size="13" fill="#6E6E73" text-anchor="middle">flow · power</text>
+<path d="M680 130 H 700 V 170 H 722" fill="none" stroke="#0A84FF" stroke-width="3"/>
+<path d="M712 170 L726 170" stroke="#0A84FF" stroke-width="3"/><path d="M716.3 175.3 L726 170 L716.3 164.7" fill="none" stroke="#0A84FF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M460 280 H 700 V 240 H 722" fill="none" stroke="#34C759" stroke-width="3"/>
+<path d="M712 240 L726 240" stroke="#34C759" stroke-width="3"/><path d="M716.3 245.3 L726 240 L716.3 234.7" fill="none" stroke="#34C759" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M810 290 V 360" stroke="#AF52DE" stroke-width="2" stroke-dasharray="4 5"/>
+<text x="820" y="330" font-size="13" fill="#AF52DE">Wi-Fi</text>
+<rect x="640" y="366" width="200" height="76" rx="18" fill="none" fill-opacity="0" stroke="#AF52DE" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="740" y="398" font-size="18" fill="#AF52DE" font-weight="700" text-anchor="middle">Home Assistant</text>
+<text x="740" y="422" font-size="13" fill="#6E6E73" text-anchor="middle">usage, flow, kW</text>
+<path d="M640 404 L566 404" stroke="#AF52DE" stroke-width="2.5"/><path d="M575.7 398.7 L566 404 L575.7 409.3" fill="none" stroke="#AF52DE" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="360" y="366" width="200" height="76" rx="18" fill="#AF52DE" fill-opacity="0.08" stroke="#AF52DE" stroke-width="2"/>
+<text x="460" y="398" font-size="18" fill="#AF52DE" font-weight="700" text-anchor="middle">Energy dashboard</text>
+<text x="460" y="422" font-size="13" fill="#6E6E73" text-anchor="middle">m³ and € per day/month</text>
+<text x="500" y="490" font-size="15" fill="#6E6E73" font-weight="600" text-anchor="middle">You don’t touch the meter – the sensors only “watch” the wheel from outside.</text>
+</svg>

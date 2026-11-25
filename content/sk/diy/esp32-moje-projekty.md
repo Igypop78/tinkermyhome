@@ -65,7 +65,7 @@ Toto je zoznam vecí, ktoré mi bežia teraz – každý deň, bez zásahu:
 - **3 × JK BMS cez Bluetooth** – zber dát zo všetkých troch BMS mojich batérií.
 - **Tri BMS a SmartShunt do meniča Deye** – ESP sa meniču tvári ako jedna batéria, posiela mu presný stav nabitia zo SmartShuntu a cez Bluetooth číta tri JK BMS, podľa ktorých plynulo znižuje nabíjací prúd. [Návod so zapojením a kódom](/energia/soc-zo-smartshunt-do-deye/).
 - **„Hlúpy“ digestor ovládaný z varnej dosky (Hob2Hood)** – varná doska vysiela infračervený signál pre digestor, ESP ho zachytí a zapne digestor cez relé.
-- **Meranie spotreby vody a plynu** – na **ESP32-C6**, ktoré je priamo v Zigbee sieti.
+- **Meranie spotreby vody a plynu** – na **ESP32-C6**, ktoré je priamo v Zigbee sieti. [Návod so zapojením a kódom](/diy/meranie-vody-a-plynu-esp32/) (vyhral anketu nižšie).
 - **Polievanie a filtrácia bazéna.**
 
 A projekty, ktoré mi na ESP bežali v minulosti:
