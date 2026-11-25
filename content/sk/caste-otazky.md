@@ -64,7 +64,7 @@ Podľa mňa áno – dom musí fungovať aj bez smart home, ručné ovládanie z
 
 :::faq Moje projekty
 ? Je AI Energy zadarmo a funguje s mojím meničom?
-Áno, je to open source (licencia MIT) a inštaluje sa cez HACS. Funguje s akýmkoľvek meničom a nastavíš ju v sprievodcovi bez YAML. → [AI Energy](/projekty/ai-energy/)
+Áno, je to open source (licencia MIT) a inštaluje sa cez Marketplace v Home Assistante (v starších verziách cez HACS). Funguje s akýmkoľvek meničom a nastavíš ju v sprievodcovi bez YAML. → [AI Energy](/projekty/ai-energy/)
 ? Používa Pattern Pilot cloud alebo AI?
 Nie. Beží len lokálne, sám nič nespustí a automatizácie len navrhuje – s dôkazom z tvojej histórie. Je zatiaľ vo vývoji. → [Pattern Pilot](/projekty/pattern-pilot/)
 :::

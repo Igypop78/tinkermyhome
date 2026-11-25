@@ -2,11 +2,12 @@
 id: ai-energy
 cover: /img/clanky/titulky/ai-energy.jpg
 title: AI Energy – a home battery that knows when to sell, and tells you why
-description: My HACS integration AI Energy decides every 15 minutes, based on OKTE spot prices and the grid tariff, when to charge the battery cheaply from the grid, when to sell and when to charge the car. And for every step it tells you what it does and why.
+description: My Home Assistant integration AI Energy decides every 15 minutes, based on OKTE spot prices and the grid tariff, when to charge the battery cheaply from the grid, when to sell and when to charge the car. And for every step it tells you what it does and why.
 section: projects
 level: 3
 date: 2026-11-15
 time: '19:00'
+updated: 2026-11-25
 slug: ai-energy
 tldr: '**AI Energy** is my Home Assistant integration. Every 15 minutes it uses OKTE spot prices and the grid tariff to decide when to **charge the home battery cheaply from the grid**, when to **sell** from it and when to **charge the car**. Every decision comes with **what it does and why**. It works with any inverter and is set up in a wizard, no YAML needed. Current version 0.9.5, open source under the MIT license.'
 ---
@@ -174,13 +175,20 @@ A new sale only starts when there's energy for at least one full 15-minute slot.
 
 ## Installation step by step
 
-You need HACS, the **OKTE** integration (or Nord Pool) and a battery state-of-charge sensor in %. Optionally Solcast, an EV charger in Home Assistant and an inverter mode select with an automation.
+You need the **OKTE** integration (or Nord Pool) and a battery state-of-charge sensor in %. Optionally Solcast, an EV charger in Home Assistant and an inverter mode select with an automation.
 
-1. **HACS → ⋮ → Custom repositories** → paste `https://github.com/Igypop78/ai-energy`, type **Integration**.
-2. Download **AI Energy** and restart Home Assistant.
-3. **Settings → Devices & services → Add integration → AI Energy** and go through the wizard.
-4. Add the **Igy Price Action Card**, **Igy Battery Action Card** and **Igy EV Action Card** to your dashboard.
-5. Leave **control off** and compare the recommendations with what you'd do yourself for a few days. Then turn on *Battery – control* and disable your old automations so they don't overwrite each other.
+:::info HACS is now called Marketplace
+Since Home Assistant **2026.11**, HACS is built right into the system as the **Marketplace** – you'll find it in Settings on every installation type, including a container on a NAS. You no longer install HACS separately, and the new version won't even let you. If you don't see HACS in the menu, that's fine.
+:::
+
+1. **Settings → Marketplace.** The first time you open it, accept the notice that these are community add-ons.
+2. Click **Add from link** and paste `https://github.com/Igypop78/ai-energy`. If Home Assistant asks to connect GitHub, it shows you a code to enter on the GitHub website.
+3. Install **AI Energy** and restart Home Assistant.
+4. **Settings → Devices & services → Add integration → AI Energy** and go through the wizard.
+5. Add the **Igy Price Action Card**, **Igy Battery Action Card** and **Igy EV Action Card** to your dashboard.
+6. Leave **control off** and compare the recommendations with what you'd do yourself for a few days. Then turn on *Battery – control* and disable your old automations so they don't overwrite each other.
+
+**On Home Assistant 2026.10 or older?** Instead of steps 1–3: **HACS → ⋮ → Custom repositories** → paste `https://github.com/Igypop78/ai-energy`, type **Integration**, download **AI Energy** and restart. Then continue with step 4. Updating Home Assistant is easier, though – in a container (e.g. on a NAS) you do that by pulling a new image, not from Settings.
 
 :::tip Try it without a battery
 Create a Number helper called *Sim SOC* (0–100 %) and pick it as the battery SOC in the wizard. Moving the value shows how the plan and the recommended mode change.

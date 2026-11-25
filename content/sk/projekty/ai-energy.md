@@ -2,11 +2,12 @@
 id: ai-energy
 cover: /img/clanky/titulky/ai-energy.jpg
 title: AI Energy – batéria, ktorá vie, kedy predať, a povie prečo
-description: Moja HACS integrácia AI Energy každých 15 minút podľa spotových cien OKTE a tarify rozhodne, kedy batériu nabiť lacno zo siete, kedy predávať a kedy nabíjať auto. A pri každom kroku napíše, čo robí a prečo.
+description: Moja integrácia AI Energy pre Home Assistant každých 15 minút podľa spotových cien OKTE a tarify rozhodne, kedy batériu nabiť lacno zo siete, kedy predávať a kedy nabíjať auto. A pri každom kroku napíše, čo robí a prečo.
 section: projects
 level: 3
 date: 2026-11-15
 time: '19:00'
+updated: 2026-11-25
 slug: ai-energy
 tldr: '**AI Energy** je moja integrácia pre Home Assistant. Podľa spotových cien OKTE a tarify distribúcie každých 15 minút rozhodne, kedy domácu batériu **nabiť lacno zo siete**, kedy z nej **predávať** a kedy **nabíjať auto**. Pri každom rozhodnutí napíše **čo robí a prečo**. Funguje s akýmkoľvek meničom, nastavíš ju v sprievodcovi bez YAML. Aktuálne verzia 0.9.5, open source pod licenciou MIT.'
 ---
@@ -174,13 +175,20 @@ Nový predaj sa spustí len vtedy, keď je v batérii energia aspoň na celý 15
 
 ## Inštalácia krok za krokom
 
-Potrebuješ HACS, integráciu **OKTE** (alebo Nord Pool) a senzor nabitia batérie v %. Voliteľne Solcast, nabíjačku auta v Home Assistante a výber režimu meniča s automatizáciou.
+Potrebuješ integráciu **OKTE** (alebo Nord Pool) a senzor nabitia batérie v %. Voliteľne Solcast, nabíjačku auta v Home Assistante a výber režimu meniča s automatizáciou.
 
-1. **HACS → ⋮ → Custom repositories** → vlož `https://github.com/Igypop78/ai-energy`, typ **Integration**.
-2. Stiahni **AI Energy** a reštartuj Home Assistant.
-3. **Nastavenia → Zariadenia a služby → Pridať integráciu → AI Energy** a prejdi sprievodcom.
-4. Na dashboard pridaj karty **Igy Price Action Card**, **Igy Battery Action Card** a **Igy EV Action Card**.
-5. Nechaj **riadenie vypnuté** a pár dní porovnávaj odporúčania s tým, čo by si urobil sám. Potom zapni *Batéria – riadenie* a vypni svoje pôvodné automatizácie, aby sa navzájom neprepisovali.
+:::info HACS sa teraz volá Marketplace
+Od Home Assistanta **2026.11** je HACS zabudovaný priamo v systéme ako **Marketplace** – nájdeš ho v Nastaveniach na každom type inštalácie, aj v kontajneri na NAS. Samostatný HACS už inštalovať netreba a na novú verziu sa ani nedá. Ak HACS v menu nevidíš, je to v poriadku.
+:::
+
+1. **Nastavenia → Marketplace.** Pri prvom otvorení potvrď upozornenie, že ide o komunitné doplnky.
+2. Klikni na **Pridať z odkazu** (Add from link) a vlož `https://github.com/Igypop78/ai-energy`. Ak Home Assistant chce prepojenie s GitHubom, ukáže ti kód, ktorý zadáš na stránke GitHubu.
+3. Nainštaluj **AI Energy** a reštartuj Home Assistant.
+4. **Nastavenia → Zariadenia a služby → Pridať integráciu → AI Energy** a prejdi sprievodcom.
+5. Na dashboard pridaj karty **Igy Price Action Card**, **Igy Battery Action Card** a **Igy EV Action Card**.
+6. Nechaj **riadenie vypnuté** a pár dní porovnávaj odporúčania s tým, čo by si urobil sám. Potom zapni *Batéria – riadenie* a vypni svoje pôvodné automatizácie, aby sa navzájom neprepisovali.
+
+**Máš Home Assistant 2026.10 alebo starší?** Namiesto krokov 1–3: **HACS → ⋮ → Custom repositories** → vlož `https://github.com/Igypop78/ai-energy`, typ **Integration**, stiahni **AI Energy** a reštartuj. Potom pokračuj krokom 4. Jednoduchšie je však aktualizovať Home Assistant – v kontajneri (napríklad na NAS) to spravíš stiahnutím nového image, nie cez Nastavenia.
 
 :::tip Vyskúšaj aj bez batérie
 Vytvor si pomocníka typu Číslo s názvom *Sim SOC* (0–100 %) a v sprievodcovi ho vyber ako SOC batérie. Posúvaním hodnoty uvidíš, ako sa mení plán a odporúčaný režim.

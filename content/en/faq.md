@@ -62,7 +62,7 @@ I think so – the house must work without the smart home, manual control stays,
 
 :::faq My projects
 ? Is AI Energy free and does it work with my inverter?
-Yes, it's open source (MIT licence) and installs through HACS. It works with any inverter and you set it up in a wizard, no YAML. → [AI Energy](/en/projects/ai-energy/)
+Yes, it's open source (MIT licence) and installs through the Home Assistant Marketplace (HACS in older versions). It works with any inverter and you set it up in a wizard, no YAML. → [AI Energy](/en/projects/ai-energy/)
 ? Does Pattern Pilot use the cloud or AI?
 No. It runs locally only, never runs anything by itself and just suggests automations – with evidence from your own history. It's still in development. → [Pattern Pilot](/en/projects/pattern-pilot/)
 :::
