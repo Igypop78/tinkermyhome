@@ -162,9 +162,9 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 <div class="bar">
 <div class="brand">
 <button class="switch" type="button" data-theme-toggle aria-label="${esc(L.theme)}">
-<svg width="38" height="38" viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-<path d="M8 30 L32 10 L56 30" stroke="currentColor" stroke-width="4.5"/><path d="M15 25 V54 H49 V25" stroke="currentColor" stroke-width="4.5"/>
-<rect x="21" y="34" width="22" height="12" rx="6" stroke="currentColor" stroke-width="3"/><circle class="knob" cx="37" cy="40" r="4" fill="#EA580C"/></svg>
+<svg width="40" height="40" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+<path d="M8 28 L32 9 L56 28" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect class="track" x="9" y="36" width="46" height="18" rx="9"/><circle class="knob" cx="43" cy="45" r="12"/></svg>
 </button>
 <a class="wordmark" href="${L.home}">tinker<span>my</span>home</a>
 </div>

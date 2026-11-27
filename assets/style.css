@@ -39,9 +39,15 @@ h1, h2, h3, h4 { letter-spacing: -.025em; line-height: 1.15; }
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 2px; }
 .switch { width: 48px; height: 48px; padding: 0; border: 0; background: none; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.knob { transition: transform .25s ease; }
-:root[data-theme="dark"] .knob { transform: translateX(-10px); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .knob { transform: translateX(-10px); } }
+/* Logo: strecha + prepínač v štýle Home Assistanta. Svetlý režim = zapnuté (vpravo, farba akcentu), tmavý = vypnuté (vľavo, sivé). */
+.track { fill: var(--acc); fill-opacity: .38; transition: fill .25s ease, fill-opacity .25s ease; }
+.knob { fill: var(--acc); transition: transform .25s ease, fill .25s ease; }
+:root[data-theme="dark"] .knob { transform: translateX(-20px); fill: #D1D1D6; }
+:root[data-theme="dark"] .track { fill: #636366; fill-opacity: .6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .knob { transform: translateX(-20px); fill: #D1D1D6; }
+  :root:not([data-theme="light"]) .track { fill: #636366; fill-opacity: .6; }
+}
 .wordmark { font-family: "Space Grotesk", var(--font); font-weight: 700; font-size: 22px; letter-spacing: -.02em; color: var(--ink); text-decoration: none; }
 .wordmark span { color: var(--acc); }
 .seg { display: flex; background: var(--fill); border-radius: 10px; padding: 2px; font-size: 14px; font-weight: 600; }
