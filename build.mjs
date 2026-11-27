@@ -461,6 +461,7 @@ for (const [k, html] of pages) {
   for (const m of html.matchAll(/href="(\/[^"#?]*)/g)) {
     const u = m[1];
     if (u.startsWith('/assets/')) continue;
+    if (fs.existsSync(path.join(ROOT, 'static', u)) && fs.statSync(path.join(ROOT, 'static', u)).isFile()) continue;   // súbory zo static/ (napr. /ukazky/wall.html)
     if (!known.has(u) && !known.has(u + 'index.html')) broken.push(`${k} → ${u}`);
   }
 }

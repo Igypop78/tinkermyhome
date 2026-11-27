@@ -7,6 +7,7 @@ section: home
 also: diy
 level: 2
 date: 2026-11-27
+updated: 2026-11-27
 slug: domaci-dashboard
 tldr: Domáci dashboard nie je ovládač na všetko, ale **okno do domu** – vidím na ňom, čo robí fotovoltika, batéria, kúrenie aj obchod na spote. Mám **10" dotykový displej Waveshare za ~80 €**, kiosk na Proxmoxe, uchytenie **na magnety** a okolo **LED rám z adresovateľného pásu cez ESP32**, ktorý stav domu ukazuje aj z druhého konca miestnosti. Kód pre ESPHome je na konci.
 ---
@@ -123,6 +124,21 @@ Dizajn už dnes nie je limit. Máš dve cesty:
 
 1. **Klasicky v Home Assistante** – karty, sekcie, prípadne vlastné karty z HACS (napr. moje [Igy Cards](https://github.com/Igypop78/igy-cards)). Dá sa s tým spraviť pekný dashboard, ale je to pracné – hlavne doladenie na jednu pevnú obrazovku bez posúvania.
 2. **S pomocou AI** – vlastná webová stránka, ktorá berie údaje z Home Assistanta. Popíšeš, čo chceš vidieť a ako to má vyzerať, AI napíše stránku a ty ju dolaďuješ. Môj aktuálny dashboard vznikol takto – celý postup ukážem vo videu.
+
+### Môj dashboard ako vzor
+
+Môj dashboard je jeden HTML súbor (`wall.html`) – bez inštalácie a bez knižníc. Pozri si [živú ukážku](/ukazky/wall.html): beží s vymyslenými číslami (hore uprostred svieti DEMO) a dá sa na nej ťukať – izby, svetlá, energia, počasie, okná. Najlepšie vyzerá na celú obrazovku na šírku (stavaný je na 1280 × 800). Celý kód je na [GitHube](https://github.com/Igypop78/tinkermyhome/blob/main/static/ukazky/wall.html). Zo súboru som odstránil len adresu kamery v domácej sieti a pár mien z ukážkových dát.
+
+Ako ho použiť u seba:
+
+1. Súbor ulož do Home Assistanta do `/config/www/wall.html` – otvorí sa na adrese `/local/wall.html`.
+2. Na začiatku skriptu v bloku `E` prepíš entity na svoje (FVE, sieť, batéria, izby, svetlá, alarmy…) a v `MAXV` nastav plnú stupnicu pásikov.
+3. Zobraz ho ako kartu **Webpage** v dashboarde HA (údaje berie z prihláseného HA, token netreba), alebo priamo v prehliadači kiosku s tokenom na konci adresy: `/local/wall.html#token=…`.
+4. Po každej úprave zvýš `VERSION` – displej sa do minúty obnoví sám. Podržaním prsta na hodinách sa otvorí diagnostika spojenia.
+
+:::warn Token nepatrí do súboru
+Súbory v `/config/www` sú dostupné **bez prihlásenia**. Token nikdy nevpisuj priamo do `wall.html` – len do adresy v kiosku. Na token si v HA sprav samostatného používateľa bez práv správcu.
+:::
 
 Moja rada: najprv si na papier napíš, **čo chceš vidieť bez ťukania** a **čo potrebuje ovládať zvyšok rodiny**. Až potom rieš farby a ikony.
 

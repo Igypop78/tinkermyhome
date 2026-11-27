@@ -7,6 +7,7 @@ section: home
 also: diy
 level: 2
 date: 2026-11-27
+updated: 2026-11-27
 slug: wall-dashboard
 tldr: A wall dashboard isn't a remote for everything, it's **a window into the house** – I see what the solar panels, battery, heating and spot trading are doing. I have a **10" Waveshare touch display for ~€80**, a kiosk on Proxmox, **magnetic mounting** and around it an **LED frame from an addressable strip driven by an ESP32** that shows the state of the house from across the room. The ESPHome code is at the end.
 ---
@@ -123,6 +124,21 @@ Design is no longer a limit. You have two ways:
 
 1. **The classic way in Home Assistant** – cards, sections, possibly custom cards from HACS (e.g. my [Igy Cards](https://github.com/Igypop78/igy-cards)). You can build a nice dashboard this way, but it's laborious – especially fitting it onto one fixed screen without scrolling.
 2. **With the help of AI** – your own web page that takes data from Home Assistant. You describe what you want to see and how it should look, AI writes the page and you fine-tune it. My current dashboard was made this way – I'll show the whole process in the video.
+
+### My dashboard as a template
+
+My dashboard is a single HTML file (`wall.html`) – no installation, no libraries. Have a look at the [live demo](/ukazky/wall.html): it runs with made-up numbers (DEMO shows at the top centre) and you can tap around – rooms, lights, energy, weather, windows. It looks best full screen in landscape (it's built for 1280 × 800) and the texts are in Slovak. The full code is on [GitHub](https://github.com/Igypop78/tinkermyhome/blob/main/static/ukazky/wall.html). I only removed the camera's address on my home network and a few names from the demo data.
+
+How to use it at home:
+
+1. Save the file to Home Assistant as `/config/www/wall.html` – it opens at `/local/wall.html`.
+2. At the top of the script, in the `E` block, replace the entities with your own (solar, grid, battery, rooms, lights, alarms…) and set the full scale of the bars in `MAXV`.
+3. Show it as a **Webpage** card in an HA dashboard (it takes data from the logged-in HA, no token needed), or directly in the kiosk browser with a token at the end of the address: `/local/wall.html#token=…`.
+4. After every change, bump `VERSION` – the display reloads by itself within a minute. Holding a finger on the clock opens connection diagnostics.
+
+:::warn The token doesn't belong in the file
+Files in `/config/www` are reachable **without logging in**. Never write the token into `wall.html` – only into the kiosk's address. Create a separate non-admin user in HA for the token.
+:::
 
 My advice: first write down on paper **what you want to see without tapping** and **what the rest of the family needs to control**. Only then deal with colours and icons.
 

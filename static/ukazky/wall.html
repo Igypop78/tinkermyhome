@@ -1,0 +1,1307 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dom – ukážka dashboardu (TinkerMyHome)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<!--
+  Wall tablet – Home Assistant (Waveshare 10.1DP-CAPLCD, 1280×800)
+  Umiestnenie: /config/www/wall.html  →  URL: /local/wall.html
+
+  Zdroj dát (automaticky):
+   1) vložené ako Webpage karta v HA  → berie dáta priamo z HA (bez tokenu)
+   2) otvorené priamo v prehliadači   → /local/wall.html#token=<long-lived token>
+   3) inak                            → demo režim s ukážkovými dátami
+  Parametre adresy: ?theme=dark|hc|auto  ·  ?clock=a|b|c|d (predvolené b)
+  Súbor neobsahuje žiadne heslá ani tokeny. Token nikdy nevpisuj do súboru – /local/ je dostupné bez prihlásenia.
+  Na token si sprav samostatného používateľa bez práv správcu.
+  Verejná ukážka z tinkermyhome.com (Igy) – entity v E si prepíš na svoje.
+-->
+<style>
+  :root { --l: #141c2c; --r: #0a0e17; --text: #f4f6fb; --muted: #8b95a7; --faint: #5f6b7f; --rh: 98px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--r); color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased;
+    user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  .tn { font-variant-numeric: tabular-nums; }
+  svg.i { width: 1em; height: 1em; vertical-align: -.12em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .app { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: 39vw 1fr; }
+
+  /* ---------- Ľavý panel ---------- */
+  .lp { background: var(--l); padding: 3.75vh 2.95vw 3.5vh; display: flex; flex-direction: column; min-height: 0; }
+  .clk { font-weight: 200; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .clk.a { font-size: 19.75vh; line-height: .9; white-space: nowrap; } .clk.a i { font-style: normal; opacity: .4; }
+  .clk.b { font-size: 23vh; line-height: .82; text-align: center; }
+  .clk.b hr { border: 0; height: 2px; background: rgba(255,255,255,.12); margin: 1.5vh 2.3vw; }
+  .clk.c { font-size: 25vh; line-height: .82; text-align: right; } .clk.c span { color: #7d8aa3; }
+  .clk.d { display: flex; justify-content: center; gap: .8vw; } .clk.d b { font-weight: 200; font-size: 25vh; line-height: .82; } .clk.d span { font-size: 11.5vh; color: #7d8aa3; margin-top: .8vh; }
+  .date { font: 300 3.1vh Inter; color: #a5b8d8; margin-top: 2vh; text-align: center; }
+  .weather { font: 300 3.5vh Inter; margin-top: .7vh; text-align: center; cursor: pointer; }
+  .weather svg { color: #fbbf24; } .weather .more { color: var(--faint); font-size: .8em; }
+  .cnts { display: flex; gap: 1.1vw; margin-top: auto; margin-bottom: 1.75vh; }
+  .cnt { width: 7.5vw; height: 10.5vh; border-radius: 20px; background: rgba(255,255,255,.06); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; cursor: pointer; color: #7d8aa3; }
+  .cnt .ic { font-size: 3.25vh; } .cnt b { font: 300 3.75vh/1 Inter; margin-top: .5vh; color: #cbd5e1; font-variant-numeric: tabular-nums; }
+  .cnt.win { background: rgba(96,165,250,.16); color: #60a5fa; } .cnt.win b { color: #dbeafe; }
+  .cnt.door { background: rgba(251,146,60,.16); color: #fb923c; } .cnt.door b { color: #ffedd5; }
+  .cnt.lit { background: rgba(251,191,36,.16); color: #fbbf24; } .cnt.lit b { color: #fef3c7; }
+  .cnt.lit .ic { filter: drop-shadow(0 0 8px rgba(251,191,36,.6)); }
+  .bt { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: var(--rh); gap: 1.5vh; }
+  .act { display: flex; gap: .95vw; align-items: center; padding: 0 1.55vw; border-radius: 16px; border: 0; background: rgba(255,255,255,.07);
+    color: var(--text); font: 400 2.65vh Inter; text-align: left; cursor: pointer; outline: none; transition: transform .15s, background .4s; min-width: 0; }
+  .act span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .act small { display: block; font-size: 1.9vh; opacity: .7; margin-top: .25vh; overflow: hidden; text-overflow: ellipsis; }
+  .act svg { width: 3.5vh; height: 3.5vh; flex: none; }
+  .act:active, .act.pressed { transform: scale(.96); }
+  .act.blinds svg { color: #fbbf24; }
+  .act.armed { background: rgba(45,212,160,.2); color: #86efc8; }
+  .act.disarmed svg { color: #f87171; }
+  .act.vac.run { background: rgba(56,189,248,.2); color: #bae6fd; }
+  .act.vac.err svg { color: #f87171; }
+  .act.cam.motion { background: rgba(248,113,113,.3); color: #fecaca; }
+
+  /* ---------- Stupnice ---------- */
+  .r { padding: 3.75vh 2.95vw 3.5vh; display: flex; flex-direction: column; min-height: 0; }
+  .rows { flex: 1; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 0; }
+  .row { display: grid; grid-template-columns: 2.95vw 11.7vw 1fr 8.6vw; align-items: center; gap: 1.25vw; }
+  .row .ic { font-size: 3.75vh; }
+  .row p { font: 500 2.75vh Inter; white-space: nowrap; } .row p .soc { font-weight: 400; color: var(--muted); margin-left: .4vw; }
+  .row p small { display: block; font: 400 1.9vh Inter; color: #8391a7; margin-top: .25vh; }
+  .seg { display: grid; grid-template-columns: repeat(20, 1fr); gap: .3vw; height: 4.5vh; }
+  .seg i { border-radius: 4px; background: rgba(255,255,255,.07); }
+  .row b { text-align: right; font: 300 3.75vh Inter; color: var(--muted); white-space: nowrap; } .row b small { font-size: 1.9vh; color: var(--faint); margin-left: .3vw; }
+
+  /* ---------- Kúrenie: kotol + izby ---------- */
+  .heat { margin-top: 2.75vh; padding-top: 2.25vh; border-top: 1px solid rgba(255,255,255,.08); display: flex; align-items: stretch; gap: .95vw; }
+  .kotol { width: 6.6vw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5vh; color: var(--faint); font: 400 1.9vh Inter; text-align: center; }
+  .kotol .ic { font-size: 4.25vh; }
+  .kotol.on { color: #fca5a5; } .kotol.on .ic { color: #f87171; filter: drop-shadow(0 0 8px rgba(248,113,113,.7)); }
+  .room { position: relative; flex: 1; min-width: 0; border-radius: 16px; background: rgba(255,255,255,.05); padding: 1.5vh .95vw; cursor: pointer; display: flex; flex-direction: column; }
+  .room:active { transform: scale(.97); }
+  .room b { font: 300 4vh/1.1 Inter; } .room span { font: 500 2vh Inter; color: #cbd5e1; margin-top: .25vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .room small { white-space: nowrap; font: 400 1.65vh Inter; color: #7c889c; overflow: hidden; text-overflow: ellipsis; }
+  .room.h { background: rgba(248,113,113,.16); } .room.h b { color: #fecaca; } .room.h small { color: #fca5a5; }
+  .room.o b { color: var(--faint); } .room.o small { color: #7fa8e0; }
+  .room .wi { position: absolute; bottom: 1.5vh; right: .95vw; font-size: 2.5vh; color: #60a5fa; }
+
+  /* ---------- Karty (detail) ---------- */
+  .sheet { position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: rgba(3,5,10,.72); display: flex; align-items: center; justify-content: center;
+    z-index: 32; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .sheet.show { opacity: 1; pointer-events: auto; }
+  .card { width: 70vw; max-height: 92vh; overflow: hidden; border-radius: 34px; background: #151d2e; padding: 4.25vh 3.1vw 3.75vh; transition: background .6s; }
+  .card.glow { background: radial-gradient(55% 60% at 50% 46%, rgba(248,113,113,.30), rgba(248,113,113,.08) 60%, transparent 80%), #151d2e; }
+  .card.wide { width: 83vw; } .card.narrow { width: 59vw; }
+  .hd { display: flex; align-items: flex-start; gap: 1.4vw; }
+  .hd h2 { font: 400 4.25vh Inter; }
+  .hd .st { display: flex; gap: 1.1vw; align-items: center; font: 400 2.5vh Inter; color: #94a3b8; margin-top: .75vh; }
+  .hd .st .hot { color: #fca5a5; }
+  .hd .st .wn { display: flex; gap: .45vw; align-items: center; color: #93c5fd; background: rgba(96,165,250,.16); padding: .6vh .95vw; border-radius: 99px; }
+  .hd .now { margin-left: auto; text-align: right; } .hd .now small { display: block; font: 500 1.75vh Inter; letter-spacing: .14em; text-transform: uppercase; color: #94a3b8; }
+  .hd .now b { font: 300 9vh/1 Inter; }
+  .hd .btn { margin-left: auto; padding: 1.5vh 1.75vw; border-radius: 99px; background: rgba(255,255,255,.08); font: 400 2.4vh Inter; cursor: pointer; white-space: nowrap; }
+  .hd .btn.dis { opacity: .35; pointer-events: none; }
+  .hd .back { padding: 1.5vh 1.55vw; border-radius: 99px; background: rgba(255,255,255,.08); font: 400 2.4vh Inter; cursor: pointer; }
+  .hint { text-align: center; font: 400 1.9vh Inter; color: #64748b; margin-top: 1.25vh; }
+
+  /* termostat */
+  .tgt { display: flex; align-items: center; justify-content: center; gap: 3.1vw; margin-top: 1.25vh; }
+  .tgt button { width: 13.75vh; height: 13.75vh; border-radius: 50%; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: #fff; font: 200 8vh/1 Inter; cursor: pointer; }
+  .tgt button:active { background: rgba(255,255,255,.16); transform: scale(.94); }
+  .tgt .val { text-align: center; min-width: 23.5vw; } .tgt .val b { font: 200 17.5vh/1 Inter; letter-spacing: -.03em; }
+  .tgt .val small { display: block; font: 500 1.9vh Inter; letter-spacing: .16em; text-transform: uppercase; color: #94a3b8; margin-top: .5vh; }
+  .tgt .val b.pend { color: #fde68a; }
+  .ruler { position: relative; height: 11.5vh; margin-top: 3.25vh; overflow: hidden; border-radius: 18px; background: rgba(0,0,0,.25); touch-action: none; cursor: grab;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+  .ruler .trk { position: absolute; top: 0; bottom: 0; left: 50%; will-change: transform; }
+  .ruler .tk { position: absolute; bottom: 0; width: 2px; background: rgba(255,255,255,.25); height: 2.75vh; margin-left: -1px; }
+  .ruler .tk.m { height: 5vh; background: rgba(255,255,255,.5); }
+  .ruler .tl { position: absolute; top: 1.5vh; transform: translateX(-50%); font: 400 2.25vh Inter; color: #94a3b8; }
+  .ruler .mk { position: absolute; left: 50%; top: 5.25vh; bottom: 0; width: 4px; margin-left: -2px; border-radius: 2px; background: #f87171; box-shadow: 0 0 12px #f87171; }
+  .floor { display: flex; align-items: center; gap: 1.25vw; margin-top: 2.25vh; padding: 1.75vh 1.55vw; border-radius: 18px; background: rgba(255,255,255,.05); font: 400 2.4vh Inter; color: #cbd5e1; }
+  .floor .ic { font-size: 3.25vh; color: #fb923c; } .floor .g { flex: 1; } .floor small { color: #94a3b8; }
+  .floor .fb { padding: 1.5vh 1.9vw; border-radius: 99px; background: rgba(255,255,255,.08); cursor: pointer; white-space: nowrap; }
+  .floor .fb.on { background: rgba(251,146,60,.25); color: #fed7aa; }
+  .card.off .tgt button, .card.off .ruler { opacity: .35; }
+
+  /* svetlá */
+  .lgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5vh .95vw; margin-top: 2.75vh; }
+  .lr { position: relative; border-radius: 20px; background: rgba(255,255,255,.05); padding: 2.25vh 1.55vw; cursor: pointer; display: flex; flex-direction: column; min-height: 14vh; }
+  .lr .ic { font-size: 3.25vh; color: #64748b; } .lr b { font: 500 2.6vh Inter; margin-top: 1vh; padding-right: 7.8vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lr small { font: 400 1.9vh Inter; color: #7c889c; margin-top: .25vh; padding-right: 7.8vw; }
+  .lr.lit { background: rgba(251,191,36,.16); } .lr.lit .ic { color: #fbbf24; filter: drop-shadow(0 0 8px rgba(251,191,36,.7)); } .lr.lit small { color: #fcd34d; }
+  .lr.na { opacity: .6; }
+  .lr .tg { position: absolute; top: 0; right: 0; width: 10.2vw; height: 100%; }
+  .lr .tg i { position: absolute; top: 2.25vh; right: 1.4vw; width: 6.55vw; height: 5.75vh; border-radius: 99px; background: rgba(255,255,255,.14); }
+  .lr .tg i::after { content: ''; position: absolute; top: .5vh; left: .3vw; width: 4.75vh; height: 4.75vh; border-radius: 50%; background: #cbd5e1; transition: transform .2s; }
+  .lr.lit .tg i { background: #f59e0b; } .lr.lit .tg i::after { transform: translateX(calc(6.55vw - 4.75vh - .6vw)); background: #fff; }
+  .l2 .lr { min-height: 16vh; }
+
+  /* energia dnes */
+  .hd .chip { margin-left: auto; padding: 1.25vh 1.55vw; border-radius: 99px; background: rgba(251,146,60,.16); color: #fdba74; font: 500 2.25vh Inter; white-space: nowrap; }
+  .eg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5vh .95vw; margin-top: 2.5vh; }
+  .eg.two { grid-template-columns: 1fr 1fr; margin-top: 1.5vh; }
+  .et { border-radius: 20px; background: rgba(255,255,255,.05); padding: 2vh 1.55vw; min-width: 0; }
+  .et .eh { font: 500 1.9vh Inter; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; display: flex; align-items: center; gap: .5vw; }
+  .et .eh svg { width: 2.5vh; height: 2.5vh; }
+  .et > b { display: block; font: 300 6vh/1.1 Inter; margin-top: 1vh; } .et b i { font-style: normal; font-size: .4em; color: #94a3b8; margin-left: .35vw; }
+  .et em { display: block; font-style: normal; font: 400 1.9vh Inter; color: #8391a7; margin-top: .5vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; margin-top: 1vh; }
+  .duo small { font: 400 1.9vh Inter; color: #94a3b8; } .duo b { display: block; font: 300 4.75vh/1.1 Inter; }
+  .duo .dr { text-align: right; }
+  .duo .dbar { grid-column: 1 / 3; display: flex; gap: 4px; height: 1.5vh; margin-top: 1.25vh; }
+  .duo .dbar span { border-radius: 4px; min-width: 4px; }
+  .et.price { margin-top: 1.5vh; }
+  .pr { display: flex; align-items: center; gap: 2.4vw; margin-top: .75vh; }
+  .pr b { font: 300 6vh/1.1 Inter; white-space: nowrap; }
+  .pbar { position: relative; flex: 1; height: 7vh; }
+  .pbar .pg { position: absolute; left: 0; right: 0; top: 1vh; height: 1.5vh; border-radius: 99px; background: linear-gradient(90deg, #f87171, #facc15 45%, #34d399); opacity: .85; }
+  .pbar .pm { position: absolute; top: 0; width: 4px; height: 3.5vh; margin-left: -2px; border-radius: 2px; background: #fff; box-shadow: 0 0 10px rgba(255,255,255,.7); }
+  .pbar small { position: absolute; bottom: 0; font: 400 1.9vh Inter; color: #94a3b8; }
+
+  /* okná a dvere, predpoveď, energia */
+  .wl { margin-top: 2.5vh; display: flex; flex-direction: column; gap: 1.25vh; max-height: 62vh; overflow: auto; }
+  .wr { display: flex; align-items: center; gap: 1.4vw; padding: 2.25vh 1.75vw; border-radius: 20px; background: rgba(96,165,250,.1); }
+  .wr.dr { background: rgba(251,146,60,.1); } .wr.ok { background: rgba(52,211,153,.1); }
+  .wr .ic { font-size: 4vh; color: #60a5fa; } .wr.dr .ic { color: #fb923c; } .wr.ok .ic { color: #34d399; }
+  .wr .wn { flex: 1; min-width: 0; } .wr .wn b { font: 500 3vh Inter; display: block; } .wr .wn small { font: 400 2.1vh Inter; color: #94a3b8; }
+  .wr .warn { color: #fca5a5; } .wr .wd { font: 300 3.75vh Inter; color: #cbd5e1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .li { display: flex; align-items: center; gap: 1.25vw; padding: 1.6vh 0; font: 300 3vh Inter; border-top: 1px solid rgba(255,255,255,.06); }
+  .li:first-child { border-top: 0; } .li svg { width: 3.5vh; height: 3.5vh; flex: none; }
+  .li .grow { flex: 1; } .li .dim { color: #94a3b8; font-size: .8em; } .li .rain { color: #60a5fa; font-size: .8em; min-width: 8vw; text-align: right; }
+  .li .tmp small { color: #94a3b8; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.75vh 3.1vw; margin-top: 2.5vh; }
+  .kv .k { font: 500 1.75vh Inter; color: #94a3b8; letter-spacing: .1em; text-transform: uppercase; }
+  .kv .v { font: 300 4.75vh Inter; font-variant-numeric: tabular-nums; margin-top: .5vh; } .kv .v small { font-size: .5em; color: #94a3b8; margin-left: .2em; }
+  .kv .x { font: 400 2vh Inter; color: #94a3b8; margin-top: .25vh; }
+  .note { font: 400 2.25vh/1.5 Inter; color: #94a3b8; margin-top: 3.25vh; padding-top: 2.5vh; border-top: 1px solid rgba(255,255,255,.06); }
+  .note b { color: var(--text); font-weight: 500; }
+
+  /* ---------- Kamera, výstraha, ostatné ---------- */
+  .camfull { position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: #000; z-index: 35; display: none; }
+  .camfull.show { display: block; } .camfull img { width: 100%; height: 100%; object-fit: contain; }
+  .camfull .x { position: absolute; top: 3vh; right: 3vw; font: 400 2.4vh Inter; padding: 1.25vh 1.9vw; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; }
+  .alert { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: none; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, rgba(220,38,38,.6), rgba(69,10,10,.95)); z-index: 40; }
+  .alert.show { display: flex; } .alert-inner { text-align: center; } .alert-inner svg { width: 18vh; height: 18vh; color: #fff; }
+  .alert-text { font: 600 9vh Inter; margin-top: 2vh; } .alert-sub { font: 400 3.25vh Inter; color: rgba(255,255,255,.8); margin-top: 1.25vh; }
+  .night { position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: rgba(0,0,0,.6); pointer-events: none; opacity: 0; transition: opacity 2s; z-index: 30; }
+  body.dim .night { opacity: 1; }
+  .toast { position: fixed; left: 50%; bottom: 4vh; transform: translate(-50%, 20px); opacity: 0; padding: 1.5vh 2.3vw; border-radius: 999px;
+    background: #1e293b; font: 400 2.4vh Inter; transition: opacity .3s, transform .3s; z-index: 45; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .demo { position: fixed; top: .8vh; left: 50%; transform: translateX(-50%); font: 500 1.4vh Inter; color: var(--faint); letter-spacing: .2em; display: none; z-index: 5; }
+  body.is-demo .demo { display: block; }
+  .offline { position: fixed; top: 1.2vh; left: 50%; transform: translateX(-50%); display: none; align-items: center; gap: .6vw; z-index: 6;
+    padding: .8vh 1.25vw; border-radius: 99px; background: rgba(127,29,29,.85); color: #fecaca; font: 400 2vh Inter; }
+  .offline i { width: 1vh; height: 1vh; border-radius: 50%; background: #f87171; }
+  body.stale .offline { display: flex; }
+  .diag { position: fixed; bottom: 1vh; left: 50%; transform: translateX(-50%); display: none; z-index: 6; max-width: 80vw; padding: .75vh 1.25vw; border-radius: 99px;
+    background: rgba(120,53,15,.85); color: #fde68a; font: 400 1.75vh Inter; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
+  .diag.show { display: block; }
+  .dgp { position: fixed; left: 2vw; top: 2vh; z-index: 50; display: none; padding: 2vh 1.6vw; border-radius: 14px; background: rgba(8,10,18,.95);
+    border: 1px solid rgba(255,255,255,.15); font: 400 1.9vh/1.6 ui-monospace, Menlo, monospace; color: #e5e7eb; white-space: pre; }
+  .dgp.show { display: block; }
+
+  /* ---------- Denný kontrast (hc): cez deň hrubšie písmo a jasnejšie sivé ---------- */
+  body.hc { --muted: #b4bccb; --faint: #8a95a8; --r: #05080f; }
+  body.hc .clk { font-weight: 300; }
+  body.hc .date, body.hc .weather, body.hc .row p small, body.hc .room small, body.hc .act small, body.hc .kotol { font-weight: 500; }
+  body.hc .row b, body.hc .room b { font-weight: 400; }
+  body.hc .seg i { background: rgba(255,255,255,.1); }
+</style>
+</head>
+<body>
+<div class="demo">DEMO</div>
+<div class="offline"><i></i>Bez spojenia s HA · údaje môžu byť staré</div>
+<div class="diag" id="diag"></div>
+<div class="dgp" id="dgp"></div>
+
+<div class="app">
+  <section class="lp">
+    <div id="time"></div>
+    <div class="date" id="date"></div>
+    <div class="weather" id="weather"></div>
+    <div class="cnts" id="cnts"></div>
+    <div class="bt">
+      <button class="act blinds" id="btnBlinds"></button>
+      <button class="act vac" id="btnVac"></button>
+      <button class="act" id="btnSec"></button>
+      <button class="act cam" id="btnCam"></button>
+    </div>
+  </section>
+  <section class="r">
+    <div class="rows" id="rows"></div>
+    <div class="heat" id="heat"></div>
+  </section>
+</div>
+
+<div class="sheet" id="sheet"><div class="card" id="card"></div></div>
+<div class="alert" id="alert"><div class="alert-inner">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+  <div class="alert-text" id="alertText"></div><div class="alert-sub">Skontroluj ihneď</div>
+</div></div>
+<div class="camfull" id="camfull"><img id="camfullImg" alt=""><div class="x">Zavrieť ×</div></div>
+<div class="night"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ================= Nastavenie entít ================= */
+  var E = {
+    weather: 'weather.forecast_home',
+    sun: 'sun.sun',
+    water: 'sensor.watermeter_flow_rate_keep',   // l/min
+    tuv: 'sensor.kurenie_tuv_teplota',           // °C, teplota v zásobníku TUV
+    gas: 'sensor.gas_power_keep',                // kW
+    soc: 'sensor.smartshunt_soc_bateria_smartshunt_pristresok',
+    bat: 'sensor.smartshunt_vykon_bateria_smartshunt_pristresok',   // + nabíja, − vybíja (ak je naopak, nastav batInvert: true)
+    batInvert: false,
+    pv: 'sensor.pv_power_inverter_keep',         // W
+    grid: 'sensor.em_main_power_keep',           // W, + odber, − pretok
+    home: 'sensor.home_actual_power_keep',       // W
+    mode: 'input_select.deye_operation_mode',
+    reason: 'input_text.ai_fve_dovod',
+    price: 'sensor.okte_current_price_keep',
+    windows: 'binary_sensor.okna_dom',           // skupina okien
+    doors: 'binary_sensor.dvere_dom',            // skupina dverí
+    kotol: 'switch.kurenie_kotol',
+    security: 'input_boolean.zabezpecenie',
+    vacuum: 'vacuum.kuchyna_vysavac',
+    blindsOpen: 'input_button.zaluzie_otvorit',
+    blindsClose: 'input_button.zaluzie_zatvorit',
+    camera: 'camera.kamera_vchod',
+    cameraName: 'vchod',
+    // Kamera na celú obrazovku v plnom rozlíšení: snímka z hlavného streamu cez go2rtc vo Frigate.
+    // Prázdne = použije sa bežná snímka z HA. Príklad: 'http://IP_FRIGATE:1984/api/frame.jpeg?src=vchod'
+    cameraHiRes: '',
+    motion: 'binary_sensor.zahrada_vchod_pohyb',
+    wakeMotion: ['binary_sensor.kuchyna_pohyb'],   // v noci pohyb tu rozjasní displej
+    today: {
+      pv: 'sensor.today_production_inverter_keep',
+      load: 'sensor.today_load_consumption_inverter_keep',
+      imp: 'sensor.today_energy_import_inverter_keep',
+      impCost: 'sensor.today_energy_import_inverter_keep_cost',
+      exp: 'sensor.today_energy_export_inverter_keep',
+      expComp: 'sensor.today_energy_export_inverter_keep_compensation',
+      batIn: 'sensor.today_battery_charge_inverter_keep',
+      batOut: 'sensor.today_battery_discharge_inverter_keep',
+      pvLeft: 'sensor.solcast_pv_forecast_forecast_remaining_today_keep',
+      pvTomorrow: 'sensor.solcast_pv_forecast_forecast_tomorrow_keep',
+      priceMin: 'sensor.okte_min_cena_dnes',
+      priceMax: 'sensor.okte_max_cena_dnes'
+    },
+    // Izby: [termostat, názov na tablete, (voliteľne) okno/skupina okien tejto izby]
+    // Ak okno nezadáš, priradí sa podľa oblasti (Area) v HA, inak podľa názvu („Okno Martin“).
+    rooms: [
+      ['climate.spalna_termostat', 'Spálňa'],
+      ['climate.martin_termostat', 'Martin'],
+      ['climate.jakub_termostat', 'Jakub'],
+      ['climate.kuchyna_termostat', 'Kuchyňa'],
+      ['climate.pracovna_termostat', 'Hosť']
+    ],
+    // Podlahové kúrenie: zobrazí sa v karte izby floorRoom
+    floorRoom: 'climate.kuchyna_termostat',
+    floorClimate: 'climate.kuchyna_podlahove_kurenie',
+    floor1h: 'input_boolean.kuchyna_podlaha_1h',
+    floor1hMinutes: 60,
+    // Svetlá: izby sa berú z oblastí (Areas) v HA; tento zoznam je len záloha bez prístupu k registru
+    lightRooms: [
+      ['light.obyvacka_svetla', 'Obývačka'], ['light.kuchyna_svetla', 'Kuchyňa'], ['light.chodba_svetla', 'Chodba'],
+      ['light.spalna_svetla', 'Spálňa'], ['light.martin_svetla', 'Martin'], ['light.jakub_svetla', 'Jakub'],
+      ['light.kupelna_dole_svetla', 'Kúpeľňa dole'], ['light.kupelna_hore_svetla', 'Kúpeľňa hore'], ['light.zahrada_svetla', 'Vonku']
+    ],
+    lightsExclude: /wled_tablet|tablet_led|valve|flod_sensor/,
+    alerts: [
+      ['binary_sensor.kuchyna_dym', 'Dym v kuchyni'],
+      ['binary_sensor.kuchyna_zaplava', 'Voda v kuchyni'],
+      ['binary_sensor.kupelna_hore_zaplava', 'Voda v kúpeľni'],
+      ['siren.pristresok_sirena_alarm', 'Alarm v prístrešku']
+    ]
+  };
+  // Plná stupnica (20 dielikov) – uprav podľa svojich zariadení
+  var MAXV = { pv: 10000, home: 10000, grid: 10000, bat: 10000, gas: 28, water: 20, tuvMin: 30, tuvMax: 50 };
+  var NIGHT_FROM = 23, NIGHT_TO = 6;
+  var WAKE_MS = 30000;                 // ako dlho ostane displej rozjasnený po dotyku alebo pohybe
+  var CLOSE_IDLE = 10000;              // karta kúrenia / svetiel sa zavrie po nečinnosti
+  var CLOSE_AFTER_SET = 3000;          // karta kúrenia sa zavrie po nastavení teploty
+  var CLOSE_INFO = 15000;              // okná, predpoveď, energia
+  var THEME = ((location.href.match(/[?&#]theme=(dark|auto|hc)/) || [])[1]) || 'auto';
+  var CLOCK = ((location.href.match(/[?&#]clock=([a-d])/) || [])[1]) || 'b';
+  var CAM_FULL_REFRESH = 1000;
+  var FORECAST_REFRESH = 30 * 60000;
+  var VERSION = '2026-11-23.4';       // pri každej úprave súboru zmeň → tablet sa sám obnoví
+  var DEMO_CAM = '';
+
+  var MODE = {
+    'Normal': ['Bežná prevádzka'], 'Export from Battery': ['Predaj z batérie'], 'Export Now': ['Predaj z FVE'],
+    'Charge from Grid': ['Nabíjanie zo siete'], 'Grid Only': ['Dom zo siete'], 'Zero Export': ['Bez pretokov']
+  };
+  var COND = {
+    'sunny': ['slnečno', 'sun'], 'clear-night': ['jasno', 'moon'], 'partlycloudy': ['polooblačno', 'partly'],
+    'cloudy': ['zamračené', 'cloud'], 'rainy': ['dážď', 'rain'], 'pouring': ['lejak', 'rain'],
+    'snowy': ['sneh', 'snow'], 'snowy-rainy': ['dážď so snehom', 'snow'], 'fog': ['hmla', 'fog'],
+    'lightning': ['búrka', 'bolt'], 'lightning-rainy': ['búrka', 'bolt'], 'windy': ['veterno', 'wind'],
+    'windy-variant': ['veterno', 'wind'], 'hail': ['krupobitie', 'snow'], 'exceptional': ['výnimočné', 'cloud']
+  };
+  var DAYS = ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'];
+  var MONTHS = ['januára', 'februára', 'marca', 'apríla', 'mája', 'júna', 'júla', 'augusta', 'septembra', 'októbra', 'novembra', 'decembra'];
+
+  /* ================= Ikony ================= */
+  var CLOUD = 'M17.5 19H8a5 5 0 1 1 .9-9.9A6 6 0 0 1 20 11.5 3.75 3.75 0 0 1 17.5 19z';
+  var CLOUD_UP = 'M17.5 15H8a5 5 0 1 1 .9-9.9A6 6 0 0 1 20 7.5 3.75 3.75 0 0 1 17.5 15z';
+  var SUN = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  var IC = {
+    sun: SUN, moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>', cloud: '<path d="' + CLOUD + '"/>',
+    partly: '<path d="M7 2.5v1.2M2.8 4.3l.9.9M1.5 8.5h1.2M11.2 4.3l-.9.9"/><path d="M4.4 10.6A3.6 3.6 0 0 1 10.6 6.4"/><path d="' + CLOUD + '"/>',
+    rain: '<path d="' + CLOUD_UP + '"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/>', snow: '<path d="' + CLOUD_UP + '"/><path d="M8 19h.01M12 21h.01M16 19h.01"/>',
+    fog: '<path d="M4 7h16M3 11h18M5 15h14M7 19h10"/>', bolt: '<path d="' + CLOUD_UP + '"/><path d="M13 13l-3 4h4l-2 4"/>',
+    wind: '<path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+    tuv: '<path d="M9 3.2C6.6 6.3 4.5 8.9 4.5 11.6a4.5 4.5 0 0 0 7.2 3.6"/><path d="M17 4.5a1.8 1.8 0 0 1 1.8 1.8v7.6a3.4 3.4 0 1 1-3.6 0V6.3A1.8 1.8 0 0 1 17 4.5z"/><path d="M17 10v5.2"/>',
+    tower: '<path d="M8 21l4-18 4 18M6 8h12M5 13h14M9.3 13L12 21l2.7-8"/>', house: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    window: '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M12 3v18M4 12h16"/>',
+    door: '<path d="M5 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M3 21h18M14 12h.01"/>',
+    bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+    drop: '<path d="M12 2.7c-3.3 4.2-6 7.6-6 11a6 6 0 0 0 12 0c0-3.4-2.7-6.8-6-11z"/>',
+    flame: '<path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-9-1.5 2-2 3-3 3s-1.5-2-1-5C7 6 5 10 5 15a7 7 0 0 0 7 7z"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+    up: '<path d="M4 4h16M5 4v7M19 4v7M4 11h16M12 21v-6.5M8.8 17.5L12 14.3l3.2 3.2"/>',
+    floorheat: '<path d="M3 20h18"/><path d="M7.5 16.5c-1.4-1.9 1.4-3.6 0-5.5s1.4-3.6 0-5.5M12 16.5c-1.4-1.9 1.4-3.6 0-5.5s1.4-3.6 0-5.5M16.5 16.5c-1.4-1.9 1.4-3.6 0-5.5s1.4-3.6 0-5.5"/>',
+    battery: '<rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M22 10.5v3M6 10v4M9.5 10v4"/>',
+    cam: '<rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 10.5l5-3v9l-5-3"/>',
+    shieldOn: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.8 12.2l2.3 2.3 4.2-4.6"/>',
+    shieldOff: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/>',
+    vacuum: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M7 7.6h10"/>'
+  };
+  function icon(n, color) {
+    return '<svg class="i" viewBox="0 0 24 24"' + (color ? ' style="color:' + color + '"' : '') + '>' + IC[n] + '</svg>';
+  }
+
+  /* ================= Pripojenie k Home Assistantu ================= */
+  var S = {}, mode = 'demo', ws = null, wsId = 100, token = null, wsCb = {};
+  function wsReq(msg, cb) {   // všeobecná WS požiadavka (história, štatistiky)
+    if (mode === 'parent') { var h = parentHass(); if (h && h.callWS) h.callWS(msg).then(cb, function () { cb(null); }); return; }
+    if (mode === 'ws' && ws && ws.readyState === 1) { msg.id = ++wsId; wsCb[msg.id] = cb; ws.send(JSON.stringify(msg)); return; }
+    cb(null);
+  }
+
+  function parentHass() {
+    try {
+      if (window.parent && window.parent !== window) {
+        var el = window.parent.document.querySelector('home-assistant');
+        if (el && el.hass) return el.hass;
+      }
+    } catch (e) { /* iný pôvod – ignoruj */ }
+    return null;
+  }
+
+  // Strážca spojenia: HA posiela udalosti len pri zmene, preto každých 20 s pošleme ping.
+  // Ak 60 s nepríde žiadna správa (polootvorené spojenie po reštarte HA / výpadku siete / uspatí VM),
+  // spojenie zahodíme a pripojíme sa nanovo – načítajú sa aj všetky aktuálne stavy.
+  var wsLast = 0, wsGen = 0, wsRetry = null, wsLastEv = 0;
+  // diagnostika: počet pripojení, dôvod posledného, posledná chyba zobrazenia
+  var DIAG = { conn: 0, why: '', at: 0, err: null, sub: '', evN: 0, evId: '' };
+  function wsStale() { return mode === 'ws' && Date.now() - wsLast > 60000; }
+  function wsReconnect(delay) {
+    clearTimeout(wsRetry);
+    wsRetry = setTimeout(connectWS, delay || 0);
+  }
+  setInterval(function () {
+    if (mode !== 'ws') return;
+    if (ws && ws.readyState === 1) { try { ws.send(JSON.stringify({ id: ++wsId, type: 'ping' })); } catch (e) {} }
+    // spojenie žije (odpovedá na ping), ale 2 min neprišla žiadna zmena stavu → odber udalostí sa stratil
+    var noEv = ws && ws.readyState === 1 && wsLastEv && Date.now() - wsLastEv > 120000;
+    if ((wsStale() && (!ws || ws.readyState !== 0)) || noEv) {
+      DIAG.why = noEv ? 'žiadne zmeny stavov 2 min' : 'spojenie neodpovedá';
+      var old = ws; ws = null; wsGen++;
+      if (old) { old.onclose = old.onmessage = old.onerror = null; try { old.close(); } catch (e) {} }
+      wsReconnect(0);
+    }
+  }, 20000);
+  function connectWS() {
+    var url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/api/websocket';
+    var gen = ++wsGen;
+    if (!wsLast) wsLast = Date.now();
+    ws = new WebSocket(url);
+    ws.onmessage = function (ev) {
+      if (gen !== wsGen) return;
+      wsLast = Date.now();
+      var m = JSON.parse(ev.data);
+      if (m.type === 'auth_required') ws.send(JSON.stringify({ type: 'auth', access_token: token }));
+      else if (m.type === 'auth_ok') {
+        DIAG.conn++; DIAG.at = Date.now(); wsLastEv = Date.now();
+        ws.send(JSON.stringify({ id: 1, type: 'get_states' }));
+        ['config/entity_registry/list', 'config/device_registry/list', 'config/area_registry/list', 'config/floor_registry/list'].forEach(function (t, i) { ws.send(JSON.stringify({ id: 3 + i, type: t })); });
+        ws.send(JSON.stringify({ id: 7, type: 'config/entity_registry/list_for_display' }));   // funguje aj pre ne-admin používateľa
+        // odber stavov rovnako ako frontend HA (subscribe_entities); pri chybe záloha cez state_changed
+        DIAG.sub = 'čaká'; ws.send(JSON.stringify({ id: 2, type: 'subscribe_entities' }));
+        setTimeout(fetchForecast, 1000);
+      } else if (m.type === 'auth_invalid') toast('Neplatný token');
+      else if (m.type === 'result' && m.id === fcId && m.success) setForecast(m.result);
+      else if (m.type === 'result' && wsCb[m.id]) { wsCb[m.id](m.success ? m.result : null); delete wsCb[m.id]; }
+      else if (m.type === 'result' && m.id >= 3 && m.id <= 6 && m.success) {
+        var mp = {}; m.result.forEach(function (x) { mp[m.id === 3 ? x.entity_id : m.id === 4 ? x.id : m.id === 5 ? x.area_id : x.floor_id] = x; });
+        REG[['ents', 'devs', 'areas', 'floors'][m.id - 3]] = mp;
+      }
+      else if (m.type === 'result' && m.id === 7 && m.success && m.result && m.result.entities) {
+        if (!Object.keys(REG.ents).length) { var me = {}; m.result.entities.forEach(function (x) { me[x.ei] = { entity_id: x.ei, area_id: x.ai, device_id: x.di, labels: x.lb || [], hidden: !!x.hb, entity_category: x.ec != null ? 'cat' : null }; }); REG.ents = me; }
+      }
+      else if (m.type === 'result' && m.id === 2) {
+        DIAG.sub = m.success ? 'entities · ok' : 'entities · chyba ' + ((m.error && (m.error.code + ' ' + m.error.message)) || '');
+        if (!m.success) ws.send(JSON.stringify({ id: 8, type: 'subscribe_events', event_type: 'state_changed' }));
+      }
+      else if (m.type === 'result' && m.id === 8) {
+        DIAG.sub += ' → events · ' + (m.success ? 'ok' : 'chyba ' + ((m.error && m.error.message) || ''));
+      }
+      else if (m.type === 'event' && m.id === 2 && m.event) {
+        wsLastEv = Date.now(); applyCompressed(m.event);
+      }
+      else if (m.type === 'result' && m.id === 1 && m.success) {
+        var o = {}; m.result.forEach(function (s) { o[s.entity_id] = s; }); S = o;
+      } else if (m.type === 'event' && m.event && m.event.data) {
+        wsLastEv = Date.now();
+        var d = m.event.data; DIAG.evN++; DIAG.evId = d.entity_id;
+        if (d.new_state) S[d.entity_id] = d.new_state; else delete S[d.entity_id];
+      }
+    };
+    ws.onclose = function () { if (gen === wsGen) wsReconnect(5000); };
+  }
+
+  // subscribe_entities posiela skomprimované stavy: a = pridané/celé, c = zmeny (+ / −), r = odstránené
+  function isoS(t) { return new Date(t * 1000).toISOString(); }
+  function applyCompressed(ev) {
+    var k, x, o;
+    if (ev.a) for (k in ev.a) {
+      x = ev.a[k];
+      S[k] = { entity_id: k, state: x.s, attributes: x.a || {}, last_changed: isoS(x.lc), last_updated: isoS(x.lu || x.lc),
+        context: typeof x.c === 'string' ? { id: x.c } : x.c };
+      DIAG.evN++; DIAG.evId = k;
+    }
+    if (ev.c) for (k in ev.c) {
+      o = S[k]; if (!o) continue;
+      var d = ev.c[k], n = { entity_id: k, state: o.state, attributes: Object.assign({}, o.attributes), last_changed: o.last_changed, last_updated: o.last_updated, context: o.context };
+      if (d['+']) {
+        var p = d['+'];
+        if (p.s !== undefined) n.state = p.s;
+        if (p.a) Object.assign(n.attributes, p.a);
+        if (p.lc) { n.last_changed = n.last_updated = isoS(p.lc); } else if (p.lu) n.last_updated = isoS(p.lu);
+        if (p.c) n.context = typeof p.c === 'string' ? { id: p.c } : p.c;
+      }
+      if (d['-'] && d['-'].a) d['-'].a.forEach(function (a) { delete n.attributes[a]; });
+      S[k] = n; DIAG.evN++; DIAG.evId = k;
+    }
+    if (ev.r) ev.r.forEach(function (id) { delete S[id]; });
+  }
+
+  // data = { entity_id: ..., ďalšie parametre akcie }
+  function call(domain, service, data) {
+    if (mode === 'parent') {
+      var h = parentHass();
+      if (h) return h.callService(domain, service, data);
+    } else if (mode === 'ws' && ws && ws.readyState === 1) {
+      ws.send(JSON.stringify({ id: ++wsId, type: 'call_service', domain: domain, service: service, service_data: data }));
+    } else if (mode === 'demo') {
+      var ids = [].concat(data.entity_id);
+      if (ids.length > 1 || (S[ids[0]] && S[ids[0]].attributes.entity_id)) {
+        // skupina / viac entít: aplikuj na všetkých členov
+        ids.forEach(function (g) { expand(g).forEach(function (m) {
+          if (S[m]) S[m].state = service === 'turn_on' ? 'on' : service === 'turn_off' ? 'off' : (S[m].state === 'on' ? 'off' : 'on');
+        }); });
+        return;
+      }
+      var e = S[ids[0]]; if (!e) return;
+      if (service === 'toggle') e.state = e.state === 'on' ? 'off' : 'on';
+      if (service === 'set_temperature') e.attributes.temperature = data.temperature;
+      if (service === 'set_hvac_mode') {
+        e.state = data.hvac_mode;
+        e.attributes.hvac_action = data.hvac_mode === 'off' ? 'off'
+          : (e.attributes.current_temperature < e.attributes.temperature ? 'heating' : 'idle');
+      }
+    }
+  }
+
+  /* ================= Pomocné funkcie ================= */
+  function st(id) { var e = S[id]; return e ? e.state : undefined; }
+  function num(id, d) { var v = parseFloat(st(id)); return isNaN(v) ? (d === undefined ? 0 : d) : v; }
+  function at(id, k) { var e = S[id]; return e && e.attributes ? e.attributes[k] : undefined; }
+  function on(id) { return st(id) === 'on'; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function setA(el, a, v) { if (el.getAttribute(a) !== v) el.setAttribute(a, v); }
+  function setC(el, v) { if (el.getAttribute('class') !== v) el.setAttribute('class', v); }
+  function setHTML(el, h) { if (el.__h !== h) { el.innerHTML = h; el.__h = h; } }
+  function dec(n, d) { return Number(n).toFixed(d).replace('.', ','); }
+  function kw(w) { return dec(Math.abs(w) / 1000, Math.abs(w) >= 10000 ? 0 : 1); }
+  function $(id) { return document.getElementById(id); }
+  function name(id) { return at(id, 'friendly_name') || id.split('.')[1]; }
+  function plural(n, one, few, many) { return n + ' ' + (n === 1 ? one : n < 5 ? few : many); }
+
+  var toastT;
+  function toast(t) {
+    var el = $('toast'); el.textContent = t; el.className = 'toast show';
+    clearTimeout(toastT); toastT = setTimeout(function () { el.className = 'toast'; }, 2200);
+  }
+
+  // Rozbalí skupinu (aj vnorené skupiny) na jednotlivé entity
+  function expand(id, seen) {
+    seen = seen || {};
+    if (seen[id]) return [];
+    seen[id] = true;
+    var members = at(id, 'entity_id');
+    if (!members || !members.length) return [id];
+    return members.reduce(function (acc, m) { return acc.concat(expand(m, seen)); }, []);
+  }
+
+  function roomLights(group) {
+    return expand(group).filter(function (id, i, a) {
+      return a.indexOf(id) === i && id !== group && !E.lightsExclude.test(id);
+    });
+  }
+  /* Izby pre okno Svetlá: podľa oblastí (Areas) v HA – každá oblasť, ktorá má aspoň jedno svetlo.
+     Skupiny svetiel sa nerátajú (svetlá sú v nich aj tak jednotlivo), štítok „Skryť“ svetlo vynechá.
+     Bez prístupu k registru (napr. starý token bez práv) sa použije pevný zoznam E.lightRooms. */
+  var REG = { ents: {}, devs: {}, areas: {}, floors: {} }, roomsCache = null, roomsSig = '', roomsAt = 0;
+  function regs() { if (mode === 'parent') { var h = parentHass(); if (h) { REG.ents = h.entities || {}; REG.devs = h.devices || {}; REG.areas = h.areas || {}; REG.floors = h.floors || {}; } } return REG; }
+  // rovnaké pravidlá ako izbová stránka (area.html): štítky Karta izby / Ostatné / Hlavička / Skryť svetlo z „Svetiel“ vyradia,
+  // Mimo izby sa zobrazí, ale nepočíta a nezapína s izbou; čiastočná skupina svetiel = jedno svetlo, izbová skupina sa vynechá
+  var LBL_OUT = /^(karta_izby|zobrazit|na_kartu|show|ostatne|other|hlavicka|header|skryt|hide)/, LBL_NOALL = /^(mimo_izby|mimo|exclude)/,
+    LBL_ALL = /^(skryt|hide|karta_izby|zobrazit|na_kartu|show|ostatne|other|hlavicka|header|mimo_izby|mimo|exclude)/;
+  function effLabels(id) {
+    var R = REG, e = R.ents[id]; if (!e) return [];
+    var own = (e.labels || []).filter(function (l) { return LBL_ALL.test(l); }); if (own.length) return own;
+    var d = e.device_id && R.devs[e.device_id]; return d ? (d.labels || []).filter(function (l) { return LBL_ALL.test(l); }) : [];
+  }
+  function lightRoomsList() {
+    var R = regs(), ids = Object.keys(S).filter(function (id) { return id.indexOf('light.') === 0; });
+    var sig = ids.length + '|' + Object.keys(R.ents).length + '|' + Object.keys(R.areas).length + '|' + Object.keys(R.devs).length;
+    if (roomsCache && sig === roomsSig && Date.now() - roomsAt < 30000) return roomsCache;   // štítky sa prejavia do 30 s
+    roomsAt = Date.now();
+    var by = {};
+    if (Object.keys(R.areas).length && Object.keys(R.ents).length) ids.forEach(function (id) {
+      var e = R.ents[id]; if (!e || e.hidden || e.hidden_by || e.disabled_by || e.entity_category || E.lightsExclude.test(id)) return;
+      var d = e.device_id && R.devs[e.device_id], aid = e.area_id || (d && d.area_id); if (!aid || !R.areas[aid]) return;
+      (by[aid] = by[aid] || []).push(id);
+    });
+    var out = Object.keys(by).map(function (aid) {
+      var ids_ = by[aid], isG = function (x) { return (at(x, 'entity_id') || []).length > 0; };
+      var plain = ids_.filter(function (x) { return !isG(x) && !effLabels(x).some(function (l) { return LBL_OUT.test(l); }); }), hide = {}, roomG = {};
+      ids_.filter(isG).forEach(function (g) {
+        var mem = at(g, 'entity_id') || [];
+        if (!effLabels(g).length && plain.length && plain.every(function (x) { return mem.indexOf(x) >= 0; })) { roomG[g] = 1; return; }
+        mem.forEach(function (m) { hide[m] = 1; });
+      });
+      var ls = [], noall = [];
+      ids_.forEach(function (x) {
+        if (roomG[x] || (hide[x] && !effLabels(x).length)) return;
+        var lb = effLabels(x);
+        if (lb.some(function (l) { return LBL_OUT.test(l); })) return;
+        ls.push(x); if (lb.some(function (l) { return LBL_NOALL.test(l); })) noall.push(x);
+      });
+      var a = R.areas[aid], f = a.floor_id && R.floors[a.floor_id];
+      return { key: 'area:' + aid, name: a.name, lights: ls.sort(function (x, y) { return name(x).localeCompare(name(y)); }), noall: noall, lvl: f ? (f.level || 0) : 99 };
+    }).filter(function (r) { return r.lights.length; }).sort(function (x, y) { return x.lvl - y.lvl || x.name.localeCompare(y.name); });
+    if (!out.length) out = E.lightRooms.map(function (r) { return { key: r[0], name: r[1], lights: roomLights(r[0]), noall: [] }; });
+    roomsSig = sig; roomsCache = out; return out;
+  }
+  function mainLights(r) { return r.lights.filter(function (x) { return r.noall.indexOf(x) < 0; }); }
+  function roomByKey(k) { var r = lightRoomsList().filter(function (x) { return x.key === k; })[0]; return r ? mainLights(r) : roomLights(k); }
+  function allLights() {
+    var out = [];
+    lightRoomsList().forEach(function (r) { mainLights(r).forEach(function (id) { if (out.indexOf(id) < 0) out.push(id); }); });
+    return out;
+  }
+  function lightsOn() { return allLights().filter(on); }
+
+  // Krátky názov svetla v izbe: odstráni úvodné slovo názvu skupiny („Martin Main“ → „Main“)
+  function shortName(id, group, gname) {
+    var n = name(id), g = (gname || name(group) || '').split(' ')[0];
+    if (g && n.toLowerCase().indexOf(g.toLowerCase() + ' ') === 0 && n.length > g.length + 1) n = n.slice(g.length + 1);
+    return n;
+  }
+  function membersOn(group) { return (at(group, 'entity_id') || []).filter(on); }
+
+  /* Ku ktorej izbe patrí entita: oblasť (Area) v HA, inak podľa názvu */
+  function areaOf(id) {
+    var R = regs(), e = R.ents[id]; if (!e) return null;
+    var d = e.device_id && R.devs[e.device_id]; return e.area_id || (d && d.area_id) || null;
+  }
+  function roomOfEntity(id) {
+    var a = areaOf(id), nm = (name(id) || '').toLowerCase(), hit = null;
+    E.rooms.forEach(function (r, i) {
+      if (hit !== null) return;
+      if (r[2] && (r[2] === id || expand(r[2]).indexOf(id) >= 0)) { hit = i; return; }
+      if (a && areaOf(r[0]) === a) { hit = i; return; }
+    });
+    if (hit === null) E.rooms.forEach(function (r, i) { if (hit === null && nm.indexOf(r[1].toLowerCase()) >= 0) hit = i; });
+    return hit;
+  }
+  function openWins() { return membersOn(E.windows); }
+  function openDoors() { return membersOn(E.doors); }
+  function roomWinOpen(i) { return openWins().some(function (w) { return roomOfEntity(w) === i; }); }
+
+  /* ================= Kamera ================= */
+  var camImgs = [], camIdx = 0, camBusy = false, camFullT = null, camFullClose = null;
+
+  function camUrl() {
+    var p = at(E.camera, 'entity_picture');
+    if (!p) return mode === 'demo' && DEMO_CAM ? DEMO_CAM : null;
+    return mode === 'demo' ? p : p + (p.indexOf('?') >= 0 ? '&' : '?') + '_=' + Date.now();
+  }
+  function refreshCam() {
+    var url = camUrl();
+    if (!url || camBusy) return;
+    camBusy = true;
+    var im = new Image();
+    im.onload = function () {
+      camBusy = false;
+      var a = camImgs[camIdx], b = camImgs[1 - camIdx];
+      b.src = url; a.style.zIndex = 1; b.style.zIndex = 2; b.style.opacity = 1; camIdx = 1 - camIdx;
+      setTimeout(function () { a.style.transition = 'none'; a.style.opacity = 0; void a.offsetWidth; a.style.transition = ''; }, 600);
+    };
+    im.onerror = function () { camBusy = false; };
+    im.src = url;
+  }
+  function openCamFull() {
+    var img = $('camfullImg');
+    var hiOk = !!E.cameraHiRes && mode !== 'demo', busy = false;
+    function load() {
+      if (busy) return;
+      var u = hiOk ? E.cameraHiRes + '&_=' + Date.now() : camUrl();
+      if (!u) return;
+      // načítaj na pozadí a vymeň až hotový obrázok (bez blikania)
+      var im = new Image(); busy = true;
+      im.onload = function () { busy = false; img.src = u; };
+      im.onerror = function () { busy = false; if (hiOk) { hiOk = false; load(); } };
+      im.src = u;
+    }
+    load();
+    $('camfull').className = 'camfull show';
+    clearInterval(camFullT); camFullT = setInterval(load, CAM_FULL_REFRESH);
+    clearTimeout(camFullClose); camFullClose = setTimeout(closeCamFull, 60000);
+  }
+  function closeCamFull() {
+    $('camfull').className = 'camfull';
+    clearInterval(camFullT); clearTimeout(camFullClose);
+  }
+
+  /* ================= Predpoveď počasia ================= */
+  var FC = [], fcId = -1;
+
+  function fetchForecast() {
+    var msg = { type: 'call_service', domain: 'weather', service: 'get_forecasts',
+      target: { entity_id: E.weather }, service_data: { type: 'daily' }, return_response: true };
+    if (mode === 'parent') {
+      var h = parentHass();
+      if (h && h.callWS) h.callWS(msg).then(setForecast, function () {});
+    } else if (mode === 'ws' && ws && ws.readyState === 1) {
+      fcId = ++wsId; msg.id = fcId; ws.send(JSON.stringify(msg));
+    }
+  }
+  function setForecast(r) {
+    try {
+      var resp = (r && r.response) ? r.response : r;
+      FC = (resp[E.weather] && resp[E.weather].forecast) || [];
+    } catch (e) { FC = []; }
+  }
+
+  /* ================= Karty ================= */
+  var sheetType = null, sheetArg = null, closeT = null, lightRoom = null, drag = null;
+  var pend = null;   // rozpracovaná cieľová teplota { id, t, at, timer }
+  function closeIn(ms) { clearTimeout(closeT); closeT = setTimeout(closeSheet, ms); }
+  function openSheet(type, arg) {
+    sheetType = type; sheetArg = arg; lightRoom = null; drag = null;
+    $('card').__built = null; $('card').__h = null; renderSheet();
+    $('sheet').className = 'sheet show';
+    closeIn(type === 'heat' || type === 'lights' ? CLOSE_IDLE : CLOSE_INFO);
+  }
+  function closeSheet() { sheetType = null; drag = null; $('sheet').className = 'sheet'; clearTimeout(closeT); }
+
+  function targetOf(id) {
+    if (pend && pend.id === id && Date.now() - pend.at < 6000) return pend.t;
+    return parseFloat(at(id, 'temperature'));
+  }
+  function setTarget(id, t, fromDrag) {
+    var step = parseFloat(at(id, 'target_temp_step')) || 0.5;
+    var min = parseFloat(at(id, 'min_temp')) || 7, max = parseFloat(at(id, 'max_temp')) || 30;
+    t = Math.max(min, Math.min(max, Math.round(t / step) * step));
+    if (t === targetOf(id) && fromDrag) return;
+    if (pend) clearTimeout(pend.timer);
+    pend = { id: id, t: t, at: Date.now() };
+    pend.timer = setTimeout(function () { call('climate', 'set_temperature', { entity_id: id, temperature: t }); pend.at = Date.now(); }, 900);
+    renderSheet(); render();
+    if (fromDrag) clearTimeout(closeT); else closeIn(CLOSE_AFTER_SET);
+  }
+  function watts(id) { var v = num(id), u = (at(id, 'unit_of_measurement') || '').toLowerCase(); return u === 'kw' ? v * 1000 : u === 'mw' ? v * 1e6 : v; }
+  function heatingOf(id) { return at(id, 'hvac_action') === 'heating'; }
+  function fmtT(t) { return t % 1 ? dec(t, 1) : dec(t, 0); }
+
+  /* ---- termostat izby: pravítko (ťahanie) + tlačidlá ---- */
+  var PX = 34, RMIN = 15, RMAX = 28;
+  function rulerHTML() {
+    var o = '';
+    for (var v = RMIN; v <= RMAX + .01; v += .5) {
+      var x = ((v - RMIN) * 2 * PX).toFixed(0), m = Math.abs(v - Math.round(v)) < .01;
+      o += '<i class="tk' + (m ? ' m' : '') + '" style="left:' + x + 'px"></i>' + (m ? '<span class="tl" style="left:' + x + 'px">' + v + '°</span>' : '');
+    }
+    return o;
+  }
+  function rulerShift(t) { return -((t - RMIN) * 2 * PX); }
+  function buildHeat() {
+    var r = E.rooms[sheetArg], c = $('card');
+    c.innerHTML = '<div class="hd"><div><h2>' + esc(r[1]) + '</h2><div class="st" id="hst"></div></div>' +
+        '<div class="now"><small>teraz v izbe</small><b class="tn" id="hnow"></b></div></div>' +
+      '<div class="tgt"><button data-act="minus">−</button><div class="val"><b class="tn" id="hgv"></b><small>cieľová teplota</small></div><button data-act="plus">+</button></div>' +
+      '<div class="ruler" id="ruler"><div class="trk" id="trk">' + rulerHTML() + '</div><div class="mk"></div></div>' +
+      '<div class="hint">potiahni prstom doľava / doprava alebo použi + a −</div>' +
+      (r[0] === E.floorRoom && S[E.floorClimate] ? '<div class="floor" id="hfloor"></div>' : '');
+    c.__h = null;
+    var ru = $('ruler'), trk = $('trk'), moved = false;
+    ru.addEventListener('pointerdown', function (e) {
+      if (st(r[0]) === 'off') return;
+      try { ru.setPointerCapture(e.pointerId); } catch (x) {}
+      drag = { x: e.clientX, t: targetOf(r[0]) }; moved = false; clearTimeout(closeT);
+    });
+    ru.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var t = drag.t - (e.clientX - drag.x) / (2 * PX); t = Math.max(RMIN, Math.min(RMAX, t));
+      trk.style.transform = 'translateX(' + rulerShift(t) + 'px)';
+      var tr = Math.round(t * 2) / 2; if (tr !== targetOf(r[0])) { moved = true; setTarget(r[0], tr, true); }
+    });
+    function end() {
+      if (!drag) return; drag = null;
+      trk.style.transition = 'transform .2s'; trk.style.transform = 'translateX(' + rulerShift(targetOf(r[0])) + 'px)';
+      setTimeout(function () { trk.style.transition = ''; }, 220);
+      closeIn(moved ? CLOSE_AFTER_SET : CLOSE_IDLE);
+    }
+    ru.addEventListener('pointerup', end); ru.addEventListener('pointercancel', end);
+  }
+  function updHeat() {
+    var r = E.rooms[sheetArg], id = r[0], c = $('card');
+    var cur = parseFloat(at(id, 'current_temperature')), tgt = targetOf(id), off = st(id) === 'off', h = heatingOf(id);
+    var isPend = pend && pend.id === id && Date.now() - pend.at < 6000 && tgt !== parseFloat(at(id, 'temperature'));
+    c.className = 'card' + (h ? ' glow' : '') + (off ? ' off' : '');
+    setHTML($('hnow'), isNaN(cur) ? '–' : dec(cur, 1) + '°');
+    setHTML($('hgv'), isNaN(tgt) ? '–' : dec(tgt, 1) + '°');
+    $('hgv').className = 'tn' + (isPend ? ' pend' : '');
+    setHTML($('hst'), '<span class="' + (h ? 'hot' : '') + '">' + (off ? 'kúrenie vypnuté' : h ? 'kúri' : 'v teplote · nekúri') + '</span>' +
+      (roomWinOpen(sheetArg) ? '<span class="wn">' + icon('window') + ' okno otvorené</span>' : ''));
+    if (!drag && !isNaN(tgt)) $('trk').style.transform = 'translateX(' + rulerShift(Math.max(RMIN, Math.min(RMAX, tgt))) + 'px)';
+    if ($('hfloor')) {
+      var fc = parseFloat(at(E.floorClimate, 'current_temperature')), f1 = on(E.floor1h), fh = heatingOf(E.floorClimate);
+      setHTML($('hfloor'), '<span class="ic">' + icon('floorheat') + '</span><span class="g">Podlahové kúrenie <small>· ' +
+        (isNaN(fc) ? '' : dec(fc, 1) + '° · ') + (f1 ? 'beží 1 h · ' + floorLeft() : fh ? 'kúri' : st(E.floorClimate) === 'off' ? 'vypnuté' : 'nekúri') + '</small></span>' +
+        (S[E.floor1h] ? '<span class="fb' + (f1 ? ' on' : '') + '" data-act="h1h">' + (f1 ? 'Zrušiť' : '+ 1 hodina') + '</span>' : ''));
+    }
+  }
+
+  /* ---- svetlá: izby → svetlá v izbe ---- */
+  function lightsSheet() {
+    var c = $('card'), rooms = lightRoomsList(), html;
+    if (lightRoom === null) {
+      var tot = lightsOn().length;
+      c.className = 'card wide';
+      html = '<div class="hd"><div><h2>Svetlá</h2><div class="st">' + (tot ? plural(tot, 'svieti', 'svietia', 'svieti') : 'všetko zhasnuté') + '</div></div>' +
+        '<div class="btn' + (tot ? '' : ' dis') + '" data-act="alloff">Zhasnúť všetko</div></div>' +
+        '<div class="lgrid">' + rooms.map(function (r) {
+          var main = mainLights(r), n = main.filter(on).length;
+          return '<div class="lr' + (n ? ' lit' : '') + '" data-act="room" data-id="' + esc(r.key) + '"><span class="ic">' + icon('bulb') + '</span><b>' + esc(r.name) + '</b>' +
+            '<small>' + (n ? n + ' z ' + main.length + ' svieti' : plural(r.lights.length, 'svetlo', 'svetlá', 'svetiel')) + '</small>' +
+            '<span class="tg" data-act="roomtg" data-id="' + esc(r.key) + '"><i></i></span></div>';
+        }).join('') + '</div><div class="hint">ťukni na izbu pre jednotlivé svetlá · prepínač vpravo zapne / zhasne celú izbu</div>';
+    } else {
+      var rr = rooms.filter(function (x) { return x.key === lightRoom; })[0];
+      if (!rr) { lightRoom = null; return lightsSheet(); }
+      var main = mainLights(rr), n = main.filter(on).length;
+      c.className = 'card wide';
+      html = '<div class="hd"><div class="back" data-act="back">‹ Izby</div><div style="flex:1"><h2>' + esc(rr.name) + '</h2><div class="st">' +
+          (n ? n + ' z ' + main.length + ' svieti' : 'zhasnuté') + '</div></div>' +
+        '<div class="btn" data-act="roomtg" data-id="' + esc(rr.key) + '">' + (n ? 'Zhasnúť izbu' : 'Rozsvietiť izbu') + '</div></div>' +
+        '<div class="lgrid l2">' + rr.lights.map(function (id) {
+          return '<div class="lr' + (on(id) ? ' lit' : '') + (main.indexOf(id) < 0 ? ' na' : '') + '" data-act="light" data-id="' + esc(id) + '"><span class="ic">' + icon('bulb') + '</span>' +
+            '<b>' + esc(shortName(id, rr.key, rr.name)) + '</b><small>' + (on(id) ? 'svieti' : st(id) === 'unavailable' ? 'nedostupné' : 'zhasnuté') + '</small></div>';
+        }).join('') + '</div>';
+    }
+    setHTML(c, html);
+  }
+  function roomToggle(key) {
+    var rls = roomByKey(key), anyOn = rls.some(on);
+    call('light', anyOn ? 'turn_off' : 'turn_on', { entity_id: key.indexOf('area:') === 0 ? (anyOn ? rls.filter(on) : rls) : key });
+  }
+
+  /* ---- okná a dvere ---- */
+  function dur(id) {
+    var since = S[id] && S[id].last_changed ? new Date(S[id].last_changed) : null;
+    if (!since) return '';
+    var m = Math.max(0, Math.round((Date.now() - since) / 60000));
+    return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + (m % 60) + ' min';
+  }
+  function winSheet() {
+    var w = openWins(), d = openDoors(), c = $('card');
+    c.className = 'card narrow';
+    function rowW(id, door) {
+      var ri = roomOfEntity(id), extra = '';
+      if (ri !== null) {
+        var rid = E.rooms[ri][0], cur = parseFloat(at(rid, 'current_temperature')), off = st(rid) === 'off';
+        extra = esc(E.rooms[ri][1]) + (isNaN(cur) ? '' : ' · ' + dec(cur, 1) + '°') + (off ? ' · kúrenie vypnuté' : ' · <span class="warn">kúrenie zapnuté</span>');
+      }
+      return '<div class="wr' + (door ? ' dr' : '') + '"><span class="ic">' + icon(door ? 'door' : 'window') + '</span><div class="wn"><b>' + esc(name(id)) + '</b>' +
+        (extra ? '<small>' + extra + '</small>' : '') + '</div><span class="wd">' + dur(id) + '</span></div>';
+    }
+    var n = w.length + d.length;
+    setHTML(c, '<div class="hd"><div><h2>Okná a dvere</h2><div class="st">' + (n ? 'otvorené: ' + n : 'všetko zatvorené') + '</div></div></div>' +
+      '<div class="wl">' + (n ? w.map(function (id) { return rowW(id, false); }).join('') + d.map(function (id) { return rowW(id, true); }).join('')
+        : '<div class="wr ok"><span class="ic">' + icon('check') + '</span><div class="wn"><b>Všetko zatvorené</b></div></div>') + '</div>');
+  }
+
+  /* ---- predpoveď počasia ---- */
+  function forecastSheet() {
+    var c = $('card'), today = new Date(); today.setHours(0, 0, 0, 0);
+    c.className = 'card narrow';
+    setHTML(c, '<div class="hd"><div><h2>Predpoveď počasia</h2></div></div><div style="margin-top:2vh">' + (FC.slice(0, 6).map(function (f) {
+      var d = new Date(f.datetime), d0 = new Date(d); d0.setHours(0, 0, 0, 0);
+      var diff = Math.round((d0 - today) / 86400000), label = diff === 0 ? 'Dnes' : diff === 1 ? 'Zajtra' : DAYS[d.getDay()];
+      var cc = COND[f.condition] || ['', 'cloud'];
+      var rain = f.precipitation_probability != null && f.precipitation_probability > 0 ? Math.round(f.precipitation_probability) + ' %'
+        : (f.precipitation > 0 ? dec(f.precipitation, 1) + ' mm' : '');
+      return '<div class="li">' + icon(cc[1], '#fbbf24') + '<span class="grow">' + label + ' <span class="dim">· ' + cc[0] + '</span></span>' +
+        '<span class="tmp">' + (f.temperature != null ? Math.round(f.temperature) + '°' : '') + (f.templow != null ? ' <small>/ ' + Math.round(f.templow) + '°</small>' : '') + '</span>' +
+        '<span class="rain">' + (rain ? icon('drop') + ' ' + rain : '') + '</span></div>';
+    }).join('') || '<div class="li"><span class="dim">Predpoveď sa načítava…</span></div>') + '</div>');
+  }
+
+  /* ---- energia dnes ---- */
+  function kv(label, id, unit, d, extra) {
+    var v = parseFloat(st(id));
+    return '<div class="kv"><div class="k">' + label + '</div><div class="v">' + (isNaN(v) ? '–' : dec(v, d)) + '<small>' + unit + '</small></div>' +
+      (extra ? '<div class="x">' + extra + '</div>' : '') + '</div>';
+  }
+  function money(id) { var v = parseFloat(st(id)); return isNaN(v) ? '' : dec(v, 2) + ' ' + (at(id, 'unit_of_measurement') || '€'); }
+  function energySheet() {
+    var T = E.today, c = $('card');
+    function v(id) { return parseFloat(st(id)); }
+    function f1(x) { return isNaN(x) ? '–' : dec(x, 1); }
+    function eur(x) { return isNaN(x) ? '–' : dec(x, 2) + ' €'; }
+    var pv = v(T.pv), load = v(T.load), imp = v(T.imp), exp = v(T.exp), bi = v(T.batIn), bo = v(T.batOut);
+    var cost = v(T.impCost), comp = v(T.expComp), bal = (isNaN(comp) ? 0 : comp) - (isNaN(cost) ? 0 : cost);
+    var price = v(E.price), pmin = v(T.priceMin), pmax = v(T.priceMax);
+    var pf = isNaN(price) || isNaN(pmin) || isNaN(pmax) || pmax <= pmin ? .5 : Math.max(0, Math.min(1, (price - pmin) / (pmax - pmin)));
+    var self = !isNaN(load) && load > 0 && !isNaN(imp) ? Math.max(0, Math.min(100, Math.round((1 - imp / load) * 100))) : null;
+    function duo(lA, a, cA, subA, lB, b, cB, subB) {   // porovnávací pás: ľavá vs. pravá hodnota
+      var t = (isNaN(a) ? 0 : a) + (isNaN(b) ? 0 : b), fa = t ? (isNaN(a) ? 0 : a) / t * 100 : 50;
+      return '<div class="duo"><div class="dl"><small>' + lA + '</small><b class="tn" style="color:' + cA + '">' + f1(a) + '<i>kWh</i></b><em>' + subA + '</em></div>' +
+        '<div class="dr"><small>' + lB + '</small><b class="tn" style="color:' + cB + '">' + f1(b) + '<i>kWh</i></b><em>' + subB + '</em></div>' +
+        '<div class="dbar"><span style="width:' + fa.toFixed(1) + '%;background:' + cA + '"></span><span style="flex:1;background:' + cB + '"></span></div></div>';
+    }
+    c.className = 'card wide';
+    setHTML(c,
+      '<div class="hd"><div><h2>Energia dnes</h2><div class="st">' + esc(st(E.reason) || '') + '</div></div>' +
+        '<div class="chip">' + esc((MODE[st(E.mode)] || [st(E.mode) || '—'])[0]) + '</div></div>' +
+      '<div class="eg">' +
+        '<div class="et"><div class="eh" style="color:#fb923c">' + icon('sun') + ' Výroba FVE</div><b class="tn">' + f1(pv) + '<i>kWh</i></b>' +
+          '<em>zostáva ' + f1(v(T.pvLeft)) + ' kWh · zajtra ' + f1(v(T.pvTomorrow)) + ' kWh</em></div>' +
+        '<div class="et"><div class="eh" style="color:#818cf8">' + icon('house') + ' Spotreba domu</div><b class="tn">' + f1(load) + '<i>kWh</i></b>' +
+          '<em>' + (self !== null ? 'vlastná energia ' + self + ' % · zo siete ' + (100 - self) + ' %' : '&nbsp;') + '</em></div>' +
+        '<div class="et"><div class="eh" style="color:' + (bal >= 0 ? '#34d399' : '#f87171') + '">' + icon('tower') + ' Bilancia so sieťou</div>' +
+          '<b class="tn" style="color:' + (bal >= 0 ? '#6ee7b7' : '#fca5a5') + '">' + (bal >= 0 ? '+' : '−') + dec(Math.abs(bal), 2) + '<i>€</i></b>' +
+          '<em>predaj ' + eur(comp) + ' − nákup ' + eur(cost) + '</em></div>' +
+      '</div>' +
+      '<div class="eg two">' +
+        '<div class="et">' + '<div class="eh">' + icon('tower') + ' Sieť</div>' + duo('nákup', imp, '#f87171', eur(cost), 'predaj', exp, '#34d399', eur(comp)) + '</div>' +
+        '<div class="et">' + '<div class="eh">' + icon('battery') + ' Batéria</div>' + duo('nabité', bi, '#34d399', '&nbsp;', 'vybité', bo, '#f87171', '&nbsp;') + '</div>' +
+      '</div>' +
+      '<div class="et price"><div class="eh">' + icon('bolt') + ' Cena OKTE teraz</div>' +
+        '<div class="pr"><b class="tn">' + (isNaN(price) ? '–' : Math.round(price)) + '<i>€/MWh</i></b>' +
+        '<div class="pbar"><div class="pg"></div><span class="pm" style="left:' + (pf * 100).toFixed(1) + '%"></span>' +
+          '<small class="tn" style="left:0">' + (isNaN(pmin) ? '' : 'min ' + Math.round(pmin)) + '</small><small class="tn" style="right:0">' + (isNaN(pmax) ? '' : 'max ' + Math.round(pmax)) + '</small></div></div></div>');
+  }
+
+  function renderSheet() {
+    if (!sheetType) return;
+    if (sheetType === 'heat') {
+      if ($('card').__built !== sheetArg) { buildHeat(); $('card').__built = sheetArg; }
+      updHeat();
+    } else if (sheetType === 'lights') lightsSheet();
+    else if (sheetType === 'windows') winSheet();
+    else if (sheetType === 'forecast') forecastSheet();
+    else if (sheetType === 'energy') energySheet();
+  }
+
+  /* ================= Hlavná obrazovka ================= */
+  var wakeUntil = 0;
+  var GREEN = '#34d399', RED = '#f87171', IDLE = '#64748b';
+  var TS = [[30, [59, 130, 246]], [37, [56, 189, 248]], [45, [250, 204, 21]], [52, [251, 146, 60]], [60, [239, 68, 68]]];
+  function tcol(t) {   // farba teplej vody: modrá (studená) → červená (teplá), mierka 30–60 °C
+    t = MAXV.tuvMin + (t - MAXV.tuvMin) * 30 / (MAXV.tuvMax - MAXV.tuvMin); t = Math.max(30, Math.min(60, t));
+    for (var i = 1; i < TS.length; i++) if (t <= TS[i][0]) {
+      var a = TS[i - 1], b = TS[i], f = (t - a[0]) / (b[0] - a[0]);
+      return 'rgb(' + [0, 1, 2].map(function (k) { return Math.round(a[1][k] + (b[1][k] - a[1][k]) * f); }).join(',') + ')';
+    }
+    return 'rgb(239,68,68)';
+  }
+  function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+  function seg(frac, col) {
+    var n = Math.round(clamp01(frac) * 20), o = '';
+    for (var i = 0; i < 20; i++) o += '<i' + (i < n ? ' style="background:' + (typeof col === 'function' ? col(i) : col) + '"' : '') + '></i>';
+    return o;
+  }
+  function row(ic, c, label, sub, frac, scol, val, unit) {
+    return '<div class="row"><span class="ic" style="color:' + c + '">' + icon(ic) + '</span><p>' + label + '<small>' + (sub || '&nbsp;') + '</small></p>' +
+      '<div class="seg">' + seg(frac, scol || c) + '</div><b class="tn">' + val + '<small>' + unit + '</small></b></div>';
+  }
+  function clockHTML(h, m) {
+    if (CLOCK === 'a') return '<div class="clk a">' + h + '<i>:</i>' + m + '</div>';
+    if (CLOCK === 'c') return '<div class="clk c">' + h + '<br><span>' + m + '</span></div>';
+    if (CLOCK === 'd') return '<div class="clk d"><b>' + h + '</b><span>' + m + '</span></div>';
+    return '<div class="clk b">' + h + '<hr>' + m + '</div>';
+  }
+
+  function render() {
+    var now = new Date(), h = now.getHours();
+    setHTML($('time'), clockHTML(('0' + h).slice(-2), ('0' + now.getMinutes()).slice(-2)));
+    setHTML($('date'), DAYS[now.getDay()] + ' ' + now.getDate() + '. ' + MONTHS[now.getMonth()]);
+
+    var elev = at(E.sun, 'elevation'), day = elev === undefined ? st(E.sun) === 'above_horizon' : elev > 8;
+    if (E.wakeMotion.some(function (id) { return on(id); })) wakeUntil = Math.max(wakeUntil, Date.now() + WAKE_MS);
+    var dim = (h >= NIGHT_FROM || h < NIGHT_TO) && Date.now() > wakeUntil;
+    var hc = THEME === 'hc' || (THEME === 'auto' && day && !dim);
+    setC(document.body, (dim ? 'dim' : '') + (mode === 'demo' ? ' is-demo' : '') + (wsStale() ? ' stale' : '') + (hc ? ' hc' : ''));
+
+    try {
+      var c = COND[st(E.weather)] || ['', 'cloud'];
+      if (!day && c[1] === 'sun') c = COND['clear-night'];
+      var out = at(E.weather, 'temperature');
+      setHTML($('weather'), icon(c[1]) + ' ' + (out !== undefined ? dec(+out, 0) + '° ' : '') + c[0] + ' <span class="more">›</span>');
+    } catch (e) { rErr('počasie', e); }
+
+    try {
+      var w = openWins().length, d = openDoors().length, l = lightsOn().length;
+      setHTML($('cnts'),
+        (w ? '<div class="cnt win" data-open="windows"><span class="ic">' + icon('window') + '</span><b>' + w + '</b></div>' : '') +
+        (d ? '<div class="cnt door" data-open="windows"><span class="ic">' + icon('door') + '</span><b>' + d + '</b></div>' : '') +
+        '<div class="cnt' + (l ? ' lit' : '') + '" data-open="lights"><span class="ic">' + icon('bulb') + '</span><b>' + l + '</b></div>');
+    } catch (e) { rErr('počítadlá', e); }
+
+    try {
+      var al = E.alerts.filter(function (a) { return on(a[0]); }).map(function (a) { return a[1]; });
+      setC($('alert'), 'alert' + (al.length ? ' show' : ''));
+      setHTML($('alertText'), esc(al.join(' · ')));
+    } catch (e) { rErr('výstraha', e); }
+
+    try {
+      var pv = watts(E.pv), home = watts(E.home), grid = watts(E.grid), bat = watts(E.bat) * (E.batInvert ? -1 : 1), soc = parseFloat(st(E.soc));
+      var gas = num(E.gas), water = num(E.water), tuv = parseFloat(st(E.tuv));
+      var gc = grid > 100 ? RED : grid < -100 ? GREEN : IDLE, bc = bat > 50 ? GREEN : bat < -50 ? RED : IDLE, tc = isNaN(tuv) ? IDLE : tcol(tuv);
+      setHTML($('rows'),
+        row('sun', '#fb923c', 'FVE', '', pv / MAXV.pv, null, kw(pv), 'kW') +
+        row('house', '#818cf8', 'Dom', '', home / MAXV.home, null, kw(home), 'kW') +
+        row('tower', gc, 'Sieť', grid > 100 ? 'odber' : grid < -100 ? 'pretok' : 'bez toku', Math.abs(grid) / MAXV.grid, null, kw(grid), 'kW') +
+        row('battery', bc, 'Batéria' + (isNaN(soc) ? '' : ' <span class="soc tn">' + dec(soc, 0) + ' %</span>'), (bat > 50 ? 'nabíja' : bat < -50 ? 'vybíja' : 'stojí'), Math.abs(bat) / MAXV.bat, null, kw(bat), 'kW') +
+        row('flame', '#facc15', 'Plyn', gas > 0.05 ? 'horí' : 'nehorí', gas / MAXV.gas, null, dec(gas, 1), 'kW') +
+        row('drop', '#3b9eff', 'Voda', water > 0.05 ? 'tečie' : '', water / MAXV.water, null, dec(water, 1), 'l/min') +
+        row('tuv', tc, 'Teplá voda', 'zásobník', isNaN(tuv) ? 0 : (tuv - MAXV.tuvMin) / (MAXV.tuvMax - MAXV.tuvMin),
+          function (i) { return tcol(MAXV.tuvMin + (i + .5) * (MAXV.tuvMax - MAXV.tuvMin) / 20); }, isNaN(tuv) ? '–' : dec(tuv, 0), '°C'));
+    } catch (e) { rErr('energia', e); }
+
+    try {
+      var kot = on(E.kotol);
+      setHTML($('heat'), '<div class="kotol' + (kot ? ' on' : '') + '"><span class="ic">' + icon('flame') + '</span>' + (kot ? 'kotol beží' : 'kotol stojí') + '</div>' +
+        E.rooms.map(function (r, i) {
+          var id = r[0], cur = parseFloat(at(id, 'current_temperature')), tgt = targetOf(id), off = st(id) === 'off', ht = heatingOf(id);
+          var floorTxt = id === E.floorRoom && on(E.floor1h) ? ' · podlaha' : '';
+          return '<div class="room' + (ht ? ' h' : off ? ' o' : '') + '" data-room="' + i + '">' + (roomWinOpen(i) ? '<span class="wi">' + icon('window') + '</span>' : '') +
+            '<b class="tn">' + (isNaN(cur) ? '–' : dec(cur, 1) + '°') + '</b><span>' + esc(r[1]) + '</span>' +
+            '<small>' + (off ? 'vypnuté' : (ht ? 'kúri → ' : 'cieľ ') + (isNaN(tgt) ? '–' : fmtT(tgt) + '°')) + floorTxt + '</small></div>';
+        }).join(''));
+      var rm = document.querySelector('.room');
+      if (rm && rm.offsetHeight && rm.offsetHeight !== render.__rh) { render.__rh = rm.offsetHeight; document.documentElement.style.setProperty('--rh', rm.offsetHeight + 'px'); }
+    } catch (e) { rErr('kúrenie', e); }
+
+    try { renderSheet(); } catch (e) { rErr('detail', e); }
+  }
+  function rErr(part, e) {
+    var msg = part + ': ' + (e && e.message ? e.message : e);
+    if (!DIAG.err || DIAG.err.msg !== msg) { DIAG.err = { msg: msg, t: Date.now() }; if (window.console) console.error('wall', part, e); }
+    else DIAG.err.t = Date.now();
+  }
+
+  /* ================= Tlačidlá ================= */
+  function renderButtons() {
+    setHTML($('btnBlinds'), icon('up') + '<span>Žalúzie<small>podrž = dole</small></span>');
+    var arm = on(E.security);
+    setC($('btnSec'), 'act ' + (arm ? 'armed' : 'disarmed'));
+    setHTML($('btnSec'), icon(arm ? 'shieldOn' : 'shieldOff') + '<span>Prístrešok<small>' + (arm ? 'stráži' : 'nestráži') + '</small></span>');
+    var v = S[E.vacuum], vs = v ? v.state : 'unavailable';
+    var VS = { cleaning: 'vysáva', returning: 'vracia sa do doku', docked: 'v doku', idle: 'pripravený', paused: 'pozastavený', error: 'chyba', unavailable: 'nedostupný' };
+    setC($('btnVac'), 'act vac' + (vs === 'cleaning' || vs === 'returning' ? ' run' : '') + (vs === 'error' || vs === 'unavailable' ? ' err' : ''));
+    setHTML($('btnVac'), icon('vacuum') + '<span>' + (vs === 'cleaning' ? 'Pozastaviť' : vs === 'paused' ? 'Pokračovať' : 'Vysávač') +
+      '<small>' + (vs === 'cleaning' || vs === 'paused' ? 'podrž = do doku' : (VS[vs] || vs)) + '</small></span>');
+    var motion = on(E.motion);
+    setC($('btnCam'), 'act cam' + (motion ? ' motion' : ''));
+    setHTML($('btnCam'), icon('cam') + '<span>Kamera<small>' + (motion ? 'pohyb · ' : '') + esc(E.cameraName) + '</small></span>');
+  }
+
+  function vacuum(hold) {
+    var v = S[E.vacuum], vs = v ? v.state : '';
+    if (!v || vs === 'unavailable') { toast('Vysávač je nedostupný'); return; }
+    if (hold) { call('vacuum', 'return_to_base', { entity_id: E.vacuum }); toast('Vysávač ide do doku'); }
+    else if (vs === 'cleaning') { call('vacuum', 'pause', { entity_id: E.vacuum }); toast('Vysávanie pozastavené'); }
+    else { call('vacuum', 'start', { entity_id: E.vacuum }); toast(vs === 'paused' ? 'Vysávanie pokračuje' : 'Vysávanie spustené'); }
+    setTimeout(tick, 300);
+  }
+
+  function floorLeft() {
+    var since = S[E.floor1h] && S[E.floor1h].last_changed ? new Date(S[E.floor1h].last_changed).getTime() : NaN;
+    var left = Math.ceil((since + E.floor1hMinutes * 60000 - Date.now()) / 60000);
+    return isNaN(left) || left <= 0 ? 'beží' : 'ešte ' + left + ' min';
+  }
+  function heatRows() { return E.rooms.concat(S[E.floorClimate] ? [[E.floorClimate, 'Podlaha']] : []); }
+
+  function press(el, onTap, onHold) {
+    var t = null, held = false;
+    function down(e) { e.preventDefault(); held = false; el.classList.add('pressed');
+      t = setTimeout(function () { held = true; el.classList.remove('pressed'); if (onHold) onHold(); }, 650); }
+    function up(e) { e.preventDefault(); el.classList.remove('pressed'); clearTimeout(t); if (!held) onTap(); held = true; }
+    function cancel() { el.classList.remove('pressed'); clearTimeout(t); held = true; }
+    if (window.PointerEvent) {
+      el.addEventListener('pointerdown', down); el.addEventListener('pointerup', up);
+      el.addEventListener('pointerleave', cancel); el.addEventListener('pointercancel', cancel);
+    } else {
+      el.addEventListener('touchstart', down); el.addEventListener('touchend', up);
+      el.addEventListener('mousedown', down); el.addEventListener('mouseup', up);
+    }
+  }
+
+  function blinds(dir) {
+    call('input_button', 'press', { entity_id: dir === 'up' ? E.blindsOpen : E.blindsClose });
+    toast(dir === 'up' ? 'Žalúzie idú hore' : 'Žalúzie idú dole');
+  }
+
+  /* ================= Demo dáta (náhľad mimo HA) ================= */
+  function demo() {
+    var day = new Date(); day.setHours(0, 0, 0, 0);
+    var pd = [];
+    for (var i = 0; i < 96; i++) {
+      var hr = i / 4;
+      var p = 95 + 120 * Math.exp(-Math.pow((hr - 7.5) / 1.4, 2)) + 170 * Math.exp(-Math.pow((hr - 19) / 1.6, 2))
+        - 110 * Math.exp(-Math.pow((hr - 13) / 2.2, 2)) + 8 * Math.sin(i);
+      pd.push({ time: new Date(day.getTime() + i * 900000).toISOString(), price: Math.round(p) });
+    }
+    function s(state, attrs) { return { state: String(state), attributes: attrs || {},
+      last_changed: new Date(Date.now() - 17 * 60000).toISOString() }; }
+    function th(cur, tgt, act, st_) { return s(st_ || 'heat', { current_temperature: cur, temperature: tgt, hvac_action: act }); }
+    return {
+      'weather.forecast_home': s('partlycloudy', { temperature: 12 }),
+      'sun.sun': s('above_horizon', { elevation: 24 }),
+      'sensor.temperature_avg_home_keep': s(21.8),
+      'sensor.watermeter_flow_rate_keep': s(4.2), 'sensor.gas_power_keep': s(11.6), 'sensor.kurenie_tuv_teplota': s(52.4),
+      'sensor.smartshunt_soc_bateria_smartshunt_pristresok': s(72), 'sensor.smartshunt_vykon_bateria_smartshunt_pristresok': s(3240),
+      'sensor.pv_power_inverter_keep': s(5180), 'sensor.em_main_power_keep': s(-320),
+      'sensor.home_actual_power_keep': s(1650),
+      'input_select.deye_operation_mode': s('Normal'),
+      'input_text.ai_fve_dovod': s('Normal: Čakám: 142 € < hranica 233 € (večer do 05:45)'),
+      'sensor.okte_current_price_keep': s(142),
+      'sensor.okte_prices_today': s('ok', { period_data: pd }),
+      'binary_sensor.okna_dom': s('on', { entity_id: ['binary_sensor.martin_okno', 'binary_sensor.pracovna_okno', 'binary_sensor.jakub_okno'] }),
+      'binary_sensor.martin_okno': s('on', { friendly_name: 'Okno Martin' }),
+      'binary_sensor.pracovna_okno': s('on', { friendly_name: 'Okno Hosť' }),
+      'binary_sensor.jakub_okno': s('off', { friendly_name: 'Okno Jakub' }),
+      'binary_sensor.dvere_dom': s('off', { entity_id: [] }),
+      'switch.kurenie_kotol': s('on'),
+      'climate.spalna_termostat': th(21.2, 22, 'heating'),
+      'climate.martin_termostat': th(19.8, 22, 'off', 'off'),
+      'climate.jakub_termostat': th(21.6, 22, 'heating'),
+      'climate.kuchyna_termostat': th(22.7, 22.5, 'idle'),
+      'climate.pracovna_termostat': th(20.4, 22.5, 'off', 'off'),
+      'input_boolean.zahrada_odklad_polievania': s('off'), 'input_boolean.zabezpecenie': s('on'),
+      'vacuum.kuchyna_vysavac': s('docked', { battery_level: 100, friendly_name: 'Roborock Q10' }),
+      'light.obyvacka_svetla': s('on', { friendly_name: 'Livingroom Lights', entity_id: ['light.obyvacka_svetlo_hlavne', 'light.obyvacka_svetlo_tv'] }),
+      'light.obyvacka_svetlo_hlavne': s('off', { friendly_name: 'Bulbs Living Room' }),
+      'light.obyvacka_svetlo_tv': s('on', { friendly_name: 'TV Light' }),
+      'light.kuchyna_svetla': s('on', { friendly_name: 'Kitchen Lights', entity_id: ['light.kuchyna_svetlo_hlavne', 'light.kuchyna_linka'] }),
+      'light.kuchyna_svetlo_hlavne': s('on', { friendly_name: 'Kitchen Bulbs' }),
+      'light.kuchyna_linka': s('on', { friendly_name: 'Kitchen Cabinet' }),
+      'light.chodba_svetla': s('off', { friendly_name: 'Hallway Lights', entity_id: ['light.chodba_svetla_dole', 'light.chodba_hore_svetlo'] }),
+      'light.chodba_svetla_dole': s('off', { friendly_name: 'Hallway Down' }),
+      'light.chodba_hore_svetlo': s('off', { friendly_name: 'Hallway Up' }),
+      'light.spalna_svetla': s('off', { friendly_name: 'Bedroom Lights', entity_id: ['light.spalna_svetlo_hlavne', 'light.spalna_lampa_vlavo', 'light.spalna_lampa_vpravo'] }),
+      'light.spalna_svetlo_hlavne': s('off', { friendly_name: 'Bedroom Main' }),
+      'light.spalna_lampa_vlavo': s('off', { friendly_name: 'Bedlamp Left' }),
+      'light.spalna_lampa_vpravo': s('off', { friendly_name: 'Bedlamp Right' }),
+      'light.martin_svetla': s('on', { friendly_name: 'Martin Lights', entity_id: ['light.martin_svetlo_hlavne', 'light.martin_stolna_lampa', 'light.martin_nanoleaf'] }),
+      'light.martin_svetlo_hlavne': s('off', { friendly_name: 'Martin Main' }),
+      'light.martin_stolna_lampa': s('on', { friendly_name: 'Martin Desk' }),
+      'light.martin_nanoleaf': s('off', { friendly_name: 'Shapes' }),
+      'light.jakub_svetla': s('off', { friendly_name: 'Jakub Lights', entity_id: ['light.jakub_svetlo_hlavne', 'light.jakub_stolna_lampa'] }),
+      'light.jakub_svetlo_hlavne': s('off', { friendly_name: 'Jakub Main' }),
+      'light.jakub_stolna_lampa': s('off', { friendly_name: 'Jakub Desk' }),
+      'light.kupelna_dole_svetla': s('off', { friendly_name: 'Bathroom D Lights', entity_id: ['light.kupelna_dole_svetlo_hlavne', 'light.kupelna_dole_svetlo_zrkadlo'] }),
+      'light.kupelna_dole_svetlo_hlavne': s('off', { friendly_name: 'Bathroom Main' }),
+      'light.kupelna_dole_svetlo_zrkadlo': s('off', { friendly_name: 'Bathroom Mirror' }),
+      'light.kupelna_hore_svetla': s('off', { friendly_name: 'Bathroom Lights', entity_id: ['light.kupelna_hore_svetlo_hlavne', 'light.kupelna_hore_svetlo_zrkadlo'] }),
+      'light.kupelna_hore_svetlo_hlavne': s('off', { friendly_name: 'Bathroom Up Main' }),
+      'light.kupelna_hore_svetlo_zrkadlo': s('off', { friendly_name: 'Bathroom Up Mirror' }),
+      'light.zahrada_svetla': s('off', { friendly_name: 'Outdoor Lights', entity_id: ['light.zahrada_vchod_svetlo', 'light.zahrada_terasa_svetlo', 'light.pristresok_svetlo'] }),
+      'light.zahrada_vchod_svetlo': s('off', { friendly_name: 'Frontdoor' }),
+      'light.zahrada_terasa_svetlo': s('off', { friendly_name: 'Terasa' }),
+      'light.pristresok_svetlo': s('off', { friendly_name: 'Prístrešok' }),
+      'binary_sensor.zahrada_vchod_pohyb': s('off'),
+      'light.tablet_led_zabezpecenie': s('on', { rgb_color: [0, 255, 0], brightness: 128 }),
+      'light.tablet_led_kurenie': s('on', { rgb_color: [255, 0, 0], brightness: 128 }),
+      'light.tablet_led_podlaha': s('off'),
+      'light.tablet_led_bateria': s('on', { rgb_color: [255, 213, 0], brightness: 130 }),
+      'light.tablet_led_siet': s('on', { rgb_color: [255, 225, 0], brightness: 128 }),
+      'light.tablet_led_plyn': s('on', { rgb_color: [255, 255, 0], brightness: 148 }),
+      'input_number.tablet_led_jas': s(40, { min: 5, max: 100, step: 5 }), 'input_number.tablet_led_jas_noc': s(10, { min: 5, max: 100, step: 5 }),
+      'input_boolean.kuchyna_podlaha_1h': s('on'),
+      'climate.kuchyna_podlahove_kurenie': th(23.4, 24, 'heating'),
+      'sensor.bateria_stav': s('Charging'), 'sensor.siet_stav': s('Supplying'),
+      'sensor.kuchyna_podlahove_kurenie_vykon': s(40),
+      'sensor.today_production_inverter_keep': s(18.4), 'sensor.today_load_consumption_inverter_keep': s(14.9),
+      'sensor.today_energy_import_inverter_keep': s(6.2), 'sensor.today_energy_import_inverter_keep_cost': s(0.98, { unit_of_measurement: '€' }),
+      'sensor.today_energy_export_inverter_keep': s(4.7), 'sensor.today_energy_export_inverter_keep_compensation': s(1.12, { unit_of_measurement: '€' }),
+      'sensor.today_battery_charge_inverter_keep': s(12.3), 'sensor.today_battery_discharge_inverter_keep': s(9.8),
+      'sensor.solcast_pv_forecast_forecast_remaining_today_keep': s(6.1), 'sensor.solcast_pv_forecast_forecast_tomorrow_keep': s(22.5),
+      'sensor.okte_min_cena_dnes': s(4), 'sensor.okte_max_cena_dnes': s(271)
+    };
+  }
+  function demoForecast() {
+    var c = ['partlycloudy', 'rainy', 'cloudy', 'sunny', 'sunny', 'partlycloudy'], hi = [15, 11, 12, 16, 18, 14], lo = [7, 6, 5, 6, 8, 7];
+    FC = c.map(function (x, i) {
+      return { datetime: new Date(Date.now() + i * 86400000).toISOString(), condition: x,
+        temperature: hi[i], templow: lo[i], precipitation: x === 'rainy' ? 3.4 : 0 };
+    });
+  }
+
+  /* ================= Štart ================= */
+  function ago(t) { if (!t) return '–'; var s = Math.round((Date.now() - t) / 1000); return s < 120 ? s + ' s' : Math.round(s / 60) + ' min'; }
+  function renderDiag() {
+    var el = $('dgp'); if (!el.classList.contains('show')) return;
+    var rs = ws ? ['pripája sa', 'otvorené', 'zatvára sa', 'zatvorené'][ws.readyState] : 'žiadne';
+    el.textContent = 'Verzia      ' + VERSION + '\nRežim       ' + mode + '\nSpojenie    ' + rs + ' · pripojení ' + DIAG.conn + ' · posledné pred ' + ago(DIAG.at) +
+      (DIAG.why ? '\nDôvod       ' + DIAG.why : '') + '\nOdber       ' + (DIAG.sub || '–') +
+      '\nZmeny       ' + DIAG.evN + ' · posledná pred ' + ago(wsLastEv) + '\n            ' + (DIAG.evId || '') +
+      '\nOdpoveď     pred ' + ago(wsLast) + '\nEntít       ' + Object.keys(S).length + ' · svetiel zapnutých ' + lightsOn().length +
+      '\nAktualizácia ' + (DIAG.upd ? DIAG.upd.msg + ' (pred ' + ago(DIAG.upd.t) + ')' : '–') +
+      '\nChyba       ' + (DIAG.err ? DIAG.err.msg + ' (pred ' + ago(DIAG.err.t) + ')' : '–') + '\n\nťuknutím zavrieť';
+  }
+  function tick() {
+    try { renderDiag(); } catch (e) {}
+    try { render(); } catch (e) { rErr('render', e); }
+    try { renderButtons(); } catch (e) { rErr('tlačidlá', e); }
+    try {
+      var showErr = DIAG.err && Date.now() - DIAG.err.t < 120000;
+      var d = $('diag'); setC(d, 'diag' + (showErr ? ' show' : ''));
+      if (showErr) setHTML(d, '⚠ ' + esc(DIAG.err.msg));
+    } catch (e) {}
+  }
+
+  function start() {
+    var hass = parentHass();
+    var m = (location.hash + '&' + location.search).match(/token=([^&#]+)/), saved = null;
+    try { saved = localStorage.getItem('wall_token'); } catch (e) {}
+    if (m) { token = decodeURIComponent(m[1]); try { localStorage.setItem('wall_token', token); } catch (e) {} }
+    else token = saved;
+    if (hass) {
+      mode = 'parent'; S = hass.states;
+      setInterval(function () { var h = parentHass(); if (h) S = h.states; }, 1000);
+    } else if (token) {
+      mode = 'ws'; connectWS();
+    } else {
+      mode = 'demo'; S = demo(); demoForecast();
+      setInterval(function () { S[E.motion].state = on(E.motion) ? 'off' : 'on'; }, 8000);
+    }
+
+    press($('btnBlinds'), function () { blinds('up'); }, function () { blinds('down'); });
+    press($('btnVac'), function () { vacuum(false); }, function () { vacuum(true); });
+    press($('btnSec'), function () {
+      var arm = on(E.security);
+      call('input_boolean', 'toggle', { entity_id: E.security });
+      toast(arm ? 'Stráženie prístrešku vypnuté' : 'Prístrešok stráži');
+      setTimeout(tick, 300);
+    });
+    press($('btnCam'), openCamFull);
+    press($('camfull'), closeCamFull);
+    press($('time'), function () {}, function () { $('dgp').classList.add('show'); renderDiag(); });
+    $('dgp').addEventListener('click', function () { this.classList.remove('show'); });
+
+    $('weather').addEventListener('click', function () { fetchForecast(); openSheet('forecast'); });
+    $('rows').addEventListener('click', function () { openSheet('energy'); });
+    $('cnts').addEventListener('click', function (e) {
+      var el = e.target; while (el && el !== this && !el.getAttribute('data-open')) el = el.parentNode;
+      if (el && el !== this) openSheet(el.getAttribute('data-open'));
+    });
+    $('heat').addEventListener('click', function (e) {
+      var el = e.target; while (el && el !== this && el.getAttribute('data-room') == null) el = el.parentNode;
+      if (el && el !== this) openSheet('heat', +el.getAttribute('data-room'));
+    });
+    $('sheet').addEventListener('click', function (e) { if (e.target === this) closeSheet(); });
+
+    // akcie v kartách
+    $('card').addEventListener('click', function (e) {
+      var el = e.target; while (el && el !== this && !el.getAttribute('data-act')) el = el.parentNode;
+      if (!sheetType) return;
+      if (sheetType !== 'heat') closeIn(sheetType === 'lights' ? CLOSE_IDLE : CLOSE_INFO);
+      if (!el || el === this) return;
+      var act = el.getAttribute('data-act'), id = el.getAttribute('data-id');
+      if (sheetType === 'heat') {
+        var rid = E.rooms[sheetArg][0];
+        if (act === 'plus' || act === 'minus') { if (st(rid) !== 'off') setTarget(rid, targetOf(rid) + (act === 'plus' ? 0.5 : -0.5)); }
+        else if (act === 'h1h') {
+          var was = on(E.floor1h);
+          call('input_boolean', 'toggle', { entity_id: E.floor1h });
+          toast(was ? 'Podlahové kúrenie 1 h zrušené' : 'Podlahové kúrenie na 1 hodinu');
+          closeIn(CLOSE_AFTER_SET); setTimeout(renderSheet, 300);
+        }
+        return;
+      }
+      if (sheetType === 'lights') {
+        e.stopPropagation();
+        if (act === 'alloff') { call('light', 'turn_off', { entity_id: lightsOn() }); toast('Všetky svetlá zhasnuté'); }
+        else if (act === 'roomtg') roomToggle(id);
+        else if (act === 'room') lightRoom = id;
+        else if (act === 'back') lightRoom = null;
+        else if (act === 'light') call('light', 'toggle', { entity_id: id });
+        renderSheet(); setTimeout(tick, 250);
+      }
+    });
+
+    if (mode !== 'ws') fetchForecast();
+    setInterval(fetchForecast, FORECAST_REFRESH);
+
+    // Automatická aktualizácia: keď na serveri nahráš novú verziu súboru,
+    // stránka si ju do minúty sama načíta (obíde cache prehliadača)
+    function checkUpdate() {
+      if (!window.fetch || location.protocol === 'file:') return;
+      fetch(location.pathname + '?check=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { DIAG.upd = { t: Date.now(), msg: 'HTTP ' + r.status }; return r.ok ? r.text() : null; })
+        .then(function (t) {
+          var m = t && t.match(/var VERSION = '([^']+)'/);
+          DIAG.upd = { t: Date.now(), msg: m ? 'na serveri ' + m[1] + (m[1] === VERSION ? ' (rovnaká)' : ' → obnovujem') : 'verzia v súbore nenájdená' };
+          if (m && m[1] !== VERSION) {
+            // ponechaj ostatné parametre adresy (napr. token), vymeň len číslo verzie
+            var keep = location.search.replace(/^\?/, '').split('&').filter(function (p) {
+              return p && p.indexOf('v=') !== 0 && p.indexOf('check=') !== 0; }).join('&');
+            location.replace(location.pathname + '?v=' + encodeURIComponent(m[1]) + (keep ? '&' + keep : '') + location.hash);
+          }
+        })
+        .catch(function (e) { DIAG.upd = { t: Date.now(), msg: 'chyba: ' + (e && e.message ? e.message : e) }; });
+    }
+    checkUpdate(); setInterval(checkUpdate, 60000);
+    // poistka proti dlhodobému zamrznutiu prehliadača: raz denne o 3:30 celé obnovenie stránky
+    setInterval(function () { var d = new Date(); if (mode === 'ws' && d.getHours() === 3 && d.getMinutes() === 30) location.replace(location.pathname + '?v=' + Date.now() + location.hash); }, 60000);
+
+    document.addEventListener('pointerdown', function () { wakeUntil = Date.now() + WAKE_MS; }, true);
+    tick(); setInterval(tick, 1000);
+    // náhľad kariet: ?sheet=heat:0 / lights / windows / forecast / energy
+    var q = location.search.match(/sheet=([a-z]+)(?::(\d+))?/);
+    if (q) setTimeout(function () { openSheet(q[1], q[2] != null ? +q[2] : undefined); clearTimeout(closeT); }, 300);
+  }
+  start();
+})();
+</script>
+</body>
+</html>
