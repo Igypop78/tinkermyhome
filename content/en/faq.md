@@ -58,6 +58,8 @@ It needs power all the time. Best is to keep it powered and turn the switch into
 A small board with WiFi and Bluetooth for a few euros. With ESPHome you flash it without programming and it shows up in Home Assistant by itself. → [ESP32 – my projects](/en/diy/esp32-my-projects/)
 ? How do I get water and gas usage from the utility meters into Home Assistant?
 With pulses: an inductive sensor on the water meter (wheel with a metal plate, 1 turn = 1 l for me), a reed sensor on the gas meter (magnet in the last wheel, 0.01 m³). An ESP32 counts the pulses and sends usage, flow and gas power to the Energy dashboard. The meter itself stays untouched. → [Water and gas metering with an ESP32](/en/diy/water-and-gas-metering-esp32/)
+? Does a smart home need a dashboard or a wall tablet?
+It should run itself, but a dashboard shows you whether it really does – energy, heating, alarm. Instead of a tablet I have a Waveshare touch display for ~€80 connected to a mini PC, with an LED frame around it that shows the state of the house in colours. → [A wall dashboard at home](/en/my-home/wall-dashboard/)
 ? Should a smart home work without the internet?
 I think so – the house must work without the smart home, manual control stays, and I avoid the cloud. → [Smart home rules](/en/my-home/smart-home-rules/)
 :::

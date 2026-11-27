@@ -60,7 +60,7 @@ These are the things running right now – every day, without me touching them:
 - **Garden relays** – 4- and 8-channel boards for everything in the garden that switches on and off.
 - **Gas boiler** – controlling the boiler and measuring temperatures in the hot water tank and on the pipes from the boiler.
 - **Room temperatures over LAN cables** – **DS18B20** temperature sensors (1-Wire bus) in the rooms connected to the ESP through network (LAN) cables.
-- **Wall tablet backlight** – an addressable LED strip around the display that shows the state of the house by colour, visible from across the room.
+- **Wall tablet backlight** – an addressable LED strip around the display that shows the state of the house by colour, visible from across the room. The full code is in [A wall dashboard at home](/en/my-home/wall-dashboard/).
 - **Samsung air conditioner** – an older unit the manufacturer stopped supporting. With ESP it works normally in HA.
 - **3 × JK BMS over Bluetooth** – reading data from all three BMS of my batteries.
 - **Three BMS and a SmartShunt into the Deye inverter** – the ESP presents itself as one battery, feeds the inverter the exact state of charge from the SmartShunt and reads three JK BMS over Bluetooth to smoothly lower the charge current. [Guide with wiring and code](/en/energy/soc-from-smartshunt-to-deye/).

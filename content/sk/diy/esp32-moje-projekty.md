@@ -60,7 +60,7 @@ Toto je zoznam vecí, ktoré mi bežia teraz – každý deň, bez zásahu:
 - **Relé v záhrade** – dosky so 4 a 8 kanálmi na všetko, čo sa v záhrade zapína a vypína.
 - **Kotol** – ovládanie plynového kotla a meranie teplôt v bojleri a na potrubiach z kotla.
 - **Teploty v izbách cez LAN káble** – teplotné senzory **DS18B20** (zbernica 1-Wire) v izbách pripojené k ESP cez sieťové (LAN) káble.
-- **Podsvietenie nástenného tabletu** – adresovateľný LED pás okolo displeja, ktorý farbou ukazuje stavy domu, vidno to aj z druhého konca miestnosti.
+- **Podsvietenie nástenného tabletu** – adresovateľný LED pás okolo displeja, ktorý farbou ukazuje stavy domu, vidno to aj z druhého konca miestnosti. Celý kód je v článku [Domáci dashboard na stene](/moj-dom/domaci-dashboard/).
 - **Klimatizácia Samsung** – staršia jednotka, ktorú výrobca prestal podporovať. S ESP je normálne v HA.
 - **3 × JK BMS cez Bluetooth** – zber dát zo všetkých troch BMS mojich batérií.
 - **Tri BMS a SmartShunt do meniča Deye** – ESP sa meniču tvári ako jedna batéria, posiela mu presný stav nabitia zo SmartShuntu a cez Bluetooth číta tri JK BMS, podľa ktorých plynulo znižuje nabíjací prúd. [Návod so zapojením a kódom](/energia/soc-zo-smartshunt-do-deye/).
