@@ -18,6 +18,8 @@ I partly agree. Heating, alerts or the gate should take care of themselves, and 
 
 But I see it differently: **I like to know what is happening in the house and when.** Automation makes things happen. The dashboard shows me they really are happening. And when something breaks, I see it with a glance at the wall, not when the house is already cold.
 
+::youtube NszpFk6uB3c The whole dashboard in the video (in Slovak) – who uses it in our home, the magnets, the LED frame that lights up for every new subscriber, and the design made with AI.
+
 ![Wall dashboard with the LED frame in the evening](/img/clanky/dashboard-stena-vecer.jpg)
 
 ## What a wall dashboard is good for
@@ -123,7 +125,7 @@ If you [subscribe on YouTube](https://www.youtube.com/@TinkerMyHome?sub_confirma
 Design is no longer a limit. You have two ways:
 
 1. **The classic way in Home Assistant** – cards, sections, possibly custom cards from HACS (e.g. my [Igy Cards](https://github.com/Igypop78/igy-cards)). You can build a nice dashboard this way, but it's laborious – especially fitting it onto one fixed screen without scrolling.
-2. **With the help of AI** – your own web page that takes data from Home Assistant. You describe what you want to see and how it should look, AI writes the page and you fine-tune it. My current dashboard was made this way – I'll show the whole process in the video.
+2. **With the help of AI** – your own web page that takes data from Home Assistant. You describe what you want to see and how it should look, AI writes the page and you fine-tune it. My current dashboard was made this way – the whole process is in the video at the top of this article.
 
 ### My dashboard as a template
 

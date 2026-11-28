@@ -8,11 +8,12 @@ export const site = {
   github: 'https://github.com/Igypop78',
   youtube: 'https://www.youtube.com/@TinkerMyHome',
   // najnovšie video na úvode (sekcia Videá)
-  latestVideo: { id: 'q4zdemKQTMA', sk: '7 automatizácií, ktoré u nás naozaj fungujú – a prečo medzi nimi nie sú svetlá', en: '7 automations that really work in our house – and why lights aren\'t among them', len: '5:59' },
+  latestVideo: { id: 'NszpFk6uB3c', sk: 'Domáci dashboard na stene – prečo ho mám, aj keď sa smart dom má riadiť sám', en: 'A wall dashboard at home – why I have one, even though a smart home should run itself', len: '6:30' },
   // údaje o videách pre Google (VideoObject). date = deň zverejnenia na YouTube; bez neho sa použije dátum článku.
   videos: {
     'BzZWU2o-ohQ': { date: '2026-11-10', len: '8:45' },
     'q4zdemKQTMA': { date: '2026-11-21', len: '5:59' },
+    'NszpFk6uB3c': { date: '2026-11-28', len: '6:30' },
   },
   // Cloudflare Web Analytics (bez cookies): token z Cloudflare → Analytics & Logs → Web Analytics → Add a site.
   // Prázdne = skript sa nevkladá (dá sa zapnúť aj automaticky v Cloudflare bez zmeny kódu).

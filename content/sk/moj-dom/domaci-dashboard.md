@@ -18,6 +18,8 @@ Domáci dashboard v smart dome je vraj zbytočný. Dobrý smart dom sa má riadi
 
 Ja to však vidím inak: **rád viem, čo a kedy sa v dome deje.** Automatizácia zariadi, aby sa veci diali. Dashboard mi ukáže, že sa naozaj dejú. A keď sa niečo pokazí, zistím to pohľadom na stenu, nie až keď je v dome zima.
 
+::youtube NszpFk6uB3c Celý dashboard vo videu – kto ho u nás používa, magnety, LED rám, ktorý sa rozbliká pri novom odberateľovi, a dizajn s pomocou AI.
+
 ![Nástenný dashboard s LED rámom večer](/img/clanky/dashboard-stena-vecer.jpg)
 
 ## Na čo je domáci dashboard dobrý
@@ -123,7 +125,7 @@ Kto si teraz dá [odber na YouTube](https://www.youtube.com/@TinkerMyHome?sub_co
 Dizajn už dnes nie je limit. Máš dve cesty:
 
 1. **Klasicky v Home Assistante** – karty, sekcie, prípadne vlastné karty z HACS (napr. moje [Igy Cards](https://github.com/Igypop78/igy-cards)). Dá sa s tým spraviť pekný dashboard, ale je to pracné – hlavne doladenie na jednu pevnú obrazovku bez posúvania.
-2. **S pomocou AI** – vlastná webová stránka, ktorá berie údaje z Home Assistanta. Popíšeš, čo chceš vidieť a ako to má vyzerať, AI napíše stránku a ty ju dolaďuješ. Môj aktuálny dashboard vznikol takto – celý postup ukážem vo videu.
+2. **S pomocou AI** – vlastná webová stránka, ktorá berie údaje z Home Assistanta. Popíšeš, čo chceš vidieť a ako to má vyzerať, AI napíše stránku a ty ju dolaďuješ. Môj aktuálny dashboard vznikol takto – celý postup je vo videu na začiatku článku.
 
 ### Môj dashboard ako vzor
 
